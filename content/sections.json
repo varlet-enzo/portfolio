@@ -1,0 +1,234 @@
+[
+  {
+    "id": "hero",
+    "type": "hero",
+    "title": "Accueil",
+    "visible": true,
+    "order": 1,
+    "data": {
+      "name": "Enzo",
+      "surname": "Varlet",
+      "tagline": "Game Developer · Étudiant en recherche d'alternance",
+      "roles": ["Game Designer", "Unity Developer", "Level Designer", "Gameplay Programmer"],
+      "ctaLabel": "Voir mes projets",
+      "ctaTarget": "projects",
+      "availableFor": "Alternance 2024–2025"
+    }
+  },
+  {
+    "id": "about",
+    "type": "about",
+    "title": "À propos",
+    "visible": true,
+    "order": 2,
+    "data": {
+      "bio": "Passionné de jeux vidéo depuis toujours, je traduis cette passion en compétences techniques et créatives. Étudiant en Bachelor Game Design à l'ISART Digital, je cherche une alternance pour contribuer à des projets ambitieux et faire grandir mes compétences aux côtés de professionnels.",
+      "details": {
+        "formation": "Bachelor Game Design — ISART Digital",
+        "localisation": "Paris, France",
+        "disponibilite": "Septembre 2024",
+        "rythme": "3 semaines entreprise / 1 semaine école"
+      },
+      "funFacts": [
+        "500h+ sur Dark Souls",
+        "Speedrunner occasionnel",
+        "Modder depuis l'âge de 14 ans"
+      ]
+    }
+  },
+  {
+    "id": "projects",
+    "type": "projects",
+    "title": "Projets",
+    "visible": true,
+    "order": 3,
+    "data": {
+      "featured": true,
+      "items": [
+        {
+          "id": "proj-1",
+          "title": "Abyss Protocol",
+          "type": "Roguelike 2D",
+          "engine": "Unity",
+          "year": "2024",
+          "status": "Terminé",
+          "description": "Roguelike atmosphérique en pixel art — descendez dans les profondeurs d'une station spatiale corrompue.",
+          "longDescription": "Abyss Protocol est un roguelike 2D développé en 3 mois dans le cadre d'un projet de fin d'année. L'objectif était de maîtriser les systèmes de génération procédurale de donjons et le game feel des combats. J'ai implémenté un système de génération de niveaux par BSP Tree, un système de combat basé sur des états (State Machine), et un pipeline d'effets visuels en Shader Graph. Le principal défi était d'équilibrer la difficulté — j'ai intégré un système d'ajustement dynamique basé sur les statistiques de mort du joueur.",
+          "tags": ["Unity", "C#", "2D", "Pixel Art", "Roguelike"],
+          "image": "/projects/proj-1-cover.jpg",
+          "screenshots": ["/projects/proj-1-1.jpg", "/projects/proj-1-2.jpg"],
+          "links": {
+            "github": "https://github.com/",
+            "itch": "https://itch.io/",
+            "demo": ""
+          },
+          "highlight": true
+        },
+        {
+          "id": "proj-2",
+          "title": "Voidwalker",
+          "type": "Platformer 3D",
+          "engine": "Unreal Engine 5",
+          "year": "2024",
+          "status": "En cours",
+          "description": "Platformer 3D avec mécanique de manipulation de la gravité. Nanite + Lumen pour un rendu photoréaliste.",
+          "longDescription": "Voidwalker explore une mécanique centrale de manipulation de la gravité en temps réel. Le joueur peut inverser, tourner, et fragmenter la gravité locale pour résoudre des puzzles environnementaux. Développé en Blueprints et C++, ce projet m'a permis d'apprendre les systèmes de physique d'UE5 en profondeur, notamment les Character Movement Component customisés.",
+          "tags": ["Unreal Engine 5", "C++", "Blueprints", "3D", "Platformer"],
+          "image": "/projects/proj-2-cover.jpg",
+          "screenshots": ["/projects/proj-2-1.jpg"],
+          "links": {
+            "github": "https://github.com/",
+            "itch": "",
+            "demo": ""
+          },
+          "highlight": false
+        },
+        {
+          "id": "proj-3",
+          "title": "EchoGarden",
+          "type": "Puzzle Game",
+          "engine": "Godot",
+          "year": "2023",
+          "status": "Terminé",
+          "description": "Jeu de puzzle contemplnatif fait en 48h pour la Ludum Dare 54 — classé top 12% overall.",
+          "longDescription": "Réalisé en solo en 48h pour la Ludum Dare 54 sur le thème 'Limited Space'. EchoGarden est un jeu de puzzle où vous cultivez un jardin dans un espace qui rétrécit progressivement. Les plantes interagissent entre elles selon des règles simples mais profondes — une mécanique émergente qui n'était pas planifiée mais qui s'est révélée être le cœur du jeu.",
+          "tags": ["Godot", "GDScript", "Puzzle", "Game Jam", "Solo"],
+          "image": "/projects/proj-3-cover.jpg",
+          "screenshots": [],
+          "links": {
+            "github": "https://github.com/",
+            "itch": "https://itch.io/",
+            "demo": ""
+          },
+          "highlight": false
+        },
+        {
+          "id": "proj-4",
+          "title": "NeuralRace",
+          "type": "Racing Game",
+          "engine": "Unity",
+          "year": "2023",
+          "status": "Prototype",
+          "description": "Prototype de jeu de course avec IA entraînée par ML-Agents sur circuits procéduraux.",
+          "longDescription": "Exploration de l'apprentissage par renforcement appliqué aux jeux vidéo. Les voitures adverses sont des agents entraînés avec Unity ML-Agents sur des circuits générés procéduralement — chaque session d'entraînement produit des comportements uniques et parfois surprenants.",
+          "tags": ["Unity", "C#", "ML-Agents", "IA", "Prototype"],
+          "image": "/projects/proj-4-cover.jpg",
+          "screenshots": [],
+          "links": {
+            "github": "https://github.com/",
+            "itch": "",
+            "demo": ""
+          },
+          "highlight": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "skills",
+    "type": "skills",
+    "title": "Compétences",
+    "visible": true,
+    "order": 4,
+    "data": {
+      "categories": [
+        {
+          "name": "Moteurs de jeu",
+          "items": [
+            {"name": "Unity", "level": 85, "icon": "UNI"},
+            {"name": "Unreal Engine 5", "level": 60, "icon": "UE5"},
+            {"name": "Godot", "level": 70, "icon": "GDT"}
+          ]
+        },
+        {
+          "name": "Programmation",
+          "items": [
+            {"name": "C#", "level": 80, "icon": "C#"},
+            {"name": "C++", "level": 55, "icon": "C++"},
+            {"name": "Python", "level": 65, "icon": "PY"},
+            {"name": "GDScript", "level": 70, "icon": "GDS"}
+          ]
+        },
+        {
+          "name": "Design & Art",
+          "items": [
+            {"name": "Blender", "level": 60, "icon": "BLD"},
+            {"name": "Aseprite", "level": 75, "icon": "ASE"},
+            {"name": "Figma", "level": 65, "icon": "FIG"},
+            {"name": "Photoshop", "level": 70, "icon": "PS"}
+          ]
+        },
+        {
+          "name": "Outils & Méthodes",
+          "items": [
+            {"name": "Git / GitHub", "level": 80, "icon": "GIT"},
+            {"name": "Jira / Notion", "level": 75, "icon": "NTN"},
+            {"name": "Game Design Doc", "level": 85, "icon": "GDD"}
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "timeline",
+    "type": "timeline",
+    "title": "Parcours",
+    "visible": true,
+    "order": 5,
+    "data": {
+      "entries": [
+        {
+          "id": "t1",
+          "year": "2024",
+          "type": "formation",
+          "title": "Bachelor Game Design",
+          "organization": "ISART Digital, Paris",
+          "description": "Formation intensive couvrant le game design, la programmation Unity/UE5, l'intégration 2D/3D et la gestion de projet. Nombreux projets en équipe.",
+          "tags": ["Unity", "UE5", "Game Design", "Level Design"]
+        },
+        {
+          "id": "t2",
+          "year": "2023",
+          "type": "recompense",
+          "title": "Ludum Dare 54 — Top 12%",
+          "organization": "EchoGarden · Solo",
+          "description": "Développement d'un jeu de puzzle complet en 48h sur le thème 'Limited Space'. Classé 147ème sur ~1400 entrées.",
+          "tags": ["Godot", "Solo", "48h", "Game Jam"]
+        },
+        {
+          "id": "t3",
+          "year": "2023",
+          "type": "formation",
+          "title": "BTS SIO option SLAM",
+          "organization": "Lycée Voltaire, Paris",
+          "description": "Formation aux bases du développement logiciel : algorithmes, POO, bases de données, développement web.",
+          "tags": ["Java", "SQL", "Web", "POO"]
+        },
+        {
+          "id": "t4",
+          "year": "2022",
+          "type": "projet",
+          "title": "Premier mod publié",
+          "organization": "Nexus Mods · Skyrim SE",
+          "description": "Création et publication d'un mod de gameplay pour Skyrim Special Edition, totalisant plus de 8 000 téléchargements.",
+          "tags": ["Papyrus", "Modding", "3D", "Community"]
+        }
+      ]
+    }
+  },
+  {
+    "id": "contact",
+    "type": "contact",
+    "title": "Contact",
+    "visible": true,
+    "order": 6,
+    "data": {
+      "email": "enzo.varlet@email.com",
+      "linkedin": "https://linkedin.com/in/enzo-varlet",
+      "github": "https://github.com/enzo-varlet",
+      "itch": "https://enzo-varlet.itch.io",
+      "cvUrl": "/cv.pdf",
+      "message": "Disponible pour une alternance dès septembre 2024. Passionné, rigoureux et toujours partant pour des défis ambitieux — n'hésitez pas à me contacter !"
+    }
+  }
+]
