@@ -91,7 +91,7 @@
           "year": "2025",
           "status": "En cours",
           "description": "projet de soul's like avec une génération procédural de level.",
-          "longDescription": "projet initialement en solo pour toute la production puis ajout de game designer et de game artiste en cours avec ajoute d'item et d'équilibrage ainsi qu'un approfondissement de l'histoire du jeux ",
+          "longDescription": "projet initialement en solo dev pour toute la production puis ajout de game designer et de game artiste en cours avec ajoute d'item et d'équilibrage ainsi qu'un approfondissement de l'histoire du jeux .",
           "tags": [
             "unity",
             "3D",
@@ -116,7 +116,7 @@
           "year": "2026",
           "status": "Prototype",
           "description": "game jam mobile ",
-          "longDescription": "projet sur 4 semaine en groupe de 8 pour creer un puzzle game mobile",
+          "longDescription": "Projet sur 4 semaine en groupe de 8 pour creer un puzzle game mobile.\nJe  me suis occuper de faire le core gameplay de placement et de condition.",
           "tags": [
             "unity",
             "puzzle",
@@ -139,13 +139,13 @@
           "year": "2025",
           "status": "Terminé",
           "description": "assistant pour keep talking and nobody explose",
-          "longDescription": "petite application qui a pour but de simplifier et centraliser la résolution des module des bombe",
+          "longDescription": "Petit projet solo d'application qui a pour but de simplifier et centraliser la résolution des module des bombe",
           "tags": [
             "tails ween",
             "next",
             "mobile"
           ],
-          "image": "",
+          "image": "\\projects\\ktane_healper.jpg",
           "screenshots": [
             "\\projects\\ktane(1).jpg",
             "\\projects\\ktane(2).jpg",
