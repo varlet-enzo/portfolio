@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, DM_Sans, Share_Tech_Mono } from "next/font/google";
+import { SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -23,7 +24,7 @@ const shareTechMono = Share_Tech_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(SITE_URL),
   title: "Enzo Varlet — Game Developer | Portfolio",
   description:
     "Portfolio de Enzo Varlet, étudiant en Game Design à la recherche d'une alternance. Spécialisé Unity, Unreal Engine 5, C#, C++, Level Design et Gameplay Programming.",

@@ -1,6 +1,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { Section, getVisibleSections, ContactData, HeroData } from "@/lib/sections";
+import { SITE_URL } from "@/lib/constants";
 import SectionRenderer from "@/components/sections/SectionRenderer";
 import Navbar from "@/components/layout/Navbar";
 import PageLoader from "@/components/layout/PageLoader";
@@ -18,17 +19,20 @@ export default async function Home() {
   const allSections = await getSections();
   const sections = getVisibleSections(allSections);
 
-  const heroSection = allSections.find((s) => s.type === "hero");
-  const contactSection = allSections.find((s) => s.type === "contact");
-  const hero = heroSection?.data as HeroData | undefined;
-  const contact = contactSection?.data as ContactData | undefined;
+  let hero: HeroData | undefined;
+  let contact: ContactData | undefined;
+  for (const s of allSections) {
+    if (s.type === "hero") hero = s.data as HeroData;
+    else if (s.type === "contact") contact = s.data as ContactData;
+    if (hero && contact) break;
+  }
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: hero ? `${hero.name} ${hero.surname}` : "Enzo Varlet",
     jobTitle: hero?.tagline ?? "Game Developer",
-    url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+    url: SITE_URL,
     email: contact?.email,
     sameAs: [contact?.linkedin, contact?.github, contact?.itch].filter(Boolean),
   };

@@ -15,7 +15,6 @@ export default function Navbar({ sections }: NavbarProps) {
   const [activeId, setActiveId] = useState<string>("");
   const lastScrollY = useRef(0);
 
-  // Memoized so the IntersectionObserver effect doesn't re-run on every scroll re-render
   const navSections = useMemo(
     () => sections.filter((s) => s.visible).sort((a, b) => a.order - b.order),
     [sections]

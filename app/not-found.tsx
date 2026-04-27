@@ -6,8 +6,6 @@ export default function NotFound() {
       className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
       style={{ background: "var(--bg-primary)" }}
     >
-      {/* Scanline + grain are inherited from globals.css body pseudos */}
-
       {/* Decorative grid */}
       <div
         className="absolute inset-0 pointer-events-none"
