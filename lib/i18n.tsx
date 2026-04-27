@@ -73,7 +73,13 @@ export function LangProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const saved = localStorage.getItem("portfolio-lang") as Lang | null;
-    if (saved === "en") setLang("en");
+    if (saved === "en" || saved === "fr") {
+      setLang(saved);
+    } else {
+      // First visit: detect browser language
+      const browserLang = navigator.language.startsWith("en") ? "en" : "fr";
+      setLang(browserLang);
+    }
   }, []);
 
   useEffect(() => {
