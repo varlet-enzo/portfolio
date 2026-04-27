@@ -25,15 +25,18 @@ import {
 } from "lucide-react";
 
 // ── Auth wall ──────────────────────────────────────────────────────────────────
-function AuthWall({ onAuth }: { onAuth: (pw: string) => void }) {
+function AuthWall({ onAuth }: { onAuth: (pw: string) => Promise<boolean> }) {
   const [pw, setPw] = useState("");
   const [error, setError] = useState(false);
+  const [checking, setChecking] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Quick pre-check — real check happens on POST
     if (pw.length < 3) { setError(true); return; }
-    onAuth(pw);
+    setChecking(true);
+    const ok = await onAuth(pw);
+    setChecking(false);
+    if (!ok) setError(true);
   };
 
   return (
@@ -48,6 +51,8 @@ function AuthWall({ onAuth }: { onAuth: (pw: string) => void }) {
           <h1 className="font-display text-2xl text-text-primary tracking-wider">ADMIN</h1>
         </div>
         <form onSubmit={submit} className="space-y-4">
+          {/* Hidden username field required by password-manager accessibility spec */}
+          <input type="text" name="username" autoComplete="username" value="admin" readOnly style={{ display: "none" }} />
           <input
             type="password"
             value={pw}
@@ -61,9 +66,10 @@ function AuthWall({ onAuth }: { onAuth: (pw: string) => void }) {
           )}
           <button
             type="submit"
-            className="w-full font-mono text-xs tracking-widest uppercase py-3 bg-accent-primary text-bg-primary hover:bg-accent-primary/80 transition-colors"
+            disabled={checking}
+            className="w-full font-mono text-xs tracking-widest uppercase py-3 bg-accent-primary text-bg-primary hover:bg-accent-primary/80 disabled:opacity-60 transition-colors"
           >
-            Connexion →
+            {checking ? "Vérification…" : "Connexion →"}
           </button>
         </form>
       </motion.div>
@@ -243,7 +249,6 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
   const [editingSection, setEditingSection] = useState<Section | null>(null);
-  const [authError, setAuthError] = useState(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -264,8 +269,14 @@ export default function AdminPage() {
     }
   }, []);
 
-  const handleAuth = (pw: string) => {
+  const handleAuth = async (pw: string): Promise<boolean> => {
+    const res = await fetch("/api/admin/verify", {
+      method: "POST",
+      headers: { "x-admin-password": pw },
+    });
+    if (!res.ok) return false;
     fetchSections(pw);
+    return true;
   };
 
   const save = async (updated: Section[]) => {
@@ -284,7 +295,6 @@ export default function AdminPage() {
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
     } else {
-      setAuthError(true);
       setPassword(null);
     }
   };
@@ -331,7 +341,7 @@ export default function AdminPage() {
     save(updated);
   };
 
-  if (authError || !password) {
+  if (!password) {
     return <AuthWall onAuth={handleAuth} />;
   }
 
