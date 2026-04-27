@@ -95,6 +95,8 @@
           "descriptionEn": "C++ project without engine",
           "longDescription": "shoot 'em up réaliser uniquement en C++ avec SFML en equipe de 3 .Mon role a été de gerez l'architecture globale et la mecanique d'affichage et de deplacement.",
           "longDescriptionEn": "Shoot 'em up built entirely in C++ with SFML in a team of 3. My role was to manage the global architecture, the rendering pipeline and movement mechanics.",
+          "duration": "4 semaines",
+          "durationEn": "4 weeks",
           "tags": [
             "C++",
             "SFML",
@@ -121,6 +123,8 @@
           "descriptionEn": "Soul's-like game with procedural level generation.",
           "longDescription": "projet initialement en solo dev pour toute la production puis ajout de game designer et de game artiste en cours avec ajoute d'item et d'équilibrage ainsi qu'un approfondissement de l'histoire du jeux .",
           "longDescriptionEn": "Initially a solo dev project covering the full production, then game designers and artists joined to add items, balance gameplay and deepen the game's lore.",
+          "duration": "En cours",
+          "durationEn": "Ongoing",
           "tags": [
             "unity",
             "3D",
@@ -148,6 +152,8 @@
           "descriptionEn": "Mobile game jam",
           "longDescription": "Projet sur 4 semaine en groupe de 8 pour creer un puzzle game mobile.\nJe  me suis occuper de faire le core gameplay de placement et de condition.",
           "longDescriptionEn": "4-week group project (team of 8) to create a mobile puzzle game. I handled the core placement and condition gameplay mechanics.",
+          "duration": "4 semaines",
+          "durationEn": "4 weeks",
           "tags": [
             "unity",
             "2D",
@@ -174,6 +180,8 @@
           "descriptionEn": "Assistant for Keep Talking and Nobody Explodes",
           "longDescription": "Petit projet solo d'application qui a pour but de simplifier et centraliser la résolution des module des bombe",
           "longDescriptionEn": "Small solo app project aimed at simplifying and centralizing bomb module resolution for the game Keep Talking and Nobody Explodes.",
+          "duration": "2 jours",
+          "durationEn": "2 days",
           "tags": [
             "tails ween",
             "next",

@@ -298,6 +298,22 @@ function ProjectForm({
             ))}
           </select>
         </Field>
+        <Field label="Durée (FR)" hint="Ex : 1 mois, 4 semaines, En cours…">
+          <input
+            value={form.duration ?? ""}
+            onChange={(e) => set("duration", e.target.value || undefined)}
+            placeholder="4 semaines"
+            className={inputCls}
+          />
+        </Field>
+        <Field label="Duration (EN)" hint="Ex : 1 month, 4 weeks, Ongoing…">
+          <input
+            value={form.durationEn ?? ""}
+            onChange={(e) => set("durationEn", e.target.value || undefined)}
+            placeholder="4 weeks"
+            className={inputCls}
+          />
+        </Field>
         <Field label="Mise en avant">
           <div className="mt-2">
             <Toggle
