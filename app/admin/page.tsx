@@ -17,7 +17,8 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Section } from "@/lib/sections";
+import { Section, ProjectsData } from "@/lib/sections";
+import { ProjectsEditor } from "./ProjectsEditor";
 import {
   Eye, EyeOff, GripVertical, Edit2, Save, X, Plus,
   ExternalLink, Lock, LogOut, RefreshCw,
@@ -417,9 +418,27 @@ export default function AdminPage() {
         </DndContext>
       </div>
 
-      {/* Editor modal */}
+      {/* Projects editor — full-page form instead of modal */}
+      {editingSection?.type === "projects" && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 bg-bg-primary/95 backdrop-blur-md overflow-y-auto"
+        >
+          <div className="max-w-2xl mx-auto px-6 py-10">
+            <ProjectsEditor
+              data={editingSection.data as ProjectsData}
+              onSave={(d) => handleEditSave({ ...editingSection, data: d })}
+              onCancel={() => setEditingSection(null)}
+            />
+          </div>
+        </motion.div>
+      )}
+
+      {/* Generic JSON editor modal for all other sections */}
       <AnimatePresence>
-        {editingSection && (
+        {editingSection && editingSection.type !== "projects" && (
           <SectionEditor
             section={editingSection}
             onSave={handleEditSave}
