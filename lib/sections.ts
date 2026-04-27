@@ -20,6 +20,11 @@ export interface Section {
 
 // ── Per-type data shapes ───────────────────────────────────────────────────────
 
+export interface HeroStat {
+  value: string;
+  label: string;
+}
+
 export interface HeroData {
   name: string;
   surname: string;
@@ -28,6 +33,7 @@ export interface HeroData {
   ctaLabel: string;
   ctaTarget: string;
   availableFor: string;
+  stats?: HeroStat[];
 }
 
 export interface AboutData {

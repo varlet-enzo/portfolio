@@ -12,7 +12,13 @@
       "roles": ["Game Designer", "Unity Developer", "Level Designer", "Gameplay Programmer"],
       "ctaLabel": "Voir mes projets",
       "ctaTarget": "projects",
-      "availableFor": "Alternance 2024–2025"
+      "availableFor": "Alternance 2024–2025",
+      "stats": [
+        { "value": "4+", "label": "Projets livrés" },
+        { "value": "3", "label": "Moteurs maîtrisés" },
+        { "value": "Top 12%", "label": "Ludum Dare 54" },
+        { "value": "8k+", "label": "Téléchargements mod" }
+      ]
     }
   },
   {

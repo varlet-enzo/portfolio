@@ -8,6 +8,7 @@ import PageLoader from "@/components/layout/PageLoader";
 import ScrollProgress from "@/components/layout/ScrollProgress";
 import CustomCursor from "@/components/layout/CustomCursor";
 import KonamiCode from "@/components/layout/KonamiCode";
+import BackToTop from "@/components/layout/BackToTop";
 
 async function getSections(): Promise<Section[]> {
   const filePath = path.join(process.cwd(), "content", "sections.json");
@@ -43,13 +44,17 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <a href="#main-content" className="skip-link">
+        Aller au contenu
+      </a>
       <CustomCursor />
       <PageLoader />
       <ScrollProgress />
       <KonamiCode />
+      <BackToTop />
       <Navbar sections={sections} />
 
-      <main>
+      <main id="main-content">
         {sections.map((section) => (
           <SectionRenderer key={section.id} section={section} />
         ))}

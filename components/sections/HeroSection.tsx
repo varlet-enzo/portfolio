@@ -3,7 +3,7 @@ import { useRef, useEffect, useState, useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { HeroData } from "@/lib/sections";
+import { HeroData, HeroStat } from "@/lib/sections";
 import NeonBadge from "@/components/ui/NeonBadge";
 import { ChevronDown } from "lucide-react";
 
@@ -302,6 +302,33 @@ export default function HeroSection({ data }: HeroSectionProps) {
         >
           <MagneticButton label={data.ctaLabel} onClick={scrollToProjects} />
         </motion.div>
+
+        {/* Stats strip */}
+        {data.stats && data.stats.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.4 }}
+            className="mt-16 pt-8 border-t border-[rgba(240,246,252,0.06)] grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0"
+          >
+            {data.stats.map((stat: HeroStat, i: number) => (
+              <div
+                key={i}
+                className={`flex flex-col gap-1 ${i > 0 ? "md:border-l md:border-[rgba(240,246,252,0.06)] md:pl-8" : ""}`}
+              >
+                <span
+                  className="font-display text-3xl md:text-4xl text-accent-primary"
+                  style={{ textShadow: "0 0 20px rgba(232,255,71,0.3)" }}
+                >
+                  {stat.value}
+                </span>
+                <span className="font-mono text-[10px] text-text-muted tracking-widest uppercase">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </motion.div>
+        )}
       </div>
 
       {/* Scroll indicator */}
