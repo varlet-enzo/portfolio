@@ -72,12 +72,12 @@
             "SFML",
             "github"
           ],
-          "image": "",
+          "image": "/projects/sfml.jpg",
           "screenshots": [],
           "links": {
             "github": "https://github.com/varlet-enzo/projet-SFML-A2",
             "itch": "",
-            "demo": ""
+            "demo": "https://youtu.be/anLFvM8wN5M"
           },
           "highlight": false
         }
