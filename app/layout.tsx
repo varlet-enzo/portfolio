@@ -23,6 +23,7 @@ const shareTechMono = Share_Tech_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: "Enzo Varlet — Game Developer | Portfolio",
   description:
     "Portfolio de Enzo Varlet, étudiant en Game Design à la recherche d'une alternance. Spécialisé Unity, Unreal Engine 5, C#, C++, Level Design et Gameplay Programming.",
