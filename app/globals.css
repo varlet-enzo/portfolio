@@ -16,7 +16,7 @@
 }
 
 * {
-  cursor: none;
+  cursor: default;
   box-sizing: border-box;
 }
 
