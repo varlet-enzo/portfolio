@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Section } from "@/lib/sections";
 import { Menu, X, Download } from "lucide-react";
@@ -15,7 +15,11 @@ export default function Navbar({ sections }: NavbarProps) {
   const [activeId, setActiveId] = useState<string>("");
   const lastScrollY = useRef(0);
 
-  const navSections = sections.filter((s) => s.visible).sort((a, b) => a.order - b.order);
+  // Memoized so the IntersectionObserver effect doesn't re-run on every scroll re-render
+  const navSections = useMemo(
+    () => sections.filter((s) => s.visible).sort((a, b) => a.order - b.order),
+    [sections]
+  );
 
   useEffect(() => {
     const onScroll = () => {
