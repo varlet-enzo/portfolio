@@ -9,13 +9,20 @@
       "name": "Enzo",
       "surname": "Varlet",
       "tagline": "Game Developer · Étudiant en recherche de stage",
+      "taglineEn": "Game Developer · Student seeking internship",
       "roles": [
         "Unity Developer",
         "Gameplay Programmer"
       ],
+      "rolesEn": [
+        "Unity Developer",
+        "Gameplay Programmer"
+      ],
       "ctaLabel": "Voir mes projets",
+      "ctaLabelEn": "View my projects",
       "ctaTarget": "projects",
       "availableFor": "stage avril 2027",
+      "availableForEn": "internship April 2027",
       "stats": [
         {
           "value": "3+",
@@ -24,6 +31,16 @@
         {
           "value": "2",
           "label": "Moteurs maîtrisés"
+        }
+      ],
+      "statsEn": [
+        {
+          "value": "3+",
+          "label": "Delivered projects"
+        },
+        {
+          "value": "2",
+          "label": "Engines mastered"
         }
       ]
     }
@@ -36,6 +53,7 @@
     "order": 2,
     "data": {
       "bio": "Passionné de jeux vidéo depuis toujours, je traduis cette passion en compétences techniques et créatives. Étudiant en Bachelor Game Programation à l'IMM Digital school, je cherche un stage pour contribuer à des projets ambitieux et faire grandir mes compétences aux côtés de professionnels.",
+      "bioEn": "Passionate about video games since childhood, I translate this passion into technical and creative skills. Studying for a Bachelor in Game Programming at IMM Digital School, I'm looking for an internship to contribute to ambitious projects and grow alongside industry professionals.",
       "details": {
         "formation": "Bachelor Game Programation à l'IMM Digital school",
         "localisation": "Paris, France",
@@ -46,6 +64,11 @@
         "1200h+ sur mincraft",
         "Speedrunner occasionnel",
         "touche a tout dans l'informatique"
+      ],
+      "funFactsEn": [
+        "1200h+ on Minecraft",
+        "Occasional speedrunner",
+        "Tinkerer in all things tech"
       ]
     }
   },
@@ -66,7 +89,9 @@
           "year": "2025",
           "status": "Terminé",
           "description": "projet C++ sans moteur",
+          "descriptionEn": "C++ project without engine",
           "longDescription": "shoot 'em up réaliser uniquement en C++ avec SFML en equipe de 3 .Mon role a été de gerez l'architecture globale et la mecanique d'affichage et de deplacement.",
+          "longDescriptionEn": "Shoot 'em up built entirely in C++ with SFML in a team of 3. My role was to manage the global architecture, the rendering pipeline and movement mechanics.",
           "tags": [
             "C++",
             "SFML",
@@ -90,7 +115,9 @@
           "year": "2025",
           "status": "En cours",
           "description": "projet de soul's like avec une génération procédural de level.",
+          "descriptionEn": "Soul's-like game with procedural level generation.",
           "longDescription": "projet initialement en solo dev pour toute la production puis ajout de game designer et de game artiste en cours avec ajoute d'item et d'équilibrage ainsi qu'un approfondissement de l'histoire du jeux .",
+          "longDescriptionEn": "Initially a solo dev project covering the full production, then game designers and artists joined to add items, balance gameplay and deepen the game's lore.",
           "tags": [
             "unity",
             "3D",
@@ -115,7 +142,9 @@
           "year": "2026",
           "status": "Prototype",
           "description": "game jam mobile ",
+          "descriptionEn": "Mobile game jam",
           "longDescription": "Projet sur 4 semaine en groupe de 8 pour creer un puzzle game mobile.\nJe  me suis occuper de faire le core gameplay de placement et de condition.",
+          "longDescriptionEn": "4-week group project (team of 8) to create a mobile puzzle game. I handled the core placement and condition gameplay mechanics.",
           "tags": [
             "unity",
             "2D",
@@ -139,7 +168,9 @@
           "year": "2025",
           "status": "Terminé",
           "description": "assistant pour keep talking and nobody explose",
+          "descriptionEn": "Assistant for Keep Talking and Nobody Explodes",
           "longDescription": "Petit projet solo d'application qui a pour but de simplifier et centraliser la résolution des module des bombe",
+          "longDescriptionEn": "Small solo app project aimed at simplifying and centralizing bomb module resolution for the game Keep Talking and Nobody Explodes.",
           "tags": [
             "tails ween",
             "next",
@@ -171,6 +202,7 @@
       "categories": [
         {
           "name": "Moteurs de jeu",
+          "nameEn": "Game Engines",
           "items": [
             {
               "name": "Unity",
@@ -186,6 +218,7 @@
         },
         {
           "name": "Programmation",
+          "nameEn": "Programming",
           "items": [
             {
               "name": "C#",
@@ -211,6 +244,7 @@
         },
         {
           "name": "Outils & Méthodes",
+          "nameEn": "Tools & Methods",
           "items": [
             {
               "name": "Git / GitHub",
@@ -247,6 +281,7 @@
           "title": "Bachelor Game Programming",
           "organization": "IMM Digital School, Paris",
           "description": "Formation intensive couvrant le game design, la programmation Unity/UE5, l'intégration 2D/3D et la gestion de projet. Nombreux projets en équipe.",
+          "descriptionEn": "Intensive training covering game design, Unity/UE5 programming, 2D/3D integration and project management. Many team-based projects.",
           "tags": [
             "Unity",
             "UE5",
@@ -258,8 +293,10 @@
           "year": "2023",
           "type": "formation",
           "title": "Baccalauréat Technologique",
+          "titleEn": "French Technological Baccalaureate",
           "organization": "Lycée Martin Luther King",
           "description": "",
+          "descriptionEn": "",
           "tags": []
         }
       ]
@@ -277,7 +314,8 @@
       "github": "https://github.com/varlet-enzo",
       "itch": "https://qwazertya.itch.io/",
       "cvUrl": "/cv.pdf",
-      "message": "Disponible pour un stage dès avril 2027. Passionné, rigoureux et toujours partant pour des défis ambitieux — n'hésitez pas à me contacter !"
+      "message": "Disponible pour un stage dès avril 2027. Passionné, rigoureux et toujours partant pour des défis ambitieux — n'hésitez pas à me contacter !",
+      "messageEn": "Available for an internship from April 2027. Passionate, thorough and always up for ambitious challenges — feel free to reach out!"
     }
   }
 ]

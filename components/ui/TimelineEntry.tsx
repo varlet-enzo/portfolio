@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { TimelineEntry as TEntry } from "@/lib/sections";
 import NeonBadge from "./NeonBadge";
+import { useTranslation, TranslationKey } from "@/lib/i18n";
 
 interface TimelineEntryProps {
   entry: TEntry;
@@ -10,11 +11,11 @@ interface TimelineEntryProps {
   isLeft: boolean;
 }
 
-const typeConfig = {
-  formation: { label: "Formation", variant: "cyan" as const },
-  projet: { label: "Projet", variant: "primary" as const },
-  experience: { label: "Expérience", variant: "secondary" as const },
-  recompense: { label: "Récompense", variant: "primary" as const },
+const typeConfig: Record<string, { key: TranslationKey; variant: "cyan" | "primary" | "secondary" | "muted" }> = {
+  formation: { key: "timeline_type_formation", variant: "cyan" },
+  projet: { key: "timeline_type_projet", variant: "primary" },
+  experience: { key: "timeline_type_experience", variant: "secondary" },
+  recompense: { key: "timeline_type_recompense", variant: "primary" },
 };
 
 const tagColors: Record<string, string> = {
@@ -31,7 +32,10 @@ function getTagClass(tag: string) {
 export default function TimelineEntryComponent({ entry, index, isLeft }: TimelineEntryProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const { t, lang } = useTranslation();
   const config = typeConfig[entry.type] || typeConfig.projet;
+  const displayTitle = lang === "en" && entry.titleEn ? entry.titleEn : entry.title;
+  const displayDescription = lang === "en" && entry.descriptionEn ? entry.descriptionEn : entry.description;
 
   return (
     <div
@@ -57,12 +61,12 @@ export default function TimelineEntryComponent({ entry, index, isLeft }: Timelin
           <span className="font-display text-3xl text-accent-primary leading-none">
             {entry.year}
           </span>
-          <NeonBadge variant={config.variant}>{config.label}</NeonBadge>
+          <NeonBadge variant={config.variant}>{t(config.key)}</NeonBadge>
         </div>
-        <h3 className="font-body font-semibold text-text-primary mb-1">{entry.title}</h3>
+        <h3 className="font-body font-semibold text-text-primary mb-1">{displayTitle}</h3>
         <p className="font-mono text-xs text-text-muted mb-3">{entry.organization}</p>
         <p className="font-body text-sm text-text-secondary leading-relaxed mb-4">
-          {entry.description}
+          {displayDescription}
         </p>
         <div className="flex flex-wrap gap-2">
           {entry.tags.map((tag) => (

@@ -27,6 +27,11 @@ const T = {
     contact_social: "// Retrouvez-moi sur",
     contact_subject: "Opportunité alternance",
     footer_built: "Built with Next.js + Three.js",
+    about_profile: "// Profil",
+    timeline_type_formation: "Formation",
+    timeline_type_projet: "Projet",
+    timeline_type_experience: "Expérience",
+    timeline_type_recompense: "Récompense",
   },
   en: {
     scroll: "SCROLL",
@@ -51,6 +56,11 @@ const T = {
     contact_social: "// Find me on",
     contact_subject: "Internship opportunity",
     footer_built: "Built with Next.js + Three.js",
+    about_profile: "// Profile",
+    timeline_type_formation: "Training",
+    timeline_type_projet: "Project",
+    timeline_type_experience: "Experience",
+    timeline_type_recompense: "Award",
   },
 } as const;
 

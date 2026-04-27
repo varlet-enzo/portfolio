@@ -125,7 +125,7 @@ export default function AboutSection({ data }: AboutSectionProps) {
               style={{ boxShadow: "inset 0 0 40px rgba(0,229,255,0.02)" }}
             >
               <p className="font-mono text-xs text-text-muted tracking-widest uppercase mb-6">
-                {"// Profil"}
+                {t("about_profile")}
               </p>
 
               {Object.entries(data.details).map(([key, value], i) => {

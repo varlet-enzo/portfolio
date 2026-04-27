@@ -13,7 +13,7 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [activeTab, setActiveTab] = useState(0);
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
 
   return (
     <section id="skills" className="py-24 md:py-32 relative">
@@ -41,7 +41,7 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
         >
           {data.categories.map((cat, i) => (
             <button
-              key={cat.name}
+              key={lang === "en" && cat.nameEn ? cat.nameEn : cat.name}
               onClick={() => setActiveTab(i)}
               className={`font-mono text-xs tracking-widest uppercase px-4 py-2 transition-all duration-200 border ${
                 activeTab === i
@@ -49,7 +49,7 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
                   : "border-[rgba(240,246,252,0.08)] text-text-muted hover:text-text-secondary hover:border-text-muted"
               }`}
             >
-              {cat.name}
+              {lang === "en" && cat.nameEn ? cat.nameEn : cat.name}
             </button>
           ))}
         </motion.div>
@@ -80,8 +80,8 @@ export default function SkillsSection({ data }: SkillsSectionProps) {
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {data.categories.map((cat) => (
-              <div key={cat.name} className="space-y-3">
-                <p className="font-mono text-xs text-accent-primary tracking-wider">{cat.name}</p>
+              <div key={lang === "en" && cat.nameEn ? cat.nameEn : cat.name} className="space-y-3">
+                <p className="font-mono text-xs text-accent-primary tracking-wider">{lang === "en" && cat.nameEn ? cat.nameEn : cat.name}</p>
                 <div className="space-y-1.5">
                   {cat.items.map((item) => (
                     <div key={item.name} className="flex items-center justify-between">

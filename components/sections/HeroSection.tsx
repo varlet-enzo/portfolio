@@ -188,7 +188,12 @@ interface HeroSectionProps {
 
 export default function HeroSection({ data }: HeroSectionProps) {
   const [scrolled, setScrolled] = useState(false);
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
+  const displayTagline = lang === "en" && data.taglineEn ? data.taglineEn : data.tagline;
+  const displayCtaLabel = lang === "en" && data.ctaLabelEn ? data.ctaLabelEn : data.ctaLabel;
+  const displayAvailableFor = lang === "en" && data.availableForEn ? data.availableForEn : data.availableFor;
+  const displayStats = lang === "en" && data.statsEn ? data.statsEn : data.stats;
+  const displayRoles = lang === "en" && data.rolesEn ? data.rolesEn : data.roles;
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -246,7 +251,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
           className="mb-10"
         >
           <NeonBadge variant="primary" dot pulse>
-            {data.availableFor}
+            {displayAvailableFor}
           </NeonBadge>
         </motion.div>
 
@@ -291,9 +296,9 @@ export default function HeroSection({ data }: HeroSectionProps) {
           className="space-y-3 mb-12"
         >
           <p className="font-mono text-sm text-text-muted tracking-widest uppercase">
-            {data.tagline}
+            {displayTagline}
           </p>
-          <TypewriterRoles roles={data.roles} />
+          <TypewriterRoles roles={displayRoles} />
         </motion.div>
 
         {/* CTA */}
@@ -302,18 +307,18 @@ export default function HeroSection({ data }: HeroSectionProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1 }}
         >
-          <MagneticButton label={data.ctaLabel} onClick={scrollToProjects} />
+          <MagneticButton label={displayCtaLabel} onClick={scrollToProjects} />
         </motion.div>
 
         {/* Stats strip */}
-        {data.stats && data.stats.length > 0 && (
+        {displayStats && displayStats.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.4 }}
             className="mt-16 pt-8 border-t border-[rgba(240,246,252,0.06)] grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0"
           >
-            {data.stats.map((stat: HeroStat, i: number) => (
+            {displayStats.map((stat: HeroStat, i: number) => (
               <div
                 key={i}
                 className={`flex flex-col gap-1 ${i > 0 ? "md:border-l md:border-[rgba(240,246,252,0.06)] md:pl-8" : ""}`}

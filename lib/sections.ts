@@ -29,11 +29,16 @@ export interface HeroData {
   name: string;
   surname: string;
   tagline: string;
+  taglineEn?: string;
   roles: string[];
+  rolesEn?: string[];
   ctaLabel: string;
+  ctaLabelEn?: string;
   ctaTarget: string;
   availableFor: string;
+  availableForEn?: string;
   stats?: HeroStat[];
+  statsEn?: HeroStat[];
 }
 
 export interface AboutData {
@@ -87,6 +92,7 @@ export interface SkillItem {
 
 export interface SkillCategory {
   name: string;
+  nameEn?: string;
   items: SkillItem[];
 }
 
@@ -101,8 +107,10 @@ export interface TimelineEntry {
   year: string;
   type: TimelineEntryType;
   title: string;
+  titleEn?: string;
   organization: string;
   description: string;
+  descriptionEn?: string;
   tags: string[];
 }
 
