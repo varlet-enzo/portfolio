@@ -13,18 +13,27 @@ interface ProjectsSectionProps {
 
 function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
   const [imgIdx, setImgIdx] = useState(0);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   const allScreenshots = project.screenshots?.length
     ? project.screenshots
     : [project.image];
+
+  useEffect(() => {
+    closeRef.current?.focus();
+    const prev = document.activeElement as HTMLElement | null;
+    return () => prev?.focus();
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") setImgIdx((i) => (i - 1 + allScreenshots.length) % allScreenshots.length);
+      if (e.key === "ArrowRight") setImgIdx((i) => (i + 1) % allScreenshots.length);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose, allScreenshots.length]);
 
   const statusConfig = {
     "Terminé": "primary" as const,
@@ -48,13 +57,18 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
+        role="dialog"
+        aria-modal="true"
+        aria-label={project.title}
         onClick={(e) => e.stopPropagation()}
         className="relative z-10 w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-bg-secondary border border-[rgba(240,246,252,0.12)] rounded-sm"
       >
         {/* Close */}
         <button
+          ref={closeRef}
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 w-8 h-8 flex items-center justify-center border border-[rgba(240,246,252,0.12)] text-text-secondary hover:text-accent-primary hover:border-accent-primary transition-colors rounded-sm"
+          aria-label="Fermer"
+          className="absolute top-4 right-4 z-20 w-8 h-8 flex items-center justify-center border border-[rgba(240,246,252,0.12)] text-text-secondary hover:text-accent-primary hover:border-accent-primary transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary"
         >
           <X size={14} />
         </button>
