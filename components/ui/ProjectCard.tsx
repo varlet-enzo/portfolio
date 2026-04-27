@@ -18,6 +18,27 @@ const statusConfig = {
   "Prototype": { variant: "muted" as const, pulse: false },
 };
 
+function CoverImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  const [errored, setErrored] = useState(false);
+  if (!src || errored) {
+    return (
+      <div className="absolute inset-0 flex items-center justify-center bg-bg-tertiary">
+        <span className="font-mono text-[10px] text-text-muted uppercase tracking-widest">IMG</span>
+      </div>
+    );
+  }
+  return (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      className={`absolute inset-0 w-full h-full object-cover ${className ?? ""}`}
+      onError={() => setErrored(true)}
+    />
+  );
+}
+
 export default function ProjectCard({ project, onOpen, featured = false, dimmed = false }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false);
   const status = statusConfig[project.status] || statusConfig["Prototype"];
@@ -35,17 +56,13 @@ export default function ProjectCard({ project, onOpen, featured = false, dimmed 
       >
         {/* Image */}
         <div className="relative h-64 md:h-auto overflow-hidden bg-bg-tertiary">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-bg-secondary z-10 hidden md:block" />
-          <div
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-700"
-            style={{
-              backgroundImage: `url(${project.image})`,
-              transform: hovered ? "scale(1.05)" : "scale(1)",
-              backgroundColor: "var(--bg-tertiary)",
-            }}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-bg-secondary z-10 hidden md:block pointer-events-none" />
+          <CoverImage
+            src={project.image}
+            alt={project.title}
+            className={`transition-transform duration-700 ${hovered ? "scale-105" : "scale-100"}`}
           />
-          {/* Fallback gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-accent-glow/5" />
+          <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-accent-glow/5 pointer-events-none" />
         </div>
 
         {/* Content */}
@@ -87,21 +104,17 @@ export default function ProjectCard({ project, onOpen, featured = false, dimmed 
     >
       {/* Image */}
       <div className="relative h-48 overflow-hidden bg-bg-tertiary flex-shrink-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-          style={{
-            backgroundImage: `url(${project.image})`,
-            backgroundColor: "var(--bg-tertiary)",
-          }}
+        <CoverImage
+          src={project.image}
+          alt={project.title}
+          className="group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-accent-glow/5" />
-        {/* Bottom gradient with title */}
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-bg-secondary to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-accent-glow/5 pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-bg-secondary to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 p-4">
           <NeonBadge variant={status.variant} pulse={status.pulse}>{project.status}</NeonBadge>
         </div>
 
-        {/* Hover CTA */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center bg-bg-primary/60 backdrop-blur-sm"
           initial={{ opacity: 0 }}

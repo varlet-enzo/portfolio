@@ -25,6 +25,23 @@ function toYouTubeEmbed(url: string): string | null {
   return null;
 }
 
+function ModalImage({ src }: { src: string }) {
+  const [errored, setErrored] = useState(false);
+  if (!src || errored) {
+    return <div className="absolute inset-0 bg-bg-tertiary flex items-center justify-center"><span className="font-mono text-[10px] text-text-muted">IMG</span></div>;
+  }
+  return (
+    <img
+      src={src}
+      alt=""
+      loading="eager"
+      decoding="async"
+      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 cursor-image"
+      onError={() => setErrored(true)}
+    />
+  );
+}
+
 function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
   const [imgIdx, setImgIdx] = useState(0);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -89,15 +106,9 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 
         {/* Screenshot gallery */}
         <div className="relative h-56 md:h-72 bg-bg-tertiary overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center transition-all duration-500 cursor-image"
-            style={{
-              backgroundImage: `url(${allScreenshots[imgIdx]})`,
-              backgroundColor: "var(--bg-tertiary)",
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-accent-glow/5" />
-          <div className="absolute inset-0 bg-gradient-to-t from-bg-secondary/80 to-transparent" />
+          <ModalImage src={allScreenshots[imgIdx]} />
+          <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-accent-glow/5 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-secondary/80 to-transparent pointer-events-none" />
 
           {allScreenshots.length > 1 && (
             <>
