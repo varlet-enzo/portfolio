@@ -65,6 +65,7 @@ export interface Project {
   tags: string[];
   image: string;
   screenshots: string[];
+  video?: string;
   links: ProjectLink;
   highlight?: boolean;
 }

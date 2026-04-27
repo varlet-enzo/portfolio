@@ -4,11 +4,25 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ProjectsData, Project } from "@/lib/sections";
 import ProjectCard from "@/components/ui/ProjectCard";
 import NeonBadge from "@/components/ui/NeonBadge";
-import { X, GitBranch, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, GitBranch, ExternalLink, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { getTagClass } from "@/lib/sections";
 
 interface ProjectsSectionProps {
   data: ProjectsData;
+}
+
+function toYouTubeEmbed(url: string): string | null {
+  try {
+    if (url.includes("youtube.com/watch")) {
+      const v = new URL(url).searchParams.get("v");
+      return v ? `https://www.youtube.com/embed/${v}` : null;
+    }
+    if (url.includes("youtu.be/")) {
+      const id = url.split("youtu.be/")[1]?.split("?")[0];
+      return id ? `https://www.youtube.com/embed/${id}` : null;
+    }
+  } catch {}
+  return null;
 }
 
 function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
@@ -131,6 +145,36 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
           <p className="font-body text-text-secondary leading-relaxed mb-6">
             {project.longDescription}
           </p>
+
+          {/* Video embed */}
+          {project.video && (() => {
+            const embedUrl = toYouTubeEmbed(project.video);
+            return (
+              <div className="mb-6">
+                <p className="flex items-center gap-2 font-mono text-[10px] text-text-muted tracking-widest uppercase mb-3">
+                  <Play size={10} className="text-accent-primary" />
+                  Vidéo de présentation
+                </p>
+                <div className="aspect-video bg-bg-tertiary border border-[rgba(240,246,252,0.08)] overflow-hidden rounded-sm">
+                  {embedUrl ? (
+                    <iframe
+                      src={embedUrl}
+                      className="w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      title={`${project.title} — vidéo`}
+                    />
+                  ) : (
+                    <video
+                      src={project.video}
+                      controls
+                      className="w-full h-full object-contain"
+                    />
+                  )}
+                </div>
+              </div>
+            );
+          })()}
 
           <div className="flex flex-wrap gap-2 mb-6">
             {project.tags.map((tag) => (

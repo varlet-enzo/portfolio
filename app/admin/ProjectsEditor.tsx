@@ -3,6 +3,41 @@ import { useState, useEffect } from "react";
 import { Project, ProjectsData } from "@/lib/sections";
 import { Plus, Edit2, Trash2, ChevronLeft, Star, X } from "lucide-react";
 
+// ── Video embed helper ───────────────────────────────────────────────────────────
+function toYouTubeEmbed(url: string): string | null {
+  try {
+    if (url.includes("youtube.com/watch")) {
+      const v = new URL(url).searchParams.get("v");
+      return v ? `https://www.youtube.com/embed/${v}` : null;
+    }
+    if (url.includes("youtu.be/")) {
+      const id = url.split("youtu.be/")[1]?.split("?")[0];
+      return id ? `https://www.youtube.com/embed/${id}` : null;
+    }
+  } catch {}
+  return null;
+}
+
+function VideoEmbed({ url }: { url: string }) {
+  const embedUrl = toYouTubeEmbed(url);
+  if (embedUrl) {
+    return (
+      <iframe
+        src={embedUrl}
+        className="w-full h-full"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        title="Aperçu vidéo"
+      />
+    );
+  }
+  return (
+    <video src={url} controls className="w-full h-full object-contain bg-black">
+      Votre navigateur ne supporte pas la vidéo.
+    </video>
+  );
+}
+
 // ── Shared style ────────────────────────────────────────────────────────────────
 const inputCls =
   "w-full bg-bg-tertiary border border-[rgba(240,246,252,0.08)] text-text-primary font-body text-sm px-3 py-2 outline-none focus:border-accent-primary transition-colors";
@@ -177,12 +212,18 @@ function ProjectForm({
   onCancel: () => void;
 }) {
   const [form, setForm] = useState<Project>({ ...project });
-  const [previewUrl, setPreviewUrl] = useState(project.image);
+  const [previewUrl, setPreviewUrl] = useState(project.image ?? "");
+  const [videoPreview, setVideoPreview] = useState(project.video ?? "");
 
   useEffect(() => {
-    const t = setTimeout(() => setPreviewUrl(form.image), 500);
+    const t = setTimeout(() => setPreviewUrl(form.image ?? ""), 500);
     return () => clearTimeout(t);
   }, [form.image]);
+
+  useEffect(() => {
+    const t = setTimeout(() => setVideoPreview(form.video ?? ""), 700);
+    return () => clearTimeout(t);
+  }, [form.video]);
 
   const set = <K extends keyof Project>(key: K, value: Project[K]) =>
     setForm((f) => ({ ...f, [key]: value }));
@@ -331,6 +372,24 @@ function ProjectForm({
           urls={form.screenshots ?? []}
           onChange={(u) => set("screenshots", u)}
         />
+      </Field>
+
+      {/* Video */}
+      <Field
+        label="Vidéo de présentation"
+        hint="Lien YouTube (youtube.com/watch?v=… ou youtu.be/…) ou chemin vers un .mp4 local"
+      >
+        <input
+          value={form.video ?? ""}
+          onChange={(e) => set("video", e.target.value || undefined)}
+          placeholder="https://www.youtube.com/watch?v=XXXXXXXXX"
+          className={inputCls + " font-mono text-xs"}
+        />
+        {videoPreview && (
+          <div className="mt-2 aspect-video bg-bg-tertiary overflow-hidden border border-[rgba(240,246,252,0.06)]">
+            <VideoEmbed url={videoPreview} />
+          </div>
+        )}
       </Field>
 
       {/* Links */}
