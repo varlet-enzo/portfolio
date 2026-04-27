@@ -1,5 +1,6 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import type { ElementType } from "react";
 import { motion, useInView } from "framer-motion";
 import { ContactData } from "@/lib/sections";
 import { Link2, GitBranch, ExternalLink, Mail, Download, ArrowRight } from "lucide-react";
@@ -28,6 +29,52 @@ const links = [
     color: "#FA5C5C",
   },
 ];
+
+function SocialCard({
+  href, label, Icon, color, delay, inView,
+}: {
+  href: string;
+  label: string;
+  Icon: ElementType;
+  color: string;
+  delay: number;
+  inView: boolean;
+}) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <motion.a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${label} — ouvre dans un nouvel onglet`}
+      initial={{ opacity: 0, x: 20 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ delay }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="flex items-center justify-between p-5 rounded-sm bg-bg-secondary border transition-all duration-300"
+      style={{
+        borderColor: hovered ? `${color}60` : "rgba(240,246,252,0.08)",
+        boxShadow: hovered ? `0 0 20px ${color}18` : "none",
+      }}
+    >
+      <div className="flex items-center gap-4">
+        <div className="w-9 h-9 flex items-center justify-center rounded bg-bg-tertiary border border-[rgba(240,246,252,0.06)]">
+          <Icon size={16} style={{ color: hovered ? color : "var(--text-secondary)", transition: "color 0.3s" }} />
+        </div>
+        <span className="font-body text-sm text-text-primary">{label}</span>
+      </div>
+      <ArrowRight
+        size={14}
+        style={{
+          color: hovered ? color : "var(--text-muted)",
+          transform: hovered ? "translateX(6px)" : "translateX(0)",
+          transition: "color 0.3s, transform 0.3s",
+        }}
+      />
+    </motion.a>
+  );
+}
 
 export default function ContactSection({ data }: ContactSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -107,31 +154,19 @@ export default function ContactSection({ data }: ContactSectionProps) {
               {"// Retrouvez-moi sur"}
             </p>
 
-            {links.map(({ key, label, Icon }, i) => {
+            {links.map(({ key, label, Icon, color }, i) => {
               const href = data[key];
               if (!href) return null;
               return (
-                <motion.a
+                <SocialCard
                   key={key}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.35 + i * 0.1 }}
-                  className="flex items-center justify-between p-5 rounded-sm bg-bg-secondary border border-[rgba(240,246,252,0.08)] hover:border-accent-primary/40 transition-all duration-300 group"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-9 h-9 flex items-center justify-center rounded bg-bg-tertiary border border-[rgba(240,246,252,0.06)]">
-                      <Icon size={16} className="text-text-secondary group-hover:text-accent-primary transition-colors" />
-                    </div>
-                    <span className="font-body text-sm text-text-primary">{label}</span>
-                  </div>
-                  <ArrowRight
-                    size={14}
-                    className="text-text-muted translate-x-0 group-hover:translate-x-2 group-hover:text-accent-primary transition-all duration-300"
-                  />
-                </motion.a>
+                  label={label}
+                  Icon={Icon}
+                  color={color}
+                  delay={0.35 + i * 0.1}
+                  inView={inView}
+                />
               );
             })}
           </motion.div>
