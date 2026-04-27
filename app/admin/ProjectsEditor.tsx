@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Project, ProjectsData } from "@/lib/sections";
 import { Plus, Edit2, Trash2, ChevronLeft, Star, X } from "lucide-react";
 
@@ -177,6 +177,12 @@ function ProjectForm({
   onCancel: () => void;
 }) {
   const [form, setForm] = useState<Project>({ ...project });
+  const [previewUrl, setPreviewUrl] = useState(project.image);
+
+  useEffect(() => {
+    const t = setTimeout(() => setPreviewUrl(form.image), 500);
+    return () => clearTimeout(t);
+  }, [form.image]);
 
   const set = <K extends keyof Project>(key: K, value: Project[K]) =>
     setForm((f) => ({ ...f, [key]: value }));
@@ -302,10 +308,10 @@ function ProjectForm({
           placeholder="https://  ou  /projects/cover.jpg"
           className={inputCls + " font-mono text-xs"}
         />
-        {form.image && (
+        {previewUrl && (
           <div className="mt-2 h-36 bg-bg-tertiary overflow-hidden border border-[rgba(240,246,252,0.06)]">
             <img
-              src={form.image}
+              src={previewUrl}
               alt="Aperçu"
               className="w-full h-full object-cover"
               onError={(e) => {

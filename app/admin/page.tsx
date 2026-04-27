@@ -53,6 +53,7 @@ function AuthWall({ onAuth }: { onAuth: (pw: string) => void }) {
             value={pw}
             onChange={(e) => { setPw(e.target.value); setError(false); }}
             placeholder="Mot de passe"
+            autoComplete="current-password"
             className="w-full bg-bg-tertiary border border-[rgba(240,246,252,0.08)] text-text-primary font-mono text-sm px-4 py-3 outline-none focus:border-accent-primary transition-colors"
           />
           {error && (
