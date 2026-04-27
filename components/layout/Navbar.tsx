@@ -79,6 +79,7 @@ export default function Navbar({ sections }: NavbarProps) {
               <button
                 key={s.id}
                 onClick={() => scrollTo(s.id)}
+                aria-current={activeId === s.id ? "true" : undefined}
                 className="relative font-mono text-xs tracking-widest uppercase transition-colors duration-200 group"
                 style={{ color: activeId === s.id ? "var(--accent-primary)" : "var(--text-secondary)" }}
               >

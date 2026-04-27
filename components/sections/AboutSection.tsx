@@ -92,12 +92,32 @@ export default function AboutSection({ data }: AboutSectionProps) {
             </a>
           </motion.div>
 
-          {/* Right: info card */}
+          {/* Right: photo + info card */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.25 }}
+            className="space-y-6"
           >
+            {/* Photo placeholder */}
+            <div className="relative w-32 h-32 mx-auto md:mx-0">
+              <div
+                className="w-full h-full rounded-sm bg-bg-tertiary border border-[rgba(240,246,252,0.08)] flex items-center justify-center overflow-hidden"
+                style={{ boxShadow: "0 0 30px rgba(232,255,71,0.08)" }}
+              >
+                <span
+                  className="font-display text-5xl text-accent-primary select-none"
+                  style={{ textShadow: "0 0 20px rgba(232,255,71,0.4)" }}
+                >
+                  EV
+                </span>
+              </div>
+              {/* Online indicator */}
+              <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-bg-primary border-2 border-bg-primary flex items-center justify-center">
+                <div className="w-2.5 h-2.5 rounded-full bg-accent-primary animate-pulse-glow" />
+              </div>
+            </div>
+
             <div
               className="rounded-sm bg-bg-secondary border border-[rgba(240,246,252,0.08)] p-6 md:p-8 space-y-5"
               style={{ boxShadow: "inset 0 0 40px rgba(0,229,255,0.02)" }}
