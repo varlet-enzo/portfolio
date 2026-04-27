@@ -72,6 +72,8 @@ export interface Project {
   descriptionEn?: string;
   longDescription: string;
   longDescriptionEn?: string;
+  duration?: string;
+  durationEn?: string;
   tags: string[];
   image: string;
   screenshots: string[];

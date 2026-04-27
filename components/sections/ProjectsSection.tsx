@@ -229,6 +229,9 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               </h2>
               <p className="font-mono text-xs text-accent-glow tracking-wider">
                 {project.engine} · {project.type} · {project.year}
+                {project.duration && (
+                  <> · <span className="text-text-muted">{t("projects_duration")} : {lang === "en" && project.durationEn ? project.durationEn : project.duration}</span></>
+                )}
               </p>
             </div>
             <NeonBadge variant={statusConfig[project.status] || "muted"}>
