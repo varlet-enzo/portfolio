@@ -25,7 +25,7 @@ function toYouTubeEmbed(url: string): string | null {
   return null;
 }
 
-function ModalImage({ src }: { src: string }) {
+function ModalImage({ src, onClick }: { src: string; onClick?: () => void }) {
   const [errored, setErrored] = useState(false);
   if (!src || errored) {
     return <div className="absolute inset-0 bg-bg-tertiary flex items-center justify-center"><span className="font-mono text-[10px] text-text-muted">IMG</span></div>;
@@ -36,14 +36,94 @@ function ModalImage({ src }: { src: string }) {
       alt=""
       loading="eager"
       decoding="async"
-      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 cursor-image"
+      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${onClick ? "cursor-zoom-in" : "cursor-image"}`}
+      onClick={onClick}
       onError={() => setErrored(true)}
     />
   );
 }
 
+function Lightbox({
+  images,
+  startIdx,
+  onClose,
+}: {
+  images: string[];
+  startIdx: number;
+  onClose: () => void;
+}) {
+  const [idx, setIdx] = useState(startIdx);
+  const prev = () => setIdx((i) => (i - 1 + images.length) % images.length);
+  const next = () => setIdx((i) => (i + 1) % images.length);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      {/* Image */}
+      <motion.img
+        key={idx}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.2 }}
+        src={images[idx]}
+        alt=""
+        className="max-w-[90vw] max-h-[90vh] object-contain select-none"
+        onClick={(e) => e.stopPropagation()}
+      />
+
+      {/* Close */}
+      <button
+        onClick={onClose}
+        aria-label="Fermer"
+        className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center border border-white/20 text-white/70 hover:text-white hover:border-white/60 transition-colors rounded-sm"
+      >
+        <X size={16} />
+      </button>
+
+      {/* Nav */}
+      {images.length > 1 && (
+        <>
+          <button
+            onClick={(e) => { e.stopPropagation(); prev(); }}
+            aria-label="Précédent"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center border border-white/20 text-white/70 hover:text-white hover:border-white/60 transition-colors"
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); next(); }}
+            aria-label="Suivant"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center border border-white/20 text-white/70 hover:text-white hover:border-white/60 transition-colors"
+          >
+            <ChevronRight size={18} />
+          </button>
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-xs text-white/40">
+            {idx + 1} / {images.length}
+          </div>
+        </>
+      )}
+    </motion.div>
+  );
+}
+
 function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
   const [imgIdx, setImgIdx] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
 
   const allScreenshots = project.screenshots?.length
@@ -58,13 +138,14 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (lightboxOpen) return;
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowLeft") setImgIdx((i) => (i - 1 + allScreenshots.length) % allScreenshots.length);
       if (e.key === "ArrowRight") setImgIdx((i) => (i + 1) % allScreenshots.length);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, allScreenshots.length]);
+  }, [onClose, allScreenshots.length, lightboxOpen]);
 
   const statusConfig = {
     "Terminé": "primary" as const,
@@ -106,7 +187,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 
         {/* Screenshot gallery */}
         <div className="relative h-56 md:h-72 bg-bg-tertiary overflow-hidden">
-          <ModalImage src={allScreenshots[imgIdx]} />
+          <ModalImage src={allScreenshots[imgIdx]} onClick={() => setLightboxOpen(true)} />
           <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-accent-glow/5 pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-t from-bg-secondary/80 to-transparent pointer-events-none" />
 
@@ -233,6 +314,17 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
           </div>
         </div>
       </motion.div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightboxOpen && (
+          <Lightbox
+            images={allScreenshots}
+            startIdx={imgIdx}
+            onClose={() => setLightboxOpen(false)}
+          />
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
