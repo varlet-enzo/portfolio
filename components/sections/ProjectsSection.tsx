@@ -6,7 +6,7 @@ import ProjectCard from "@/components/ui/ProjectCard";
 import NeonBadge from "@/components/ui/NeonBadge";
 import { X, GitBranch, ExternalLink, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { getTagClass } from "@/lib/sections";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation, translateTag } from "@/lib/i18n";
 
 interface ProjectsSectionProps {
   data: ProjectsData;
@@ -273,7 +273,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
           <div className="flex flex-wrap gap-2 mb-6">
             {project.tags.map((tag) => (
               <span key={tag} className={`text-[10px] font-mono px-2 py-1 rounded-sm border ${getTagClass(tag)}`}>
-                {tag}
+                {translateTag(tag, lang)}
               </span>
             ))}
           </div>
@@ -388,7 +388,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                     : "border-[rgba(240,246,252,0.12)] text-text-muted hover:border-text-secondary hover:text-text-secondary"
                 }`}
               >
-                {tag}
+                {translateTag(tag, lang)}
               </button>
             ))}
           </div>

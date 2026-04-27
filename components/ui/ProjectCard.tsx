@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Project } from "@/lib/sections";
 import NeonBadge from "./NeonBadge";
 import { getTagClass } from "@/lib/sections";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation, translateTag } from "@/lib/i18n";
 
 interface ProjectCardProps {
   project: Project;
@@ -79,7 +79,7 @@ export default function ProjectCard({ project, onOpen, featured = false, dimmed 
           <div className="flex flex-wrap gap-2 mb-6">
             {project.tags.map((tag) => (
               <span key={tag} className={`text-[10px] font-mono px-2 py-0.5 rounded-sm border ${getTagClass(tag)}`}>
-                {tag}
+                {translateTag(tag, lang)}
               </span>
             ))}
           </div>

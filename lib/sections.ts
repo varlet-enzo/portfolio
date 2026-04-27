@@ -13,6 +13,7 @@ export interface Section {
   id: string;
   type: SectionType;
   title: string;
+  titleEn?: string;
   visible: boolean;
   order: number;
   data: SectionData;

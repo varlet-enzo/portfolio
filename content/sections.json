@@ -3,6 +3,7 @@
     "id": "hero",
     "type": "hero",
     "title": "Accueil",
+    "titleEn": "Home",
     "visible": true,
     "order": 1,
     "data": {
@@ -49,6 +50,7 @@
     "id": "about",
     "type": "about",
     "title": "À propos",
+    "titleEn": "About",
     "visible": true,
     "order": 2,
     "data": {
@@ -76,6 +78,7 @@
     "id": "projects",
     "type": "projects",
     "title": "Projets",
+    "titleEn": "Projects",
     "visible": true,
     "order": 3,
     "data": {
@@ -196,6 +199,7 @@
     "id": "skills",
     "type": "skills",
     "title": "Compétences",
+    "titleEn": "Skills",
     "visible": true,
     "order": 4,
     "data": {
@@ -270,6 +274,7 @@
     "id": "timeline",
     "type": "timeline",
     "title": "Parcours",
+    "titleEn": "Journey",
     "visible": true,
     "order": 5,
     "data": {

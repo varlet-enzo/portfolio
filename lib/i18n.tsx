@@ -32,6 +32,10 @@ const T = {
     timeline_type_projet: "Projet",
     timeline_type_experience: "Expérience",
     timeline_type_recompense: "Récompense",
+    skill_expert: "Expert",
+    skill_avance: "Avancé",
+    skill_intermediaire: "Intermédiaire",
+    skill_notions: "Notions",
   },
   en: {
     scroll: "SCROLL",
@@ -61,8 +65,23 @@ const T = {
     timeline_type_projet: "Project",
     timeline_type_experience: "Experience",
     timeline_type_recompense: "Award",
+    skill_expert: "Expert",
+    skill_avance: "Advanced",
+    skill_intermediaire: "Intermediate",
+    skill_notions: "Basics",
   },
 } as const;
+
+// French → English tag translations (technical terms only)
+const TAG_MAP: Record<string, string> = {
+  procédural: "procedural",
+  "Procédural": "Procedural",
+};
+
+export function translateTag(tag: string, lang: Lang): string {
+  if (lang === "en" && TAG_MAP[tag]) return TAG_MAP[tag];
+  return tag;
+}
 
 export type TranslationKey = keyof typeof T.fr;
 

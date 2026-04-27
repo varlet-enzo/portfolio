@@ -2,17 +2,18 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { SkillItem } from "@/lib/sections";
+import { useTranslation, TranslationKey } from "@/lib/i18n";
 
 interface SkillBarProps {
   skill: SkillItem;
   delay?: number;
 }
 
-function getLevelConfig(level: number) {
-  if (level >= 80) return { label: "Expert", color: "#E8FF47", glow: "rgba(232,255,71,0.5)" };
-  if (level >= 65) return { label: "Avancé", color: "#00E5FF", glow: "rgba(0,229,255,0.5)" };
-  if (level >= 45) return { label: "Intermédiaire", color: "#8B949E", glow: "rgba(139,148,158,0.3)" };
-  return { label: "Notions", color: "#484F58", glow: "none" };
+function getLevelConfig(level: number): { key: TranslationKey; color: string; glow: string } {
+  if (level >= 80) return { key: "skill_expert", color: "#E8FF47", glow: "rgba(232,255,71,0.5)" };
+  if (level >= 65) return { key: "skill_avance", color: "#00E5FF", glow: "rgba(0,229,255,0.5)" };
+  if (level >= 45) return { key: "skill_intermediaire", color: "#8B949E", glow: "rgba(139,148,158,0.3)" };
+  return { key: "skill_notions", color: "#484F58", glow: "none" };
 }
 
 export default function SkillBar({ skill, delay = 0 }: SkillBarProps) {
@@ -24,7 +25,9 @@ export default function SkillBar({ skill, delay = 0 }: SkillBarProps) {
     if (inView && !animated) setAnimated(true);
   }, [inView, animated]);
 
-  const { label, color, glow } = getLevelConfig(skill.level);
+  const { t } = useTranslation();
+  const { key, color, glow } = getLevelConfig(skill.level);
+  const label = t(key);
 
   return (
     <div ref={ref} className="space-y-2">

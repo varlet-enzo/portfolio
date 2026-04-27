@@ -17,6 +17,8 @@ export default function Navbar({ sections }: NavbarProps) {
   const lastScrollY = useRef(0);
 
   const { lang, toggleLang } = useTranslation();
+  const navTitle = (s: { title: string; titleEn?: string }) =>
+    lang === "en" && s.titleEn ? s.titleEn : s.title;
 
   const navSections = useMemo(
     () => sections.filter((s) => s.visible).sort((a, b) => a.order - b.order),
@@ -86,7 +88,7 @@ export default function Navbar({ sections }: NavbarProps) {
                 className="relative font-mono text-xs tracking-widest uppercase transition-colors duration-200 group"
                 style={{ color: activeId === s.id ? "var(--accent-primary)" : "var(--text-secondary)" }}
               >
-                {s.title}
+                {navTitle(s)}
                 <span
                   className="absolute -bottom-1 left-0 h-[1px] bg-accent-primary transition-all duration-300 origin-left"
                   style={{ width: activeId === s.id ? "100%" : "0%" }}
@@ -145,7 +147,7 @@ export default function Navbar({ sections }: NavbarProps) {
                 onClick={() => scrollTo(s.id)}
                 className="font-display text-4xl tracking-widest text-text-primary hover:text-accent-primary transition-colors"
               >
-                {s.title.toUpperCase()}
+                {navTitle(s).toUpperCase()}
               </motion.button>
             ))}
             <a
