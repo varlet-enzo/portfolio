@@ -4,6 +4,7 @@ import type { ElementType } from "react";
 import { motion, useInView } from "framer-motion";
 import { ContactData } from "@/lib/sections";
 import { Link2, GitBranch, ExternalLink, Mail, Download, ArrowRight } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 interface ContactSectionProps {
   data: ContactData;
@@ -79,8 +80,10 @@ function SocialCard({
 export default function ContactSection({ data }: ContactSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { t, lang } = useTranslation();
 
-  const mailtoHref = `mailto:${data.email}?subject=Opportunit%C3%A9%20alternance`;
+  const mailtoHref = `mailto:${data.email}?subject=${encodeURIComponent(t("contact_subject"))}`;
+  const displayMessage = lang === "en" && data.messageEn ? data.messageEn : data.message;
 
   return (
     <section id="contact" className="py-24 md:py-32 relative">
@@ -102,9 +105,9 @@ export default function ContactSection({ data }: ContactSectionProps) {
           transition={{ duration: 0.5 }}
           className="mb-16"
         >
-          <p className="section-label mb-3">05 — CONTACT</p>
+          <p className="section-label mb-3">{t("contact_label")}</p>
           <h2 className="font-display text-5xl md:text-7xl text-text-primary">
-            TRAVAILLONS ENSEMBLE
+            {t("contact_title")}
           </h2>
         </motion.div>
 
@@ -117,7 +120,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
             className="space-y-8"
           >
             <p className="font-body text-text-secondary leading-relaxed text-base md:text-lg">
-              {data.message}
+              {displayMessage}
             </p>
 
             <a
@@ -139,7 +142,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
               style={{ boxShadow: "0 0 30px rgba(232,255,71,0.3)" }}
             >
               <Download size={14} />
-              Télécharger mon CV
+              {t("download_cv")}
             </a>
           </motion.div>
 
@@ -151,7 +154,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
             className="space-y-4"
           >
             <p className="font-mono text-xs text-text-muted tracking-widest uppercase mb-6">
-              {"// Retrouvez-moi sur"}
+              {t("contact_social")}
             </p>
 
             {links.map(({ key, label, Icon, color }, i) => {
@@ -180,7 +183,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
           className="mt-24 pt-8 border-t border-[rgba(240,246,252,0.06)] flex flex-col md:flex-row items-center justify-between gap-4"
         >
           <p className="font-mono text-xs text-text-muted">
-            © {new Date().getFullYear()} Enzo Varlet · Built with Next.js + Three.js
+            © {new Date().getFullYear()} Enzo Varlet · {t("footer_built")}
           </p>
           <p className="font-mono text-xs text-text-muted">
             ↑↑↓↓←→←→BA

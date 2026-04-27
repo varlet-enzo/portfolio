@@ -4,6 +4,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { AboutData } from "@/lib/sections";
 import { MapPin, Calendar, Clock, BookOpen, Download, Gamepad2 } from "lucide-react";
+import { useTranslation, TranslationKey } from "@/lib/i18n";
 
 interface AboutSectionProps {
   data: AboutData;
@@ -16,16 +17,17 @@ const detailIcons = {
   rythme: Clock,
 };
 
-const detailLabels = {
-  formation: "Formation",
-  localisation: "Localisation",
-  disponibilite: "Disponibilité",
-  rythme: "Rythme",
+const detailLabelKeys: Record<string, TranslationKey> = {
+  formation: "about_info_formation",
+  localisation: "about_info_localisation",
+  disponibilite: "about_info_disponibilite",
+  rythme: "about_info_rythme",
 };
 
 export default function AboutSection({ data }: AboutSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { t, lang } = useTranslation();
 
   return (
     <section id="about" className="py-24 md:py-32 relative">
@@ -38,9 +40,9 @@ export default function AboutSection({ data }: AboutSectionProps) {
           transition={{ duration: 0.5 }}
           className="mb-16"
         >
-          <p className="section-label mb-3">01 — À PROPOS</p>
+          <p className="section-label mb-3">{t("about_label")}</p>
           <h2 className="font-display text-5xl md:text-7xl text-text-primary">
-            QUI SUIS-JE ?
+            {t("about_title")}
           </h2>
         </motion.div>
 
@@ -53,12 +55,12 @@ export default function AboutSection({ data }: AboutSectionProps) {
             className="space-y-8"
           >
             <p className="font-body text-text-secondary leading-relaxed text-base md:text-lg">
-              {data.bio}
+              {lang === "en" && data.bioEn ? data.bioEn : data.bio}
             </p>
 
             <div>
               <p className="font-mono text-xs text-text-muted tracking-widest uppercase mb-4">
-                {"// Fun facts"}
+                {t("about_funfacts")}
               </p>
               <ul className="space-y-3">
                 {data.funFacts.map((fact, i) => (
@@ -74,7 +76,7 @@ export default function AboutSection({ data }: AboutSectionProps) {
                       className="text-accent-primary mt-0.5 shrink-0 group-hover:scale-110 transition-transform"
                     />
                     <span className="font-body text-sm text-text-secondary glitch-text group-hover:text-text-primary transition-colors" data-text={fact}>
-                      {fact}
+                      {lang === "en" && data.funFactsEn?.[i] ? data.funFactsEn[i] : fact}
                     </span>
                   </motion.li>
                 ))}
@@ -88,7 +90,7 @@ export default function AboutSection({ data }: AboutSectionProps) {
               style={{ boxShadow: "0 0 12px rgba(232,255,71,0.1)" }}
             >
               <Download size={14} />
-              Télécharger mon CV
+              {t("download_cv")}
             </a>
           </motion.div>
 
@@ -128,7 +130,8 @@ export default function AboutSection({ data }: AboutSectionProps) {
 
               {Object.entries(data.details).map(([key, value], i) => {
                 const Icon = detailIcons[key as keyof typeof detailIcons];
-                const label = detailLabels[key as keyof typeof detailLabels];
+                const labelKey = detailLabelKeys[key];
+                const label = labelKey ? t(labelKey) : key;
                 return (
                   <motion.div
                     key={key}

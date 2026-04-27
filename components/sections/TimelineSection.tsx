@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { TimelineData } from "@/lib/sections";
 import TimelineEntryComponent from "@/components/ui/TimelineEntry";
+import { useTranslation } from "@/lib/i18n";
 
 interface TimelineSectionProps {
   data: TimelineData;
@@ -10,6 +11,7 @@ interface TimelineSectionProps {
 
 export default function TimelineSection({ data }: TimelineSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -31,7 +33,7 @@ export default function TimelineSection({ data }: TimelineSectionProps) {
           transition={{ duration: 0.5 }}
           className="mb-16"
         >
-          <p className="section-label mb-3">04 — PARCOURS</p>
+          <p className="section-label mb-3">{t("timeline_label")}</p>
           <h2 className="font-display text-5xl md:text-7xl text-text-primary">
             TIMELINE
           </h2>

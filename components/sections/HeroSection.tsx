@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { HeroData, HeroStat } from "@/lib/sections";
 import NeonBadge from "@/components/ui/NeonBadge";
 import { ChevronDown } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 // ── Particle field ─────────────────────────────────────────────────────────────
 function Particles() {
@@ -187,6 +188,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ data }: HeroSectionProps) {
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -340,7 +342,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
           transition={{ delay: 1.5 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
-          <span className="font-mono text-[10px] text-text-muted tracking-widest">SCROLL</span>
+          <span className="font-mono text-[10px] text-text-muted tracking-widest">{t("scroll")}</span>
           <ChevronDown
             size={16}
             className="text-text-muted animate-bounce-gentle"

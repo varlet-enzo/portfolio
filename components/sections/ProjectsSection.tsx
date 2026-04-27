@@ -6,6 +6,7 @@ import ProjectCard from "@/components/ui/ProjectCard";
 import NeonBadge from "@/components/ui/NeonBadge";
 import { X, GitBranch, ExternalLink, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { getTagClass } from "@/lib/sections";
+import { useTranslation } from "@/lib/i18n";
 
 interface ProjectsSectionProps {
   data: ProjectsData;
@@ -125,6 +126,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
   const [imgIdx, setImgIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const { t, lang } = useTranslation();
 
   const allScreenshots = project.screenshots?.length
     ? project.screenshots
@@ -235,7 +237,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
           </div>
 
           <p className="font-body text-text-secondary leading-relaxed mb-6">
-            {project.longDescription}
+            {lang === "en" && project.longDescriptionEn ? project.longDescriptionEn : project.longDescription}
           </p>
 
           {/* Video embed */}
@@ -245,7 +247,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
               <div className="mb-6">
                 <p className="flex items-center gap-2 font-mono text-[10px] text-text-muted tracking-widest uppercase mb-3">
                   <Play size={10} className="text-accent-primary" />
-                  Vidéo de présentation
+                  {t("projects_video")}
                 </p>
                 <div className="aspect-video bg-bg-tertiary border border-[rgba(240,246,252,0.08)] overflow-hidden rounded-sm">
                   {embedUrl ? (
@@ -334,6 +336,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const [modalProject, setModalProject] = useState<Project | null>(null);
+  const { t, lang } = useTranslation();
 
   const allTags = Array.from(
     new Set(data.items.flatMap((p) => p.tags))
@@ -358,9 +361,9 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
           transition={{ duration: 0.5 }}
           className="mb-16"
         >
-          <p className="section-label mb-3">02 — PROJETS</p>
+          <p className="section-label mb-3">{t("projects_label")}</p>
           <h2 className="font-display text-5xl md:text-7xl text-text-primary mb-10">
-            MES TRAVAUX
+            {t("projects_title")}
           </h2>
 
           {/* Tag filters */}
@@ -373,7 +376,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                   : "border-[rgba(240,246,252,0.12)] text-text-muted hover:border-text-secondary hover:text-text-secondary"
               }`}
             >
-              Tous
+              {t("projects_all")}
             </button>
             {allTags.map((tag) => (
               <button

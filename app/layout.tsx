@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, DM_Sans, Share_Tech_Mono } from "next/font/google";
 import { SITE_URL } from "@/lib/constants";
+import { Providers } from "./providers";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -76,7 +77,7 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${dmSans.variable} ${shareTechMono.variable}`}
     >
       <body className="antialiased font-body bg-bg-primary text-text-primary">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

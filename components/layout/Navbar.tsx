@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Section } from "@/lib/sections";
 import { Menu, X, Download } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 interface NavbarProps {
   sections: Section[];
@@ -14,6 +15,8 @@ export default function Navbar({ sections }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState<string>("");
   const lastScrollY = useRef(0);
+
+  const { lang, toggleLang } = useTranslation();
 
   const navSections = useMemo(
     () => sections.filter((s) => s.visible).sort((a, b) => a.order - b.order),
@@ -93,8 +96,15 @@ export default function Navbar({ sections }: NavbarProps) {
             ))}
           </div>
 
-          {/* CV button + hamburger */}
-          <div className="flex items-center gap-4">
+          {/* Lang toggle + CV + hamburger */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={toggleLang}
+              aria-label={lang === "fr" ? "Switch to English" : "Passer en français"}
+              className="font-mono text-[11px] tracking-widest uppercase px-2.5 py-1 border border-[rgba(240,246,252,0.15)] text-text-muted hover:border-accent-primary hover:text-accent-primary transition-all duration-200"
+            >
+              {lang === "fr" ? "EN" : "FR"}
+            </button>
             <a
               href="/cv.pdf"
               download

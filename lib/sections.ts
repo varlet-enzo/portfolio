@@ -38,6 +38,7 @@ export interface HeroData {
 
 export interface AboutData {
   bio: string;
+  bioEn?: string;
   details: {
     formation: string;
     localisation: string;
@@ -45,6 +46,7 @@ export interface AboutData {
     rythme: string;
   };
   funFacts: string[];
+  funFactsEn?: string[];
 }
 
 export interface ProjectLink {
@@ -61,7 +63,9 @@ export interface Project {
   year: string;
   status: "Terminé" | "En cours" | "Prototype";
   description: string;
+  descriptionEn?: string;
   longDescription: string;
+  longDescriptionEn?: string;
   tags: string[];
   image: string;
   screenshots: string[];
@@ -113,6 +117,7 @@ export interface ContactData {
   itch: string;
   cvUrl: string;
   message: string;
+  messageEn?: string;
 }
 
 export interface CustomData {

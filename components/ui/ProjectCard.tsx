@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Project } from "@/lib/sections";
 import NeonBadge from "./NeonBadge";
 import { getTagClass } from "@/lib/sections";
+import { useTranslation } from "@/lib/i18n";
 
 interface ProjectCardProps {
   project: Project;
@@ -42,6 +43,7 @@ function CoverImage({ src, alt, className }: { src: string; alt: string; classNa
 export default function ProjectCard({ project, onOpen, featured = false, dimmed = false }: ProjectCardProps) {
   const [hovered, setHovered] = useState(false);
   const status = statusConfig[project.status] || statusConfig["Prototype"];
+  const { t, lang } = useTranslation();
 
   if (featured) {
     return (
@@ -73,7 +75,7 @@ export default function ProjectCard({ project, onOpen, featured = false, dimmed 
           </div>
           <h3 className="font-display text-4xl text-text-primary mb-2">{project.title}</h3>
           <p className="font-mono text-xs text-accent-glow mb-4 tracking-wider">{project.type}</p>
-          <p className="font-body text-sm text-text-secondary leading-relaxed mb-6">{project.description}</p>
+          <p className="font-body text-sm text-text-secondary leading-relaxed mb-6">{lang === "en" && project.descriptionEn ? project.descriptionEn : project.description}</p>
           <div className="flex flex-wrap gap-2 mb-6">
             {project.tags.map((tag) => (
               <span key={tag} className={`text-[10px] font-mono px-2 py-0.5 rounded-sm border ${getTagClass(tag)}`}>
@@ -85,7 +87,7 @@ export default function ProjectCard({ project, onOpen, featured = false, dimmed 
             className="self-start font-mono text-xs tracking-widest uppercase px-5 py-2.5 border border-accent-primary text-accent-primary hover:bg-accent-primary hover:text-bg-primary transition-all duration-200"
             style={{ boxShadow: hovered ? "0 0 20px rgba(232,255,71,0.3)" : "none" }}
           >
-            VOIR LE PROJET →
+            {t("projects_view")} →
           </motion.button>
         </div>
       </motion.div>
@@ -122,7 +124,7 @@ export default function ProjectCard({ project, onOpen, featured = false, dimmed 
           transition={{ duration: 0.2 }}
         >
           <span className="font-mono text-xs tracking-widest text-accent-primary border border-accent-primary px-4 py-2">
-            VOIR LE PROJET
+            {t("projects_view")}
           </span>
         </motion.div>
       </div>
@@ -134,7 +136,7 @@ export default function ProjectCard({ project, onOpen, featured = false, dimmed 
           <span className="font-mono text-[10px] text-text-muted shrink-0 mt-1">{project.year}</span>
         </div>
         <p className="font-mono text-xs text-accent-glow mb-3">{project.engine} · {project.type}</p>
-        <p className="font-body text-sm text-text-secondary leading-relaxed mb-4 flex-1">{project.description}</p>
+        <p className="font-body text-sm text-text-secondary leading-relaxed mb-4 flex-1">{lang === "en" && project.descriptionEn ? project.descriptionEn : project.description}</p>
         <div className="flex flex-wrap gap-1.5">
           {project.tags.slice(0, 3).map((tag) => (
             <span key={tag} className={`text-[10px] font-mono px-2 py-0.5 rounded-sm border ${getTagClass(tag)}`}>
