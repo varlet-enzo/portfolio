@@ -18,7 +18,7 @@
       "availableFor": "stage avril 2027",
       "stats": [
         {
-          "value": "4+",
+          "value": "3+",
           "label": "Projets livrés"
         },
         {
@@ -70,7 +70,8 @@
           "tags": [
             "C++",
             "SFML",
-            "github"
+            "github",
+            "2D"
           ],
           "image": "/projects/sfml.jpg",
           "screenshots": [],
@@ -106,6 +107,56 @@
           },
           "highlight": false,
           "video": "https://www.youtube.com/watch?v=Ow4o1zkDNpg"
+        },
+        {
+          "id": "proj-1777281174926",
+          "title": "Dino Place",
+          "type": "puzzle mobile",
+          "engine": "Unity",
+          "year": "2026",
+          "status": "Prototype",
+          "description": "game jam mobile ",
+          "longDescription": "projet sur 4 semaine en groupe de 8 pour creer un puzzle game mobile",
+          "tags": [
+            "unity",
+            "puzzle",
+            "2D"
+          ],
+          "image": "\\projects\\dino_place.jpg",
+          "screenshots": [],
+          "links": {
+            "github": "https://github.com/Novaely/Projet-Mobile",
+            "itch": "https://mathrixte.itch.io/dino-place",
+            "demo": ""
+          },
+          "highlight": false
+        },
+        {
+          "id": "proj-1777282700903",
+          "title": "KTANE_Helper",
+          "type": "assistant",
+          "engine": "Autre",
+          "year": "2025",
+          "status": "Terminé",
+          "description": "assistant pour keep talking and nobody explose",
+          "longDescription": "petite application qui a pour but de simplifier et centraliser la résolution des module des bombe",
+          "tags": [
+            "tails ween",
+            "next",
+            "mobile"
+          ],
+          "image": "",
+          "screenshots": [
+            "\\projects\\ktane(1).jpg",
+            "\\projects\\ktane(2).jpg",
+            "\\projects\\ktane(3).jpg"
+          ],
+          "links": {
+            "github": "",
+            "itch": "https://qwazertya.itch.io/ktane-helper",
+            "demo": ""
+          },
+          "highlight": false
         }
       ]
     }
