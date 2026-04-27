@@ -70,7 +70,6 @@
           "tags": [
             "C++",
             "SFML",
-            "github",
             "2D"
           ],
           "image": "/projects/sfml.jpg",
@@ -119,8 +118,9 @@
           "longDescription": "Projet sur 4 semaine en groupe de 8 pour creer un puzzle game mobile.\nJe  me suis occuper de faire le core gameplay de placement et de condition.",
           "tags": [
             "unity",
-            "puzzle",
-            "2D"
+            "2D",
+            "mobile",
+            "C#"
           ],
           "image": "\\projects\\dino_place.jpg",
           "screenshots": [],
