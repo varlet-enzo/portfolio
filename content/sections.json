@@ -77,9 +77,35 @@
           "links": {
             "github": "https://github.com/varlet-enzo/projet-SFML-A2",
             "itch": "",
-            "demo": "https://youtu.be/anLFvM8wN5M"
+            "demo": ""
           },
-          "highlight": false
+          "highlight": false,
+          "video": "https://youtu.be/anLFvM8wN5M"
+        },
+        {
+          "id": "proj-1777277881996",
+          "title": "umbral aweken",
+          "type": "soul's like ",
+          "engine": "Unity",
+          "year": "2025",
+          "status": "En cours",
+          "description": "projet de soul's like avec une génération procédural de level.",
+          "longDescription": "projet initialement en solo pour toute la production puis ajout de game designer et de game artiste en cours avec ajoute d'item et d'équilibrage ainsi qu'un approfondissement de l'histoire du jeux ",
+          "tags": [
+            "unity",
+            "3D",
+            "C#",
+            "procédural"
+          ],
+          "image": "\\projects\\umbral_aweken.png",
+          "screenshots": [],
+          "links": {
+            "github": "https://gitlab.com/varlet-enzo/umbral-aweken",
+            "itch": "",
+            "demo": ""
+          },
+          "highlight": false,
+          "video": "https://youtu.be/Ow4o1zkDNpg"
         }
       ]
     }
