@@ -145,7 +145,7 @@ export default function ContactSection({ data }: ContactSectionProps) {
           className="mt-24 pt-8 border-t border-[rgba(240,246,252,0.06)] flex flex-col md:flex-row items-center justify-between gap-4"
         >
           <p className="font-mono text-xs text-text-muted">
-            © 2024 Enzo Varlet · Built with Next.js + Three.js
+            © {new Date().getFullYear()} Enzo Varlet · Built with Next.js + Three.js
           </p>
           <p className="font-mono text-xs text-text-muted">
             ↑↑↓↓←→←→BA
