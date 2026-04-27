@@ -25,23 +25,37 @@ import {
 } from "lucide-react";
 
 // ── Auth wall ──────────────────────────────────────────────────────────────────
-function AuthWall({ onAuth }: { onAuth: (pw: string) => Promise<boolean> }) {
+function AuthWall({ onAuth }: { onAuth: (pw: string, code?: string) => Promise<"ok" | "totp_required" | "error"> }) {
+  const [step, setStep] = useState<"password" | "totp">("password");
   const [pw, setPw] = useState("");
-  const [error, setError] = useState(false);
+  const [code, setCode] = useState("");
+  const [error, setError] = useState("");
   const [checking, setChecking] = useState(false);
 
-  const submit = async (e: React.FormEvent) => {
+  const submitPassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (pw.length < 3) { setError(true); return; }
+    if (pw.length < 3) { setError("Mot de passe trop court"); return; }
     setChecking(true);
-    const ok = await onAuth(pw);
+    const result = await onAuth(pw);
     setChecking(false);
-    if (!ok) setError(true);
+    if (result === "totp_required") { setStep("totp"); setError(""); }
+    else if (result === "ok") { /* accès accordé */ }
+    else setError("Mot de passe invalide");
+  };
+
+  const submitTotp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (code.length !== 6) { setError("Le code doit avoir 6 chiffres"); return; }
+    setChecking(true);
+    const result = await onAuth(pw, code);
+    setChecking(false);
+    if (result !== "ok") { setError("Code invalide ou expiré"); setCode(""); }
   };
 
   return (
     <div className="min-h-screen bg-bg-primary flex items-center justify-center">
       <motion.div
+        key={step}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="w-full max-w-sm p-8 bg-bg-secondary border border-[rgba(240,246,252,0.08)] rounded-sm"
@@ -49,29 +63,63 @@ function AuthWall({ onAuth }: { onAuth: (pw: string) => Promise<boolean> }) {
         <div className="flex items-center gap-3 mb-8">
           <Lock size={16} className="text-accent-primary" />
           <h1 className="font-display text-2xl text-text-primary tracking-wider">ADMIN</h1>
-        </div>
-        <form onSubmit={submit} className="space-y-4">
-          {/* Hidden username field required by password-manager accessibility spec */}
-          <input type="text" name="username" autoComplete="username" value="admin" readOnly style={{ display: "none" }} />
-          <input
-            type="password"
-            value={pw}
-            onChange={(e) => { setPw(e.target.value); setError(false); }}
-            placeholder="Mot de passe"
-            autoComplete="current-password"
-            className="w-full bg-bg-tertiary border border-[rgba(240,246,252,0.08)] text-text-primary font-mono text-sm px-4 py-3 outline-none focus:border-accent-primary transition-colors"
-          />
-          {error && (
-            <p className="font-mono text-xs text-accent-secondary">Mot de passe invalide</p>
+          {step === "totp" && (
+            <span className="ml-auto font-mono text-[10px] text-text-muted border border-[rgba(240,246,252,0.12)] px-2 py-0.5">2FA</span>
           )}
-          <button
-            type="submit"
-            disabled={checking}
-            className="w-full font-mono text-xs tracking-widest uppercase py-3 bg-accent-primary text-bg-primary hover:bg-accent-primary/80 disabled:opacity-60 transition-colors"
-          >
-            {checking ? "Vérification…" : "Connexion →"}
-          </button>
-        </form>
+        </div>
+
+        {step === "password" ? (
+          <form onSubmit={submitPassword} className="space-y-4">
+            <input type="text" name="username" autoComplete="username" value="admin" readOnly style={{ display: "none" }} />
+            <input
+              type="password"
+              value={pw}
+              onChange={(e) => { setPw(e.target.value); setError(""); }}
+              placeholder="Mot de passe"
+              autoComplete="current-password"
+              className="w-full bg-bg-tertiary border border-[rgba(240,246,252,0.08)] text-text-primary font-mono text-sm px-4 py-3 outline-none focus:border-accent-primary transition-colors"
+            />
+            {error && <p className="font-mono text-xs text-accent-secondary">{error}</p>}
+            <button
+              type="submit"
+              disabled={checking}
+              className="w-full font-mono text-xs tracking-widest uppercase py-3 bg-accent-primary text-bg-primary hover:bg-accent-primary/80 disabled:opacity-60 transition-colors"
+            >
+              {checking ? "Vérification…" : "Connexion →"}
+            </button>
+          </form>
+        ) : (
+          <form onSubmit={submitTotp} className="space-y-4">
+            <p className="font-body text-sm text-text-secondary mb-4">
+              Ouvre Google Authenticator et entre le code à 6 chiffres.
+            </p>
+            <input
+              type="text"
+              inputMode="numeric"
+              maxLength={6}
+              value={code}
+              onChange={(e) => { setCode(e.target.value.replace(/\D/g, "")); setError(""); }}
+              placeholder="000000"
+              autoFocus
+              className="w-full bg-bg-tertiary border border-[rgba(240,246,252,0.08)] text-text-primary font-mono text-2xl tracking-[0.5em] text-center px-4 py-3 outline-none focus:border-accent-primary transition-colors"
+            />
+            {error && <p className="font-mono text-xs text-accent-secondary">{error}</p>}
+            <button
+              type="submit"
+              disabled={checking || code.length !== 6}
+              className="w-full font-mono text-xs tracking-widest uppercase py-3 bg-accent-primary text-bg-primary hover:bg-accent-primary/80 disabled:opacity-60 transition-colors"
+            >
+              {checking ? "Vérification…" : "Valider →"}
+            </button>
+            <button
+              type="button"
+              onClick={() => { setStep("password"); setCode(""); setError(""); }}
+              className="w-full font-mono text-xs text-text-muted hover:text-text-secondary transition-colors"
+            >
+              ← Retour
+            </button>
+          </form>
+        )}
       </motion.div>
     </div>
   );
@@ -249,6 +297,8 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
   const [editingSection, setEditingSection] = useState<Section | null>(null);
+  const [totpSetup, setTotpSetup] = useState<{ secret: string; qrDataUrl: string } | null>(null);
+  const [totpConfigured, setTotpConfigured] = useState(true);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -269,14 +319,36 @@ export default function AdminPage() {
     }
   }, []);
 
-  const handleAuth = async (pw: string): Promise<boolean> => {
-    const res = await fetch("/api/admin/verify", {
+  const handleAuth = async (pw: string, totpCode?: string): Promise<"ok" | "totp_required" | "error"> => {
+    if (!totpCode) {
+      const res = await fetch("/api/admin/verify", {
+        method: "POST",
+        headers: { "x-admin-password": pw },
+      });
+      if (!res.ok) return "error";
+      return "totp_required";
+    }
+    const res = await fetch("/api/admin/totp/verify", {
       method: "POST",
-      headers: { "x-admin-password": pw },
+      headers: { "x-admin-password": pw, "x-totp-code": totpCode },
     });
-    if (!res.ok) return false;
+    if (!res.ok) return "error";
+    const data = await res.json();
+    if (data.totpSkipped) setTotpConfigured(false);
     fetchSections(pw);
-    return true;
+    return "ok";
+  };
+
+  const startTotpSetup = async () => {
+    if (!password) return;
+    const res = await fetch("/api/admin/totp/setup", {
+      method: "POST",
+      headers: { "x-admin-password": password },
+    });
+    if (res.ok) {
+      const data = await res.json();
+      setTotpSetup(data);
+    }
   };
 
   const save = async (updated: Section[]) => {
@@ -393,6 +465,50 @@ export default function AdminPage() {
 
       {/* Content */}
       <div className="max-w-3xl mx-auto px-6 py-10 space-y-6">
+
+        {/* 2FA setup banner */}
+        {!totpConfigured && !totpSetup && (
+          <div className="p-4 border border-accent-primary/30 bg-accent-primary/5 rounded-sm flex items-center justify-between gap-4">
+            <div>
+              <p className="font-mono text-xs text-accent-primary tracking-widest uppercase mb-1">Double authentification non configurée</p>
+              <p className="font-body text-xs text-text-secondary">Protège ton admin avec Google Authenticator.</p>
+            </div>
+            <button
+              onClick={startTotpSetup}
+              className="shrink-0 font-mono text-xs tracking-widest uppercase px-3 py-2 border border-accent-primary text-accent-primary hover:bg-accent-primary/10 transition-colors"
+            >
+              Configurer →
+            </button>
+          </div>
+        )}
+
+        {/* 2FA QR code setup modal */}
+        {totpSetup && (
+          <div className="p-6 border border-accent-primary/30 bg-accent-primary/5 rounded-sm space-y-4">
+            <p className="font-mono text-xs text-accent-primary tracking-widest uppercase">Configuration 2FA</p>
+            <p className="font-body text-sm text-text-secondary">
+              1. Scanne ce QR code avec Google Authenticator.<br />
+              2. Ajoute <code className="font-mono text-xs bg-bg-tertiary px-1 py-0.5">TOTP_SECRET</code> à tes variables d&apos;environnement (Vercel + <code className="font-mono text-xs bg-bg-tertiary px-1 py-0.5">.env.local</code>).
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 items-start">
+              <img src={totpSetup.qrDataUrl} alt="QR Code 2FA" className="w-40 h-40 border border-[rgba(240,246,252,0.12)] rounded-sm" />
+              <div className="space-y-2 flex-1">
+                <p className="font-mono text-[10px] text-text-muted tracking-widest uppercase">Secret à copier dans les env vars :</p>
+                <code className="block font-mono text-xs text-accent-primary bg-bg-tertiary border border-accent-primary/20 px-3 py-2 rounded-sm break-all select-all">
+                  TOTP_SECRET={totpSetup.secret}
+                </code>
+                <p className="font-body text-xs text-text-muted">Après avoir ajouté la variable et redéployé, le code Google Authenticator sera requis à chaque connexion.</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setTotpSetup(null)}
+              className="font-mono text-xs text-text-muted hover:text-text-secondary transition-colors"
+            >
+              Fermer
+            </button>
+          </div>
+        )}
+
         <div className="flex items-center justify-between mb-2">
           <div>
             <h2 className="font-body font-semibold text-text-primary">Sections</h2>
