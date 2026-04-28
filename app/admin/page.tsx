@@ -326,6 +326,12 @@ export default function AdminPage() {
         headers: { "x-admin-password": pw },
       });
       if (!res.ok) return "error";
+      const data = await res.json();
+      if (!data.totpRequired) {
+        setTotpConfigured(false);
+        fetchSections(pw);
+        return "ok";
+      }
       return "totp_required";
     }
     const res = await fetch("/api/admin/totp/verify", {
