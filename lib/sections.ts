@@ -29,6 +29,8 @@ export interface HeroStat {
 export interface HeroData {
   name: string;
   surname: string;
+  bio?: string;
+  bioEn?: string;
   tagline: string;
   taglineEn?: string;
   roles: string[];
