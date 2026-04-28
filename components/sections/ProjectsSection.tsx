@@ -124,7 +124,7 @@ function Lightbox({
 
 function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
   const [imgIdx, setImgIdx] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightbox, setLightbox] = useState<{ images: string[]; idx: number } | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const { t, lang } = useTranslation();
 
@@ -140,14 +140,14 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (lightboxOpen) return;
+      if (lightbox) return;
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowLeft") setImgIdx((i) => (i - 1 + allScreenshots.length) % allScreenshots.length);
       if (e.key === "ArrowRight") setImgIdx((i) => (i + 1) % allScreenshots.length);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, allScreenshots.length, lightboxOpen]);
+  }, [onClose, allScreenshots.length, lightbox]);
 
   const statusConfig = {
     "Terminé": "primary" as const,
@@ -189,7 +189,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 
         {/* Screenshot gallery */}
         <div className="relative h-56 md:h-72 bg-bg-tertiary overflow-hidden">
-          <ModalImage src={allScreenshots[imgIdx]} onClick={() => setLightboxOpen(true)} />
+          <ModalImage src={allScreenshots[imgIdx]} onClick={() => setLightbox({ images: allScreenshots, idx: imgIdx })} />
           <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/5 to-accent-glow/5 pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-t from-bg-secondary/80 to-transparent pointer-events-none" />
 
@@ -262,13 +262,37 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
                 {lang === "en" ? "What I built" : "Ce que j'ai fait"}
               </p>
               {project.contributions.map((c, i) => (
-                <div key={i} className="border-l-2 border-accent-primary/30 pl-4 space-y-1">
+                <div key={i} className="border-l-2 border-accent-primary/30 pl-4 space-y-2">
                   <p className="font-mono text-xs text-accent-primary tracking-wider">
                     {lang === "en" && c.titleEn ? c.titleEn : c.title}
                   </p>
                   <p className="font-body text-sm text-text-secondary leading-relaxed">
                     {lang === "en" && c.descriptionEn ? c.descriptionEn : c.description}
                   </p>
+                  {c.media && c.media.length > 0 && (
+                    <div className={`grid gap-2 mt-2 ${c.media.length === 1 ? "grid-cols-1" : "grid-cols-2 sm:grid-cols-3"}`}>
+                      {c.media.map((src, j) => (
+                        <div
+                          key={j}
+                          className="aspect-video bg-bg-tertiary overflow-hidden border border-[rgba(240,246,252,0.06)] cursor-zoom-in"
+                          onClick={() => setLightbox({ images: c.media!, idx: j })}
+                        >
+                          <img src={src} alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {c.video && (() => {
+                    const embedUrl = toYouTubeEmbed(c.video);
+                    return (
+                      <div className="aspect-video bg-bg-tertiary overflow-hidden border border-[rgba(240,246,252,0.06)] mt-2">
+                        {embedUrl
+                          ? <iframe src={embedUrl} className="w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen title={c.title} />
+                          : <video src={c.video} controls className="w-full h-full object-contain" />
+                        }
+                      </div>
+                    );
+                  })()}
                 </div>
               ))}
             </div>
@@ -353,11 +377,11 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 
       {/* Lightbox */}
       <AnimatePresence>
-        {lightboxOpen && (
+        {lightbox && (
           <Lightbox
-            images={allScreenshots}
-            startIdx={imgIdx}
-            onClose={() => setLightboxOpen(false)}
+            images={lightbox.images}
+            startIdx={lightbox.idx}
+            onClose={() => setLightbox(null)}
           />
         )}
       </AnimatePresence>

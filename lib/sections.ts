@@ -68,6 +68,8 @@ export interface ProjectContribution {
   titleEn?: string;
   description: string;
   descriptionEn?: string;
+  media?: string[];
+  video?: string;
 }
 
 export interface Project {

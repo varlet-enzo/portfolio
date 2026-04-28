@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Project, ProjectsData } from "@/lib/sections";
-import { Plus, Edit2, Trash2, ChevronLeft, Star, X } from "lucide-react";
+import { Project, ProjectContribution, ProjectsData } from "@/lib/sections";
+import { Plus, Edit2, Trash2, ChevronLeft, ChevronDown, ChevronUp, Star, X } from "lucide-react";
 
 // ── Video embed helper ───────────────────────────────────────────────────────────
 function toYouTubeEmbed(url: string): string | null {
@@ -154,6 +154,144 @@ function ScreenshotsInput({
         className="font-mono text-xs text-text-muted hover:text-accent-primary transition-colors"
       >
         + Ajouter un screenshot
+      </button>
+    </div>
+  );
+}
+
+// ── Contributions editor ─────────────────────────────────────────────────────────
+function ContributionsEditor({
+  contributions,
+  onChange,
+}: {
+  contributions: ProjectContribution[];
+  onChange: (c: ProjectContribution[]) => void;
+}) {
+  const [expanded, setExpanded] = useState<number | null>(null);
+
+  const add = () => {
+    const next = [...contributions, { title: "", description: "" }];
+    onChange(next);
+    setExpanded(next.length - 1);
+  };
+
+  const update = (i: number, patch: Partial<ProjectContribution>) =>
+    onChange(contributions.map((c, j) => (j === i ? { ...c, ...patch } : c)));
+
+  const remove = (i: number) => {
+    onChange(contributions.filter((_, j) => j !== i));
+    if (expanded === i) setExpanded(null);
+  };
+
+  const move = (i: number, dir: -1 | 1) => {
+    const j = i + dir;
+    if (j < 0 || j >= contributions.length) return;
+    const next = [...contributions];
+    [next[i], next[j]] = [next[j], next[i]];
+    onChange(next);
+  };
+
+  return (
+    <div className="space-y-2">
+      {contributions.map((c, i) => (
+        <div key={i} className="border border-[rgba(240,246,252,0.08)] bg-bg-tertiary/20">
+          <div className="flex items-center gap-2 px-3 py-2">
+            <button
+              onClick={() => setExpanded(expanded === i ? null : i)}
+              className="flex-1 text-left font-mono text-xs text-accent-primary truncate"
+            >
+              {c.title || `Contribution ${i + 1}`}
+            </button>
+            <button
+              onClick={() => move(i, -1)}
+              disabled={i === 0}
+              className="text-text-muted hover:text-text-secondary disabled:opacity-30 transition-colors"
+            >
+              <ChevronUp size={12} />
+            </button>
+            <button
+              onClick={() => move(i, 1)}
+              disabled={i === contributions.length - 1}
+              className="text-text-muted hover:text-text-secondary disabled:opacity-30 transition-colors"
+            >
+              <ChevronDown size={12} />
+            </button>
+            <button
+              onClick={() => remove(i)}
+              className="text-text-muted hover:text-accent-secondary transition-colors"
+            >
+              <Trash2 size={11} />
+            </button>
+            <button
+              onClick={() => setExpanded(expanded === i ? null : i)}
+              className="text-text-muted hover:text-text-secondary transition-colors"
+            >
+              {expanded === i ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+            </button>
+          </div>
+
+          {expanded === i && (
+            <div className="px-3 pb-3 space-y-3 border-t border-[rgba(240,246,252,0.06)]">
+              <div className="grid sm:grid-cols-2 gap-3 pt-3">
+                <Field label="Titre FR">
+                  <input
+                    value={c.title}
+                    onChange={(e) => update(i, { title: e.target.value })}
+                    placeholder="Architecture globale"
+                    className={inputCls}
+                    autoFocus
+                  />
+                </Field>
+                <Field label="Title EN">
+                  <input
+                    value={c.titleEn ?? ""}
+                    onChange={(e) => update(i, { titleEn: e.target.value || undefined })}
+                    placeholder="Global architecture"
+                    className={inputCls}
+                  />
+                </Field>
+              </div>
+              <Field label="Description FR">
+                <textarea
+                  value={c.description}
+                  onChange={(e) => update(i, { description: e.target.value })}
+                  rows={3}
+                  placeholder="Ce que j'ai concrètement réalisé…"
+                  className={inputCls + " resize-none"}
+                />
+              </Field>
+              <Field label="Description EN">
+                <textarea
+                  value={c.descriptionEn ?? ""}
+                  onChange={(e) => update(i, { descriptionEn: e.target.value || undefined })}
+                  rows={3}
+                  placeholder="What I concretely built…"
+                  className={inputCls + " resize-none"}
+                />
+              </Field>
+              <Field label="Images / Captures" hint="URLs ou chemins /projects/…">
+                <ScreenshotsInput
+                  urls={c.media ?? []}
+                  onChange={(m) => update(i, { media: m.length ? m : undefined })}
+                />
+              </Field>
+              <Field label="Vidéo" hint="YouTube ou chemin .mp4">
+                <input
+                  value={c.video ?? ""}
+                  onChange={(e) => update(i, { video: e.target.value || undefined })}
+                  placeholder="https://youtu.be/…"
+                  className={inputCls + " font-mono text-xs"}
+                />
+              </Field>
+            </div>
+          )}
+        </div>
+      ))}
+      <button
+        onClick={add}
+        className="font-mono text-xs text-text-muted hover:text-accent-primary transition-colors"
+      >
+        + Ajouter une contribution
       </button>
     </div>
   );
@@ -346,6 +484,37 @@ function ProjectForm({
           rows={6}
           placeholder="Contexte, mécanique principale, défis rencontrés, apprentissages…"
           className={inputCls + " resize-none"}
+        />
+      </Field>
+
+      {/* Role */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <Field label="Mon rôle (FR)" hint="Ex : Architecture & Gameplay Programmer">
+          <input
+            value={form.role ?? ""}
+            onChange={(e) => set("role", e.target.value || undefined)}
+            placeholder="Solo Dev, Lead Programmer…"
+            className={inputCls}
+          />
+        </Field>
+        <Field label="My role (EN)">
+          <input
+            value={form.roleEn ?? ""}
+            onChange={(e) => set("roleEn", e.target.value || undefined)}
+            placeholder="Solo Dev, Lead Programmer…"
+            className={inputCls}
+          />
+        </Field>
+      </div>
+
+      {/* Contributions */}
+      <Field
+        label="Ce que j'ai fait"
+        hint="Ajoute une sous-section par tâche distincte. Chacune peut avoir images et vidéo."
+      >
+        <ContributionsEditor
+          contributions={form.contributions ?? []}
+          onChange={(c) => set("contributions", c.length ? c : undefined)}
         />
       </Field>
 
