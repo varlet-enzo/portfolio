@@ -314,9 +314,9 @@ export default function HeroSection({ data }: HeroSectionProps) {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ delay: 2.5 }}
-                  className="font-mono text-xs text-accent-primary/80 tracking-wider"
+                  className="font-mono text-xs text-accent-primary/80 tracking-wider max-w-sm"
                 >
-                  NPC-47 : « Vive Konami ! Vive le code ! »
+                  NPC-47 : « Je suis le secret né au Japon qui offre trente vies à ceux qui montent, descendent et zigzaguent avant de réciter leurs lettres. »
                 </motion.p>
               )}
             </AnimatePresence>
