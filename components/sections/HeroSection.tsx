@@ -314,9 +314,9 @@ export default function HeroSection({ data }: HeroSectionProps) {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ delay: 2.5 }}
-                  className="font-mono text-[10px] text-text-muted/70 tracking-widest"
+                  className="font-mono text-xs text-accent-primary/80 tracking-wider"
                 >
-                  NPC-47 : « ↑↑↓↓←→←→BA… »
+                  NPC-47 : « Vive Konami ! Vive le code ! »
                 </motion.p>
               )}
             </AnimatePresence>
