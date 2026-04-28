@@ -78,6 +78,18 @@ function SocialCard({
   );
 }
 
+function levelLabel(level: number, lang: string): string {
+  if (level >= 75) return lang === "en" ? "Expert" : "Expert";
+  if (level >= 50) return lang === "en" ? "Intermediate" : "Intermédiaire";
+  return lang === "en" ? "Beginner" : "Débutant";
+}
+
+function levelColor(level: number): string {
+  if (level >= 75) return "var(--accent-primary)";
+  if (level >= 50) return "var(--accent-glow)";
+  return "var(--text-muted)";
+}
+
 export default function ContactSection({ data, skillsData }: ContactSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
@@ -131,9 +143,14 @@ export default function ContactSection({ data, skillsData }: ContactSectionProps
                   </p>
                   <div className="space-y-1.5">
                     {cat.items.map((item) => (
-                      <div key={item.name} className="flex items-center justify-between">
+                      <div key={item.name} className="flex items-center justify-between gap-2">
                         <span className="font-body text-xs text-text-secondary">{item.name}</span>
-                        <span className="font-mono text-[10px] text-text-muted">{item.level}%</span>
+                        <span
+                          className="font-mono text-[10px] tracking-wider shrink-0"
+                          style={{ color: levelColor(item.level) }}
+                        >
+                          {levelLabel(item.level, lang)}
+                        </span>
                       </div>
                     ))}
                   </div>
