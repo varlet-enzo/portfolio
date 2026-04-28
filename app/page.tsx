@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
-import { Section, getVisibleSections, ContactData, HeroData } from "@/lib/sections";
+import { Section, getVisibleSections, ContactData, HeroData, SkillsData } from "@/lib/sections";
 import { SITE_URL } from "@/lib/constants";
 import SectionRenderer from "@/components/sections/SectionRenderer";
 import Navbar from "@/components/layout/Navbar";
@@ -22,10 +22,12 @@ export default async function Home() {
 
   let hero: HeroData | undefined;
   let contact: ContactData | undefined;
+  let skills: SkillsData | undefined;
   for (const s of allSections) {
     if (s.type === "hero") hero = s.data as HeroData;
     else if (s.type === "contact") contact = s.data as ContactData;
-    if (hero && contact) break;
+    else if (s.type === "skills") skills = s.data as SkillsData;
+    if (hero && contact && skills) break;
   }
 
   const jsonLd = {
@@ -56,7 +58,7 @@ export default async function Home() {
 
       <main id="main-content">
         {sections.map((section) => (
-          <SectionRenderer key={section.id} section={section} />
+          <SectionRenderer key={section.id} section={section} skillsData={section.type === "contact" ? skills : undefined} />
         ))}
       </main>
     </>

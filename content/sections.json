@@ -210,7 +210,7 @@
     "type": "skills",
     "title": "Compétences",
     "titleEn": "Skills",
-    "visible": true,
+    "visible": false,
     "order": 4,
     "data": {
       "categories": [

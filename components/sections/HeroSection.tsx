@@ -137,7 +137,7 @@ function TypewriterRoles({ roles }: { roles: string[] }) {
   }, [displayed, deleting, roleIdx, roles]);
 
   return (
-    <span className="font-mono text-sm md:text-base text-accent-glow tracking-widest">
+    <span className="font-mono text-2xl md:text-3xl text-accent-glow tracking-widest">
       {displayed}
       <span className="animate-blink">|</span>
     </span>

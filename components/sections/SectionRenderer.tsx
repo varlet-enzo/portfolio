@@ -9,9 +9,10 @@ import CustomSection from "./CustomSection";
 
 interface SectionRendererProps {
   section: Section;
+  skillsData?: SkillsData;
 }
 
-export default function SectionRenderer({ section }: SectionRendererProps) {
+export default function SectionRenderer({ section, skillsData }: SectionRendererProps) {
   switch (section.type) {
     case "hero":
       return <HeroSection data={section.data as HeroData} />;
@@ -24,7 +25,7 @@ export default function SectionRenderer({ section }: SectionRendererProps) {
     case "timeline":
       return <TimelineSection data={section.data as TimelineData} />;
     case "contact":
-      return <ContactSection data={section.data as ContactData} />;
+      return <ContactSection data={section.data as ContactData} skillsData={skillsData} />;
     case "custom":
       return (
         <CustomSection

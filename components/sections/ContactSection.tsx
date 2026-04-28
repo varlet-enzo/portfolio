@@ -2,12 +2,13 @@
 import { useRef, useState } from "react";
 import type { ElementType } from "react";
 import { motion, useInView } from "framer-motion";
-import { ContactData } from "@/lib/sections";
+import { ContactData, SkillsData } from "@/lib/sections";
 import { Link2, GitBranch, ExternalLink, Mail, Download, ArrowRight } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 interface ContactSectionProps {
   data: ContactData;
+  skillsData?: SkillsData;
 }
 
 const links = [
@@ -77,7 +78,7 @@ function SocialCard({
   );
 }
 
-export default function ContactSection({ data }: ContactSectionProps) {
+export default function ContactSection({ data, skillsData }: ContactSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
   const { t, lang } = useTranslation();
@@ -110,6 +111,37 @@ export default function ContactSection({ data }: ContactSectionProps) {
             {t("contact_title")}
           </h2>
         </motion.div>
+
+        {/* Skills overview */}
+        {skillsData && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="mb-16 pb-16 border-b border-[rgba(240,246,252,0.06)]"
+          >
+            <p className="font-mono text-xs text-text-muted tracking-widest uppercase mb-8">
+              {t("skills_overview")}
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {skillsData.categories.map((cat) => (
+                <div key={lang === "en" && cat.nameEn ? cat.nameEn : cat.name} className="space-y-3">
+                  <p className="font-mono text-xs text-accent-primary tracking-wider">
+                    {lang === "en" && cat.nameEn ? cat.nameEn : cat.name}
+                  </p>
+                  <div className="space-y-1.5">
+                    {cat.items.map((item) => (
+                      <div key={item.name} className="flex items-center justify-between">
+                        <span className="font-body text-xs text-text-secondary">{item.name}</span>
+                        <span className="font-mono text-[10px] text-text-muted">{item.level}%</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20">
           {/* Left: message */}
