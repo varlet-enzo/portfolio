@@ -166,8 +166,8 @@
             {
               "title": "Système de placement",
               "titleEn": "Placement system",
-              "description": "Conception et développement de la mécanique de dépôt de pièces sur la grille : drag & drop, snapping, validation de position et feedback visuel.",
-              "descriptionEn": "Designed and developed the piece-placement mechanic on the grid: drag & drop, snapping, position validation and visual feedback."
+              "description": "Conception et développement de la mécanique de dépôt de pièces sur la grille : drag & drop, snapping, validation de position par condition et feedback visuel.",
+              "descriptionEn": "Designed and developed the piece-placement mechanic on the grid: drag & drop, snapping, position validation by condition and visual feedback."
             },
             {
               "title": "Conditions de victoire",
@@ -189,7 +189,8 @@
             "itch": "https://mathrixte.itch.io/dino-place",
             "demo": ""
           },
-          "highlight": false
+          "highlight": false,
+          "video": "https://youtu.be/jXtPfng4dXo"
         },
         {
           "id": "proj-1777282700903",
