@@ -63,6 +63,13 @@ export interface ProjectLink {
   demo?: string;
 }
 
+export interface ProjectContribution {
+  title: string;
+  titleEn?: string;
+  description: string;
+  descriptionEn?: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -76,6 +83,9 @@ export interface Project {
   longDescriptionEn?: string;
   duration?: string;
   durationEn?: string;
+  role?: string;
+  roleEn?: string;
+  contributions?: ProjectContribution[];
   tags: string[];
   image: string;
   screenshots: string[];

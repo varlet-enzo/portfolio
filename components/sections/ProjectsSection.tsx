@@ -243,6 +243,37 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
             {lang === "en" && project.longDescriptionEn ? project.longDescriptionEn : project.longDescription}
           </p>
 
+          {/* Role */}
+          {project.role && (
+            <div className="flex items-center gap-3 mb-6">
+              <span className="font-mono text-[10px] text-text-muted tracking-widest uppercase shrink-0">
+                {lang === "en" ? "My role" : "Mon rôle"}
+              </span>
+              <span className="font-mono text-xs text-accent-primary border border-accent-primary/40 px-2 py-0.5">
+                {lang === "en" && project.roleEn ? project.roleEn : project.role}
+              </span>
+            </div>
+          )}
+
+          {/* Contributions */}
+          {project.contributions && project.contributions.length > 0 && (
+            <div className="mb-6 space-y-4">
+              <p className="font-mono text-[10px] text-text-muted tracking-widest uppercase">
+                {lang === "en" ? "What I built" : "Ce que j'ai fait"}
+              </p>
+              {project.contributions.map((c, i) => (
+                <div key={i} className="border-l-2 border-accent-primary/30 pl-4 space-y-1">
+                  <p className="font-mono text-xs text-accent-primary tracking-wider">
+                    {lang === "en" && c.titleEn ? c.titleEn : c.title}
+                  </p>
+                  <p className="font-body text-sm text-text-secondary leading-relaxed">
+                    {lang === "en" && c.descriptionEn ? c.descriptionEn : c.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
           {/* Video embed */}
           {project.video && (() => {
             const embedUrl = toYouTubeEmbed(project.video);
