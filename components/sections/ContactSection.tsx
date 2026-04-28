@@ -124,44 +124,8 @@ export default function ContactSection({ data, skillsData }: ContactSectionProps
           </h2>
         </motion.div>
 
-        {/* Skills overview */}
-        {skillsData && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            className="mb-16 pb-16 border-b border-[rgba(240,246,252,0.06)]"
-          >
-            <p className="font-mono text-xs text-text-muted tracking-widest uppercase mb-8">
-              {t("skills_overview")}
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {skillsData.categories.map((cat) => (
-                <div key={lang === "en" && cat.nameEn ? cat.nameEn : cat.name} className="space-y-3">
-                  <p className="font-mono text-xs text-accent-primary tracking-wider">
-                    {lang === "en" && cat.nameEn ? cat.nameEn : cat.name}
-                  </p>
-                  <div className="space-y-1.5">
-                    {cat.items.map((item) => (
-                      <div key={item.name} className="flex items-center justify-between gap-2">
-                        <span className="font-body text-xs text-text-secondary">{item.name}</span>
-                        <span
-                          className="font-mono text-[10px] tracking-wider shrink-0"
-                          style={{ color: levelColor(item.level) }}
-                        >
-                          {levelLabel(item.level, lang)}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20">
-          {/* Left: message */}
+          {/* Left: message + email + CV + skills */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -193,6 +157,37 @@ export default function ContactSection({ data, skillsData }: ContactSectionProps
               <Download size={14} />
               {t("download_cv")}
             </a>
+
+            {/* Skills overview */}
+            {skillsData && (
+              <div className="pt-4 space-y-6">
+                <p className="font-mono text-xs text-text-muted tracking-widest uppercase">
+                  {t("skills_overview")}
+                </p>
+                <div className="grid grid-cols-2 gap-6">
+                  {skillsData.categories.map((cat) => (
+                    <div key={lang === "en" && cat.nameEn ? cat.nameEn : cat.name} className="space-y-3">
+                      <p className="font-mono text-xs text-accent-primary tracking-wider">
+                        {lang === "en" && cat.nameEn ? cat.nameEn : cat.name}
+                      </p>
+                      <div className="space-y-1.5">
+                        {cat.items.map((item) => (
+                          <div key={item.name} className="flex items-center justify-between gap-2">
+                            <span className="font-body text-xs text-text-secondary">{item.name}</span>
+                            <span
+                              className="font-mono text-[10px] tracking-wider shrink-0"
+                              style={{ color: levelColor(item.level) }}
+                            >
+                              {levelLabel(item.level, lang)}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </motion.div>
 
           {/* Right: social links */}
