@@ -1,12 +1,32 @@
 "use client";
 import { useRef, useEffect, useState, useMemo, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { HeroData, HeroStat } from "@/lib/sections";
 import NeonBadge from "@/components/ui/NeonBadge";
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+
+const KONAMI = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
+
+const PLAYER_STATS = [
+  { name: "Unity", level: 85 },
+  { name: "C#",    level: 80 },
+  { name: "C++",   level: 65 },
+  { name: "UE5",   level: 50 },
+];
+
+const ACHIEVEMENTS = [
+  "⚔  1 200h+ sur Minecraft",
+  "⚡  Speedrunner occasionnel",
+  "🔧  Touche-à-tout en informatique",
+];
+
+function statBar(level: number) {
+  const filled = Math.round(level / 10);
+  return "▓".repeat(filled) + "░".repeat(10 - filled);
+}
 
 // ── Particle field ─────────────────────────────────────────────────────────────
 function Particles() {
@@ -87,27 +107,10 @@ function Particles() {
   return (
     <points ref={meshRef}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={COUNT}
-          array={positions}
-          itemSize={3}
-        />
-        <bufferAttribute
-          attach="attributes-size"
-          count={COUNT}
-          array={sizes}
-          itemSize={1}
-        />
+        <bufferAttribute attach="attributes-position" count={COUNT} array={positions} itemSize={3} />
+        <bufferAttribute attach="attributes-size" count={COUNT} array={sizes} itemSize={1} />
       </bufferGeometry>
-      <pointsMaterial
-        color="#00E5FF"
-        size={0.04}
-        transparent
-        opacity={0.5}
-        sizeAttenuation
-        depthWrite={false}
-      />
+      <pointsMaterial color="#00E5FF" size={0.04} transparent opacity={0.5} sizeAttenuation depthWrite={false} />
     </points>
   );
 }
@@ -121,7 +124,6 @@ function TypewriterRoles({ roles }: { roles: string[] }) {
   useEffect(() => {
     const target = roles[roleIdx];
     let timeout: NodeJS.Timeout;
-
     if (!deleting && displayed.length < target.length) {
       timeout = setTimeout(() => setDisplayed(target.slice(0, displayed.length + 1)), 60);
     } else if (!deleting && displayed.length === target.length) {
@@ -132,14 +134,12 @@ function TypewriterRoles({ roles }: { roles: string[] }) {
       setDeleting(false);
       setRoleIdx((i) => (i + 1) % roles.length);
     }
-
     return () => clearTimeout(timeout);
   }, [displayed, deleting, roleIdx, roles]);
 
   return (
     <span className="font-mono text-2xl md:text-3xl text-accent-glow tracking-widest">
-      {displayed}
-      <span className="animate-blink">|</span>
+      {displayed}<span className="animate-blink">|</span>
     </span>
   );
 }
@@ -156,10 +156,7 @@ function MagneticButton({ label, onClick }: { label: string; onClick: () => void
     const cy = rect.top + rect.height / 2;
     const dx = e.clientX - cx;
     const dy = e.clientY - cy;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < 80) {
-      setOffset({ x: dx * 0.3, y: dy * 0.3 });
-    }
+    if (Math.sqrt(dx * dx + dy * dy) < 80) setOffset({ x: dx * 0.3, y: dy * 0.3 });
   }, []);
 
   const handleLeave = useCallback(() => setOffset({ x: 0, y: 0 }), []);
@@ -196,6 +193,20 @@ export default function HeroSection({ data }: HeroSectionProps) {
   const displayRoles = lang === "en" && data.rolesEn ? data.rolesEn : data.roles;
   const displayBio = lang === "en" && data.bioEn ? data.bioEn : data.bio;
   const [isMobile, setIsMobile] = useState(false);
+  const [konamiActive, setKonamiActive] = useState(false);
+  const konamiBuf = useRef<string[]>([]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      konamiBuf.current = [...konamiBuf.current, e.key].slice(-KONAMI.length);
+      if (konamiBuf.current.join(",") === KONAMI.join(",")) {
+        setKonamiActive(true);
+        setTimeout(() => setKonamiActive(false), 15000);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
@@ -220,11 +231,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
   const surnameLetters = data.surname.split("");
 
   return (
-    <section
-      id="hero"
-      className="relative min-h-[100svh] flex items-center overflow-hidden"
-    >
-      {/* Three.js background (desktop only) */}
+    <section id="hero" className="relative min-h-[100svh] flex items-center overflow-hidden">
       {!isMobile && (
         <div className="absolute inset-0">
           <Canvas camera={{ position: [0, 0, 5], fov: 75 }} dpr={[1, 1.5]}>
@@ -233,7 +240,6 @@ export default function HeroSection({ data }: HeroSectionProps) {
         </div>
       )}
 
-      {/* Gradient CSS background (always present, fallback on mobile) */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -242,7 +248,6 @@ export default function HeroSection({ data }: HeroSectionProps) {
         }}
       />
 
-      {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-24 pb-16">
         {/* Availability badge */}
         <motion.div
@@ -256,11 +261,12 @@ export default function HeroSection({ data }: HeroSectionProps) {
           </NeonBadge>
         </motion.div>
 
-        {/* Two-column layout: name left, bio+roles+CTA right */}
+        {/* Two-column layout */}
         <div className="flex flex-col md:flex-row md:items-start md:gap-16 lg:gap-24">
-          {/* Left: Name */}
+
+          {/* Left: Name + tirade hint */}
           <div className="flex-shrink-0">
-            <div className="mb-4">
+            <div className="mb-2">
               <div className="flex flex-wrap overflow-hidden">
                 {nameLetters.map((letter, i) => (
                   <motion.span
@@ -288,32 +294,107 @@ export default function HeroSection({ data }: HeroSectionProps) {
                 ))}
               </div>
             </div>
+
+            {/* Tirade NPC hint */}
+            <AnimatePresence mode="wait">
+              {konamiActive ? (
+                <motion.p
+                  key="unlocked"
+                  initial={{ opacity: 0, x: -6 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="font-mono text-[10px] text-accent-primary tracking-widest"
+                >
+                  ► PLAYER_1 : « Profil secret débloqué ! »
+                </motion.p>
+              ) : (
+                <motion.p
+                  key="hint"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ delay: 2.5 }}
+                  className="font-mono text-[10px] text-text-muted/35 tracking-widest"
+                >
+                  NPC-47 : « ↑↑↓↓←→←→BA… »
+                </motion.p>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* Right: tagline, roles, bio, CTA */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.7, duration: 0.6 }}
-            className="flex flex-col justify-center gap-6 mt-4 md:mt-8 md:max-w-lg"
-          >
-            <div className="space-y-3">
-              <p className="font-mono text-sm text-text-muted tracking-widest uppercase">
-                {displayTagline}
-              </p>
-              <TypewriterRoles roles={displayRoles} />
-            </div>
+          {/* Right: normal bio OR konami player profile */}
+          <AnimatePresence mode="wait">
+            {konamiActive ? (
+              <motion.div
+                key="gamer"
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 30 }}
+                transition={{ duration: 0.4 }}
+                className="mt-4 md:mt-8 md:max-w-lg font-mono text-xs"
+              >
+                {/* Header */}
+                <div
+                  className="border border-accent-primary/40 p-4 space-y-2"
+                  style={{ boxShadow: "0 0 20px rgba(232,255,71,0.06)" }}
+                >
+                  <p className="text-[10px] text-accent-primary/60 tracking-widest uppercase mb-2">
+                    ═ PLAYER CARD ═
+                  </p>
+                  <p><span className="text-text-muted w-16 inline-block">NOM</span><span className="text-text-primary ml-2">ENZO VARLET</span></p>
+                  <p><span className="text-text-muted w-16 inline-block">CLASSE</span><span className="text-accent-glow ml-2">Gameplay Programmer</span></p>
+                  <p><span className="text-text-muted w-16 inline-block">GUILDE</span><span className="text-text-secondary ml-2">IMM Digital School</span></p>
+                  <p><span className="text-text-muted w-16 inline-block">STATUT</span><span className="text-accent-primary ml-2 animate-pulse">● DISPO avril 2027</span></p>
+                </div>
 
-            {displayBio && (
-              <p className="font-body text-sm md:text-base text-text-secondary leading-relaxed">
-                {displayBio}
-              </p>
+                {/* Stats */}
+                <div className="border border-t-0 border-[rgba(240,246,252,0.12)] p-4 space-y-2">
+                  <p className="text-[10px] text-text-muted tracking-widest uppercase mb-3">STATISTIQUES</p>
+                  {PLAYER_STATS.map((s) => (
+                    <div key={s.name} className="flex items-center gap-3">
+                      <span className="w-10 text-text-muted shrink-0">{s.name}</span>
+                      <span className="text-accent-glow/60 tracking-tighter">{statBar(s.level)}</span>
+                      <span className="text-text-muted/50 text-[9px]">{s.level}%</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Achievements */}
+                <div className="border border-t-0 border-[rgba(240,246,252,0.12)] p-4 space-y-1.5">
+                  <p className="text-[10px] text-text-muted tracking-widest uppercase mb-3">SUCCÈS DÉBLOQUÉS</p>
+                  {ACHIEVEMENTS.map((a) => (
+                    <p key={a} className="text-text-secondary">{a}</p>
+                  ))}
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="normal"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ delay: 0.7, duration: 0.6 }}
+                className="flex flex-col justify-center gap-6 mt-4 md:mt-8 md:max-w-lg"
+              >
+                <div className="space-y-3">
+                  <p className="font-mono text-sm text-text-muted tracking-widest uppercase">
+                    {displayTagline}
+                  </p>
+                  <TypewriterRoles roles={displayRoles} />
+                </div>
+
+                {displayBio && (
+                  <p className="font-body text-sm md:text-base text-text-secondary leading-relaxed">
+                    {displayBio}
+                  </p>
+                )}
+
+                <div>
+                  <MagneticButton label={displayCtaLabel} onClick={scrollToProjects} />
+                </div>
+              </motion.div>
             )}
-
-            <div>
-              <MagneticButton label={displayCtaLabel} onClick={scrollToProjects} />
-            </div>
-          </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Stats strip */}
@@ -354,10 +435,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
           <span className="font-mono text-[10px] text-text-muted tracking-widest">{t("scroll")}</span>
-          <ChevronDown
-            size={16}
-            className="text-text-muted animate-bounce-gentle"
-          />
+          <ChevronDown size={16} className="text-text-muted animate-bounce-gentle" />
         </motion.div>
       )}
     </section>
