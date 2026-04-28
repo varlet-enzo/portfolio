@@ -314,7 +314,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ delay: 2.5 }}
-                  className="font-mono text-[10px] text-text-muted/35 tracking-widest"
+                  className="font-mono text-[10px] text-text-muted/70 tracking-widest"
                 >
                   NPC-47 : « ↑↑↓↓←→←→BA… »
                 </motion.p>
