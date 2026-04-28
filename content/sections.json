@@ -167,13 +167,20 @@
               "title": "Système de placement",
               "titleEn": "Placement system",
               "description": "Conception et développement de la mécanique de dépôt de pièces sur la grille : drag & drop, snapping, validation de position par condition et feedback visuel.",
-              "descriptionEn": "Designed and developed the piece-placement mechanic on the grid: drag & drop, snapping, position validation by condition and visual feedback."
+              "descriptionEn": "Designed and developed the piece-placement mechanic on the grid: drag & drop, snapping, position validation by condition and visual feedback.",
+              "media": [
+                "\\projects\\dinoplacedrag.jpg"
+              ]
             },
             {
               "title": "Conditions de victoire",
               "titleEn": "Win conditions",
               "description": "Implémentation de la logique de vérification des configurations valides et déclenchement des fins de niveau selon les règles du puzzle.",
-              "descriptionEn": "Implemented the logic for checking valid configurations and triggering level completion based on puzzle rules."
+              "descriptionEn": "Implemented the logic for checking valid configurations and triggering level completion based on puzzle rules.",
+              "media": [
+                "\\projects\\dinoplaceplacing.jpg",
+                "\\projects\\dinoplaacecond.jpg"
+              ]
             }
           ],
           "tags": [
