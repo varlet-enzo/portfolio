@@ -296,6 +296,7 @@ export default function AdminPage() {
   const [sections, setSections] = useState<Section[]>([]);
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saveError, setSaveError] = useState("");
   const [editingSection, setEditingSection] = useState<Section | null>(null);
   const [totpSetup, setTotpSetup] = useState<{ secret: string; qrDataUrl: string } | null>(null);
   const [totpConfigured, setTotpConfigured] = useState(true);
@@ -372,8 +373,12 @@ export default function AdminPage() {
     if (res.ok) {
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
-    } else {
+    } else if (res.status === 401) {
       setPassword(null);
+    } else {
+      const body = await res.json().catch(() => ({})) as { error?: string };
+      setSaveError(body.error ?? "Erreur de sauvegarde");
+      setTimeout(() => setSaveError(""), 5000);
     }
   };
 
@@ -440,6 +445,16 @@ export default function AdminPage() {
                 className="font-mono text-xs text-accent-primary"
               >
                 ✓ Sauvegardé
+              </motion.span>
+            )}
+            {saveError && (
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="font-mono text-xs text-accent-secondary"
+              >
+                ✗ {saveError}
               </motion.span>
             )}
           </div>

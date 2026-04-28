@@ -49,40 +49,12 @@
     }
   },
   {
-    "id": "about",
-    "type": "about",
-    "title": "À propos",
-    "titleEn": "About",
-    "visible": false,
-    "order": 2,
-    "data": {
-      "bio": "Passionné de jeux vidéo depuis toujours, je traduis cette passion en compétences techniques et créatives. Étudiant en Bachelor Game Programation à l'IMM Digital school, je cherche un stage pour contribuer à des projets ambitieux et faire grandir mes compétences aux côtés de professionnels.",
-      "bioEn": "Passionate about video games since childhood, I translate this passion into technical and creative skills. Studying for a Bachelor in Game Programming at IMM Digital School, I'm looking for an internship to contribute to ambitious projects and grow alongside industry professionals.",
-      "details": {
-        "formation": "Bachelor Game Programation à l'IMM Digital school",
-        "localisation": "Paris, France",
-        "disponibilite": "avril 2027",
-        "durée": "6 mois"
-      },
-      "funFacts": [
-        "1200h+ sur mincraft",
-        "Speedrunner occasionnel",
-        "touche a tout dans l'informatique"
-      ],
-      "funFactsEn": [
-        "1200h+ on Minecraft",
-        "Occasional speedrunner",
-        "Tinkerer in all things tech"
-      ]
-    }
-  },
-  {
     "id": "projects",
     "type": "projects",
     "title": "Projets",
     "titleEn": "Projects",
     "visible": true,
-    "order": 3,
+    "order": 2,
     "data": {
       "featured": true,
       "items": [
@@ -211,7 +183,7 @@
     "title": "Compétences",
     "titleEn": "Skills",
     "visible": false,
-    "order": 4,
+    "order": 3,
     "data": {
       "categories": [
         {
@@ -281,48 +253,11 @@
     }
   },
   {
-    "id": "timeline",
-    "type": "timeline",
-    "title": "Parcours",
-    "titleEn": "Journey",
-    "visible": false,
-    "order": 5,
-    "data": {
-      "entries": [
-        {
-          "id": "t1",
-          "year": "2024-2027",
-          "type": "formation",
-          "title": "Bachelor Game Programming",
-          "organization": "IMM Digital School, Paris",
-          "description": "Formation intensive couvrant le game design, la programmation Unity/UE5, l'intégration 2D/3D et la gestion de projet. Nombreux projets en équipe.",
-          "descriptionEn": "Intensive training covering game design, Unity/UE5 programming, 2D/3D integration and project management. Many team-based projects.",
-          "tags": [
-            "Unity",
-            "UE5",
-            "GitHub/Git"
-          ]
-        },
-        {
-          "id": "t2",
-          "year": "2023",
-          "type": "formation",
-          "title": "Baccalauréat Technologique",
-          "titleEn": "French Technological Baccalaureate",
-          "organization": "Lycée Martin Luther King",
-          "description": "",
-          "descriptionEn": "",
-          "tags": []
-        }
-      ]
-    }
-  },
-  {
     "id": "contact",
     "type": "contact",
     "title": "Contact",
     "visible": true,
-    "order": 6,
+    "order": 4,
     "data": {
       "email": "enzo.varlet.pro@gmail.com",
       "linkedin": "https://www.linkedin.com/in/enzo-varlet-612b86329/",
