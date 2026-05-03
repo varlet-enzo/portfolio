@@ -59,7 +59,7 @@ export default function CustomCursor() {
       {/* Outer ring */}
       <div
         ref={outerRef}
-        className="fixed top-0 left-0 pointer-events-none z-[99999] rounded-full border border-accent-primary transition-all duration-150"
+        className="fixed top-0 left-0 pointer-events-none z-[99999] rounded-full border border-accent-primary"
         style={{
           width: outerSize,
           height: outerSize,
@@ -68,6 +68,7 @@ export default function CustomCursor() {
           background: outerBg,
           opacity: visible ? 1 : 0,
           boxShadow: "0 0 8px rgba(232,255,71,0.2)",
+          transition: "width 150ms, height 150ms, opacity 150ms, background-color 150ms, margin 150ms",
         }}
       />
       {/* Inner dot */}
