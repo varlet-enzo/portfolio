@@ -5,7 +5,6 @@ export default function CustomCursor() {
   const outerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const pos = useRef({ x: 0, y: 0 });
-  const outerPos = useRef({ x: 0, y: 0 });
   const rafId = useRef<number>(0);
   const [variant, setVariant] = useState<"default" | "hover" | "image">("default");
   const [visible, setVisible] = useState(false);
