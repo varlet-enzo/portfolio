@@ -34,15 +34,11 @@ export default function CustomCursor() {
     document.addEventListener("mouseenter", onEnter);
 
     const animate = () => {
-      const lerp = 0.45;
-      outerPos.current.x += (pos.current.x - outerPos.current.x) * lerp;
-      outerPos.current.y += (pos.current.y - outerPos.current.y) * lerp;
-
       if (innerRef.current) {
         innerRef.current.style.transform = `translate(${pos.current.x - 2}px, ${pos.current.y - 2}px)`;
       }
       if (outerRef.current) {
-        outerRef.current.style.transform = `translate(${outerPos.current.x - 10}px, ${outerPos.current.y - 10}px)`;
+        outerRef.current.style.transform = `translate(${pos.current.x - 10}px, ${pos.current.y - 10}px)`;
       }
       rafId.current = requestAnimationFrame(animate);
     };
