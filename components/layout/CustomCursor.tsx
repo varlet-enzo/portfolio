@@ -34,7 +34,7 @@ export default function CustomCursor() {
     document.addEventListener("mouseenter", onEnter);
 
     const animate = () => {
-      const lerp = 0.12;
+      const lerp = 0.25;
       outerPos.current.x += (pos.current.x - outerPos.current.x) * lerp;
       outerPos.current.y += (pos.current.y - outerPos.current.y) * lerp;
 
