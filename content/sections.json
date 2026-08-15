@@ -249,6 +249,48 @@
             "demo": ""
           },
           "highlight": false
+        },
+        {
+          "id": "proj-1786833889957",
+          "title": "High Traffic",
+          "type": "Platformer 3D",
+          "engine": "Unreal Engine 5",
+          "year": "2026",
+          "status": "Terminé",
+          "description": "High Traffic is a high-octane 3D platformer where you race to the finish by leaping from one flying vehicle to the next.",
+          "longDescription": "Dans un ciel saturé d'engins volants, la course se déroule directement sur le toit d'un trafic aérien lancé à pleine vitesse. Le joueur doit sauter de véhicule en véhicule pour atteindre la ligne d'arrivée avant de chuter dans le vide. Chaque atterrissage fait paniquer le conducteur ciblé, provoquant des carambolages spectaculaires en chaîne qui détruisent vos prochains points d'appui. Il est donc indispensable d'ajuster en permanence son équilibre et sa trajectoire au milieu d'un environnement en perpétuel mouvement. Grâce à cette physique émergente et au chaos des collisions, chaque run devient totalement unique et imprévisible. Le titre offre ainsi une sensation de vitesse grisante, idéale pour les amateurs de scoring et de time attack.",
+          "tags": [
+            "Unreal Engine",
+            "3D",
+            "Platformer"
+          ],
+          "image": "/projects/HightTrafic.jpg",
+          "screenshots": [],
+          "links": {
+            "github": "",
+            "itch": "https://loic-averous.itch.io/high-traffic",
+            "demo": ""
+          },
+          "highlight": false,
+          "duration": "1 mois",
+          "durationEn": "1 month",
+          "role": "Core Gameplay Programmer",
+          "roleEn": "Core Gameplay Programmer",
+          "contributions": [
+            {
+              "title": "Core Gameplay",
+              "description": "Développement et réglage du contrôleur de joueur 3D, incluant la gestion complète des déplacements, des sauts et de l'inertie pour un gameplay dynamique et réactif. Implémentation des premières couches de la physique de collision et de réception sur les véhicules en mouvement, assurant le maintien de l'équilibre du personnage lors des transitions rapides.",
+              "titleEn": "Core Gameplay",
+              "descriptionEn": "Development and tuning of the 3D character controller, including core movement, jumping mechanics, and momentum handling for dynamic and responsive platforming. Implemented core physics interactions and collision detection for landing on moving vehicles, ensuring stable player balance during high-speed transitions."
+            },
+            {
+              "title": "Sound Design",
+              "description": "Création et intégration de l'univers sonore pour renforcer l'impact du gameplay et l'ambiance chaotique du jeu. Réalisation des bruitages de saut et d'impact sur les carrosseries et les toits d'immeubles, de l'effet sonore de rocket jump, ainsi que des voix et insultes hurlées par les conducteurs excédés lorsqu'on piétine leur véhicule. Conception des effets de crashs et de destruction pour les véhicules venant s'encastrer dans les façades.",
+              "titleEn": "Sound Design",
+              "descriptionEn": "Creation and implementation of sound effects to enhance gameplay feedback and the game's chaotic atmosphere. Designed jump and landing impact audio on car roofs and buildings, the rocket jump sound effect, and the aggressive driver voice lines shouting insults when the player lands on their vehicle. Crafted heavy crash and destruction audio for vehicles smashing into building facades."
+            }
+          ],
+          "video": "https://youtu.be/0FdsPnExDIY?si=nI8ymtSgnFTrPTxX"
         }
       ]
     }
