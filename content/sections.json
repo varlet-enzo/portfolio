@@ -271,7 +271,7 @@
             "itch": "https://loic-averous.itch.io/high-traffic",
             "demo": ""
           },
-          "highlight": true,
+          "highlight": false,
           "duration": "1 mois",
           "durationEn": "1 month",
           "role": "Core Gameplay Programmer",
