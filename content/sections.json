@@ -307,10 +307,13 @@
             "Jam"
           ],
           "image": "",
-          "screenshots": [],
+          "screenshots": [
+            "/projects/ppcardegame.jpg",
+            ""
+          ],
           "links": {
             "github": "",
-            "itch": "",
+            "itch": "https://lola-drakko.itch.io/team20-contratack",
             "demo": ""
           },
           "highlight": false,
