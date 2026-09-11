@@ -194,6 +194,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
   const displayAvailableFor = lang === "en" && data.availableForEn ? data.availableForEn : data.availableFor;
   const displayStats = lang === "en" && data.statsEn ? data.statsEn : data.stats;
   const displayRoles = lang === "en" && data.rolesEn ? data.rolesEn : data.roles;
+  const displayBio = lang === "en" && data.bioEn ? data.bioEn : data.bio;
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -255,60 +256,65 @@ export default function HeroSection({ data }: HeroSectionProps) {
           </NeonBadge>
         </motion.div>
 
-        {/* Name */}
-        <div className="mb-4">
-          {/* First name */}
-          <div className="flex flex-wrap overflow-hidden">
-            {nameLetters.map((letter, i) => (
-              <motion.span
-                key={`name-${i}`}
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 + i * 0.03, ease: "easeOut", duration: 0.5 }}
-                className="font-display text-[clamp(3.5rem,10vw,7.5rem)] leading-none text-text-primary"
-              >
-                {letter === " " ? " " : letter}
-              </motion.span>
-            ))}
+        {/* Two-column layout: name left, bio+roles+CTA right */}
+        <div className="flex flex-col md:flex-row md:items-start md:gap-16 lg:gap-24">
+          {/* Left: Name */}
+          <div className="flex-shrink-0">
+            <div className="mb-4">
+              <div className="flex flex-wrap overflow-hidden">
+                {nameLetters.map((letter, i) => (
+                  <motion.span
+                    key={`name-${i}`}
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.3 + i * 0.03, ease: "easeOut", duration: 0.5 }}
+                    className="font-display text-[clamp(3.5rem,10vw,7.5rem)] leading-none text-text-primary"
+                  >
+                    {letter === " " ? " " : letter}
+                  </motion.span>
+                ))}
+              </div>
+              <div className="flex flex-wrap overflow-hidden">
+                {surnameLetters.map((letter, i) => (
+                  <motion.span
+                    key={`surname-${i}`}
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.4 + i * 0.03, ease: "easeOut", duration: 0.5 }}
+                    className="font-display text-[clamp(3.5rem,10vw,7.5rem)] leading-none text-accent-primary text-glow-primary"
+                  >
+                    {letter === " " ? " " : letter}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Surname with glow */}
-          <div className="flex flex-wrap overflow-hidden">
-            {surnameLetters.map((letter, i) => (
-              <motion.span
-                key={`surname-${i}`}
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4 + i * 0.03, ease: "easeOut", duration: 0.5 }}
-                className="font-display text-[clamp(3.5rem,10vw,7.5rem)] leading-none text-accent-primary text-glow-primary"
-              >
-                {letter === " " ? " " : letter}
-              </motion.span>
-            ))}
-          </div>
+          {/* Right: tagline, roles, bio, CTA */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.7, duration: 0.6 }}
+            className="flex flex-col justify-center gap-6 mt-4 md:mt-8 md:max-w-lg"
+          >
+            <div className="space-y-3">
+              <p className="font-mono text-sm text-text-muted tracking-widest uppercase">
+                {displayTagline}
+              </p>
+              <TypewriterRoles roles={displayRoles} />
+            </div>
+
+            {displayBio && (
+              <p className="font-body text-sm md:text-base text-text-secondary leading-relaxed">
+                {displayBio}
+              </p>
+            )}
+
+            <div>
+              <MagneticButton label={displayCtaLabel} onClick={scrollToProjects} />
+            </div>
+          </motion.div>
         </div>
-
-        {/* Tagline + roles */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.9 }}
-          className="space-y-3 mb-12"
-        >
-          <p className="font-mono text-sm text-text-muted tracking-widest uppercase">
-            {displayTagline}
-          </p>
-          <TypewriterRoles roles={displayRoles} />
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1 }}
-        >
-          <MagneticButton label={displayCtaLabel} onClick={scrollToProjects} />
-        </motion.div>
 
         {/* Stats strip */}
         {displayStats && displayStats.length > 0 && (
