@@ -291,6 +291,41 @@
             }
           ],
           "video": "https://youtu.be/0FdsPnExDIY?si=nI8ymtSgnFTrPTxX"
+        },
+        {
+          "id": "proj-1789118634160",
+          "title": "Contrat'ack",
+          "type": "BoardGame",
+          "engine": "Unity",
+          "year": "2026",
+          "status": "Prototype",
+          "description": "Un jeux ou on se bat pour avoir le plus de contrat et etre le favori du patron.",
+          "longDescription": "Bienvenue dans Contrat'ack, une entreprise familiale et unie ! \n\nIl est primordial que vous soyez le meilleur employé possible. Il n'y a aucune raison de ne pas passer devant! Volez, bloquez et décrochez autant de contrats que possible.\n\nMerci pour votre dévouement et votre créativité. Votre travail acharné a non seulement atteint mais dépassé nos attentes.\n\nCordialement,\n\nvotre grand et beau directeur régional.",
+          "tags": [
+            "unity",
+            "C#",
+            "Jam"
+          ],
+          "image": "",
+          "screenshots": [],
+          "links": {
+            "github": "",
+            "itch": "",
+            "demo": ""
+          },
+          "highlight": false,
+          "duration": "3 jours",
+          "durationEn": "3 days",
+          "role": "ProgManager ",
+          "roleEn": "ProgManager",
+          "contributions": [
+            {
+              "title": "core featurs",
+              "description": "Crée le game manager au centre du jeux et gestion des carte et évènement",
+              "titleEn": "core featurs",
+              "descriptionEn": "Creates the game manager at the core of the game, handling maps and events"
+            }
+          ]
         }
       ]
     }
