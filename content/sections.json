@@ -423,5 +423,15 @@
       "message": "Disponible pour un stage dès avril 2027. Passionné, rigoureux et toujours partant pour des défis ambitieux — n'hésitez pas à me contacter !",
       "messageEn": "Available for an internship from April 2027. Passionate, thorough and always up for ambitious challenges — feel free to reach out!"
     }
+  },
+  {
+    "id": "custom-1789721855930",
+    "type": "custom",
+    "title": "Nouvelle section",
+    "visible": true,
+    "order": 5,
+    "data": {
+      "html": "<p>Contenu de la section</p>"
+    }
   }
 ]
