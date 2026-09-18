@@ -428,7 +428,7 @@
     "id": "custom-1789721855930",
     "type": "custom",
     "title": "Nouvelle section",
-    "visible": true,
+    "visible": false,
     "order": 5,
     "data": {
       "html": "<p>Contenu de la section</p>"
