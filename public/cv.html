@@ -1,0 +1,358 @@
+<title>Enzo Varlet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:      #FFFFFF;
+    --text:    #141414;
+    --muted:   #686868;
+    --accent:  #1C3E32;
+    --rule:    #D8D8D8;
+    --light:   #F7F7F7;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ctrl-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    padding: 3px 9px;
+    border: 1px solid var(--rule);
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.12s, border-color 0.12s;
+  }
+  .ctrl-btn.active, .ctrl-btn:hover { color: var(--accent); border-color: var(--accent); }
+  .ctrl-sep { width: 1px; height: 14px; background: var(--rule); margin: 0 2px; }
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 56px 48px 64px;
+  }
+
+  .cv-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 54px;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--text);
+    text-wrap: balance;
+  }
+  .cv-name em { font-style: normal; color: var(--accent); }
+  .cv-tagline {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+  }
+  .cv-contact {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--muted);
+  }
+  .cv-contact a { color: var(--muted); text-decoration: none; }
+  .cv-contact a:hover { color: var(--accent); }
+  .cv-contact .sep { margin: 0 8px; color: var(--rule); }
+
+  .divider { border: none; border-top: 1px solid var(--rule); margin: 32px 0; }
+  .divider.thin { margin: 20px 0; }
+
+  .section {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0 32px;
+    margin-bottom: 28px;
+  }
+  .section:last-child { margin-bottom: 0; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-top: 2px;
+    line-height: 1.6;
+  }
+
+  .profil { font-size: 13px; font-weight: 400; color: var(--text); line-height: 1.75; }
+
+  .entry { margin-bottom: 10px; }
+  .entry:last-child { margin-bottom: 0; }
+  .entry-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .entry-title { font-size: 13px; font-weight: 500; color: var(--text); }
+  .entry-date { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+  .entry-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
+  .entry-desc { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.55; }
+
+  .project { margin-bottom: 18px; }
+  .project:last-child { margin-bottom: 0; }
+  .project-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .project-name { font-size: 13.5px; font-weight: 500; color: var(--text); }
+  .project-year { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+  .project-role { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); margin-top: 2px; letter-spacing: 0.02em; }
+  .project-bullets { margin: 5px 0 0 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+  .project-bullets li { font-size: 12px; color: var(--muted); line-height: 1.55; position: relative; padding-left: 10px; }
+  .project-bullets li::before { content: '\2013'; position: absolute; left: 0; color: var(--accent); font-size: 11px; }
+  .project-portfolio-link { display: inline-block; margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .project-portfolio-link:hover { opacity: 0.7; }
+  .project-footer { display: flex; align-items: center; gap: 12px; margin-top: 5px; }
+  .project-tech { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--muted); letter-spacing: 0.04em; }
+  .project-link { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--accent); text-decoration: none; letter-spacing: 0.03em; }
+  .project-link:hover { text-decoration: underline; }
+
+  .skills-grid { display: flex; flex-direction: column; gap: 6px; }
+  .skill-row { display: grid; grid-template-columns: 72px 1fr; gap: 0 16px; align-items: baseline; }
+  .skill-cat { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .skill-list { font-size: 12.5px; color: var(--text); }
+  .skill-list strong { font-weight: 500; }
+
+  .lang-row { display: flex; gap: 28px; }
+  .lang-item { font-size: 13px; }
+  .lang-level { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); margin-left: 6px; }
+
+  .interests-grid { display: flex; flex-direction: column; gap: 8px; }
+  .interest-row { display: grid; grid-template-columns: 72px 1fr; gap: 0 16px; align-items: baseline; }
+  .interest-cat { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+  .interest-body { font-size: 12px; color: var(--muted); line-height: 1.55; }
+  .interest-body strong { font-weight: 500; color: var(--text); }
+
+  @media print {
+    .controls { display: none; }
+    .page { padding: 36px 40px 48px; }
+    .cv-name { font-size: 44px; }
+    body { font-size: 12px; }
+    a { color: inherit !important; text-decoration: none; }
+  }
+
+  @media (max-width: 580px) {
+    .page { padding: 32px 20px 48px; }
+    .cv-name { font-size: 38px; }
+    .section { grid-template-columns: 1fr; gap: 6px 0; }
+    .section-label { padding-bottom: 4px; }
+  }
+</style>
+
+<div class="controls">
+  <button class="ctrl-btn active" onclick="setLang('fr')" id="btn-fr">FR</button>
+  <button class="ctrl-btn" onclick="setLang('en')" id="btn-en">EN</button>
+  <div class="ctrl-sep"></div>
+  <button class="ctrl-btn" onclick="window.print()">&#8595; PDF</button>
+</div>
+
+<div class="page">
+
+  <header>
+    <div class="cv-name">Enzo <em>Varlet</em></div>
+    <div class="cv-tagline"
+         data-fr="D&#233;veloppeur de jeux vid&#233;o &#8212; Disponible pour un stage d&#232;s f&#233;vrier 2027"
+         data-en="Game Developer &#8212; Available for internship from February 2027">
+      D&#233;veloppeur de jeux vid&#233;o &#8212; Disponible pour un stage d&#232;s f&#233;vrier 2027
+    </div>
+    <div class="cv-contact">
+      <a href="mailto:enzo.varlet.pro@gmail.com">enzo.varlet.pro@gmail.com</a>
+      <span class="sep">&#183;</span>
+      <a href="https://www.linkedin.com/in/enzo-varlet-612b86329/" target="_blank">linkedin</a>
+      <span class="sep">&#183;</span>
+      <a href="https://github.com/varlet-enzo" target="_blank">github.com/varlet-enzo</a>
+      <span class="sep">&#183;</span>
+      <a href="https://qwazertya.itch.io/" target="_blank">itch.io</a>
+      <span class="sep">&#183;</span>
+      <span>Thorigny-sur-Marne</span>
+    </div>
+  </header>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label" data-fr="Profil" data-en="Profile">Profil</div>
+    <p class="profil"
+       data-fr="&#201;tudiant en 3&#232;me ann&#233;e de Bachelor Game Programming &#224; l'IIM Digital School, passionn&#233; par le d&#233;veloppement de gameplay et les syst&#232;mes proc&#233;duraux. &#192; l'aise en solo comme en &#233;quipe, j'ai men&#233; des projets allant du solo dev complet &#224; des groupes de 8 personnes, sur Unity, Unreal Engine 5 et en C++ natif."
+       data-en="3rd-year Bachelor student in Game Programming at IIM Digital School, passionate about gameplay development and procedural systems. Comfortable working solo or in teams, I have shipped projects ranging from full solo dev to groups of 8, across Unity, Unreal Engine 5 and native C++.">
+      &#201;tudiant en 3&#232;me ann&#233;e de Bachelor Game Programming &#224; l'IIM Digital School, passionn&#233; par le d&#233;veloppement de gameplay et les syst&#232;mes proc&#233;duraux. &#192; l'aise en solo comme en &#233;quipe, j'ai men&#233; des projets allant du solo dev complet &#224; des groupes de 8 personnes, sur Unity, Unreal Engine 5 et en C++ natif.
+    </p>
+  </div>
+
+  <hr class="divider thin">
+
+  <div class="section">
+    <div class="section-label" data-fr="Formation" data-en="Education">Formation</div>
+    <div>
+      <div class="entry">
+        <div class="entry-header">
+          <div class="entry-title" data-fr="Bachelor Game Programming &#183; Bac+3" data-en="Bachelor in Game Programming &#183; 3 years">Bachelor Game Programming &#183; Bac+3</div>
+          <div class="entry-date">2024 &#8211; 2027</div>
+        </div>
+        <div class="entry-sub">IIM Digital School, Paris</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider thin">
+
+  <div class="section">
+    <div class="section-label" data-fr="B&#233;n&#233;volat" data-en="Volunteer">B&#233;n&#233;volat</div>
+    <div>
+      <div class="entry">
+        <div class="entry-header">
+          <div class="entry-title" data-fr="B&#233;n&#233;vole &#8212; Ludoth&#232;que" data-en="Volunteer &#8212; Games Library">B&#233;n&#233;vole &#8212; Ludoth&#232;que</div>
+          <div class="entry-date" data-fr="&#201;t&#233; 2019" data-en="Summer 2019">&#201;t&#233; 2019</div>
+        </div>
+        <div class="entry-sub">Thorigny-sur-Marne</div>
+        <div class="entry-desc"
+             data-fr="Animation d'activit&#233;s ludiques pour enfants et familles pendant les vacances scolaires."
+             data-en="Facilitated game activities for children and families during school holidays.">
+          Animation d'activit&#233;s ludiques pour enfants et familles pendant les vacances scolaires.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider thin">
+
+  <div class="section">
+    <div class="section-label" data-fr="Projets" data-en="Projects">Projets</div>
+    <div>
+      <div class="project">
+        <div class="project-header">
+          <div class="project-name">High Traffic</div>
+          <div class="project-year">2026</div>
+        </div>
+        <div class="project-role">Core Gameplay Programmer &#183; Sound Design</div>
+        <ul class="project-bullets">
+          <li data-fr="Impl&#233;mentation du core gameplay : d&#233;placements, physique des v&#233;hicules volants et sauts entre plateformes mobiles" data-en="Implemented core gameplay: movement, flying vehicle physics and jumps between moving platforms">Impl&#233;mentation du core gameplay : d&#233;placements, physique des v&#233;hicules volants et sauts entre plateformes mobiles</li>
+          <li data-fr="Conception et int&#233;gration du syst&#232;me de collisions en cha&#238;ne (knockback, r&#233;action des v&#233;hicules)" data-en="Designed and integrated chain-crash system (knockback, vehicle reactions)">Conception et int&#233;gration du syst&#232;me de collisions en cha&#238;ne (knockback, r&#233;action des v&#233;hicules)</li>
+          <li data-fr="Sound design complet du jeu : ambiances, feedbacks sonores et mixage in-engine" data-en="Full sound design: ambiences, audio feedback and in-engine mixing">Sound design complet du jeu : ambiances, feedbacks sonores et mixage in-engine</li>
+        </ul>
+        <div class="project-footer">
+          <span class="project-tech">Unreal Engine 5 &#183; Blueprint</span>
+          <a class="project-link" href="https://loic-averous.itch.io/high-traffic" target="_blank">itch.io &#8599;</a>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-header">
+          <div class="project-name">Umbral Aweken</div>
+          <div class="project-year" data-fr="2025 &#8211; en cours" data-en="2025 &#8211; ongoing">2025 &#8211; en cours</div>
+        </div>
+        <div class="project-role">Solo Dev &#8594; Lead Programmer</div>
+        <ul class="project-bullets">
+          <li data-fr="Architecture compl&#232;te du projet en solo : syst&#232;mes d'entit&#233;s, gestion des &#233;tats et boucle de jeu" data-en="Full solo project architecture: entity systems, state management and game loop">Architecture compl&#232;te du projet en solo : syst&#232;mes d'entit&#233;s, gestion des &#233;tats et boucle de jeu</li>
+          <li data-fr="D&#233;veloppement d'un syst&#232;me de g&#233;n&#233;ration proc&#233;durale de niveaux (salles, couloirs, placement d'ennemis)" data-en="Built procedural level generation system (rooms, corridors, enemy placement)">D&#233;veloppement d'un syst&#232;me de g&#233;n&#233;ration proc&#233;durale de niveaux (salles, couloirs, placement d'ennemis)</li>
+          <li data-fr="Transition vers lead programmer lors de l'int&#233;gration de game designers et artistes dans l'&#233;quipe" data-en="Transitioned to lead programmer when game designers and artists joined the team">Transition vers lead programmer lors de l'int&#233;gration de game designers et artistes dans l'&#233;quipe</li>
+        </ul>
+        <div class="project-footer">
+          <span class="project-tech">Unity &#183; C# &#183; Proc&#233;dural &#183; 3D</span>
+          <a class="project-link" href="https://gitlab.com/varlet-enzo/umbral-aweken" target="_blank">GitLab &#8599;</a>
+        </div>
+      </div>
+
+      <a class="project-portfolio-link" href="[URL_PORTFOLIO]" target="_blank"
+         data-fr="Voir tous mes projets &#8594; portfolio" data-en="View all projects &#8594; portfolio">
+        Voir tous mes projets &#8594; portfolio
+      </a>
+    </div>
+  </div>
+
+  <hr class="divider thin">
+
+  <div class="section">
+    <div class="section-label" data-fr="Comp&#233;tences" data-en="Skills">Comp&#233;tences</div>
+    <div class="skills-grid">
+      <div class="skill-row">
+        <span class="skill-cat" data-fr="Moteurs" data-en="Engines">Moteurs</span>
+        <span class="skill-list"><strong>Unity</strong> &#183; Unreal Engine 5</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat" data-fr="Langages" data-en="Languages">Langages</span>
+        <span class="skill-list"><strong>C#</strong> &#183; C++ &#183; Blueprint &#183; Python</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat" data-fr="Outils" data-en="Tools">Outils</span>
+        <span class="skill-list">Git &#183; GitHub &#183; GitLab &#183; Game Design Doc &#183; Jira &#183; Notion</span>
+      </div>
+      <div class="skill-row" style="margin-top:4px;padding-top:8px;border-top:1px solid var(--rule);">
+        <span class="skill-cat">Soft skills</span>
+        <span class="skill-list" data-fr="Travail en &#233;quipe &#183; &#201;coute active &#183; Gestion du temps &#183; Communication" data-en="Teamwork &#183; Active listening &#183; Time management &#183; Communication">Travail en &#233;quipe &#183; &#201;coute active &#183; Gestion du temps &#183; Communication</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider thin">
+
+  <div class="section">
+    <div class="section-label" data-fr="Int&#233;r&#234;ts" data-en="Interests">Int&#233;r&#234;ts</div>
+    <div class="interests-grid">
+      <div class="interest-row">
+        <span class="interest-cat">JV</span>
+        <span class="interest-body">Saga <strong>Resident Evil</strong> &#183; <strong>Monster Hunter</strong> &#183; <strong>Minecraft</strong> &#8212; premier jeu &#224; 7 ans via RE, fascination durable pour l'atmosph&#232;re, les syst&#232;mes de progression et la rejouabilit&#233;.</span>
+      </div>
+      <div class="interest-row">
+        <span class="interest-cat">Escalade</span>
+        <span class="interest-body"><strong>Bloc</strong> &#8212; d&#233;butant, 1&#8211;2&#215; par semaine depuis d&#233;but 2026. Discipline qui entra&#238;ne la lecture de probl&#232;me et la pers&#233;v&#233;rance.</span>
+      </div>
+      <div class="interest-row">
+        <span class="interest-cat">Anime</span>
+        <span class="interest-body"><strong>Tokyo Ghoul</strong> &#183; <strong>Assassination Classroom</strong> &#183; <strong>Miss Kobayashi</strong> &#183; isekai &#8212; attrait pour les univers &#224; forte identit&#233; visuelle et les dynamiques de groupe.</span>
+      </div>
+      <div class="interest-row">
+        <span class="interest-cat">S&#233;rie</span>
+        <span class="interest-body"><strong>Supernatural</strong> &#8212; suivi depuis plus de 10 ans, revu plusieurs fois. Attachement &#224; la narration longue et aux arcs de personnages sur la dur&#233;e.</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider thin">
+
+  <div class="section">
+    <div class="section-label" data-fr="Langues" data-en="Languages">Langues</div>
+    <div class="lang-row">
+      <div class="lang-item">
+        <span data-fr="Fran&#231;ais" data-en="French">Fran&#231;ais</span>
+        <span class="lang-level" data-fr="Langue maternelle" data-en="Native">Langue maternelle</span>
+      </div>
+      <div class="lang-item">
+        <span data-fr="Anglais" data-en="English">Anglais</span>
+        <span class="lang-level">B1</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function setLang(lang) {
+    document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      const v = el.getAttribute('data-' + lang);
+      if (v !== null) el.innerHTML = v;
+    });
+  }
+</script>
