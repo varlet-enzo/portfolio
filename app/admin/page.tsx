@@ -1,5 +1,5 @@
 "use client";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   DndContext,
@@ -21,7 +21,7 @@ import { Section, ProjectsData } from "@/lib/sections";
 import { ProjectsEditor } from "./ProjectsEditor";
 import {
   Eye, EyeOff, GripVertical, Edit2, Save, X, Plus,
-  ExternalLink, Lock, LogOut, RefreshCw,
+  ExternalLink, Lock, LogOut, RefreshCw, FileText,
 } from "lucide-react";
 
 // ── Auth wall ──────────────────────────────────────────────────────────────────
@@ -290,14 +290,114 @@ function SectionEditor({
   );
 }
 
+// ── CV editor ──────────────────────────────────────────────────────────────────
+function CVEditor({
+  password,
+  onClose,
+}: {
+  password: string;
+  onClose: () => void;
+}) {
+  const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    fetch("/api/admin/cv", { headers: { "x-admin-password": password } })
+      .then((r) => r.json())
+      .then((d) => { setContent(d.content ?? ""); setLoading(false); })
+      .catch(() => { setError("Erreur de chargement"); setLoading(false); });
+  }, [password]);
+
+  const handleSave = async () => {
+    setSaving(true);
+    setError("");
+    const res = await fetch("/api/admin/cv", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-admin-password": password },
+      body: JSON.stringify({ content }),
+    });
+    setSaving(false);
+    if (res.ok) {
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+    } else {
+      setError("Erreur de sauvegarde");
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 bg-bg-primary/95 backdrop-blur-md flex flex-col"
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between px-6 h-14 border-b border-[rgba(240,246,252,0.08)] bg-bg-secondary/50 shrink-0">
+        <div className="flex items-center gap-3">
+          <FileText size={14} className="text-accent-primary" />
+          <span className="font-mono text-sm text-text-primary tracking-wider">CV — cv.html</span>
+          {saved && (
+            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-mono text-xs text-accent-primary">
+              ✓ Sauvegardé
+            </motion.span>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <a
+            href="/cv.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 font-mono text-xs text-text-muted hover:text-accent-primary transition-colors"
+          >
+            <ExternalLink size={11} />
+            Prévisualiser
+          </a>
+          <button
+            onClick={handleSave}
+            disabled={saving || loading}
+            className="flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-4 py-2 bg-accent-primary text-bg-primary hover:bg-accent-primary/80 disabled:opacity-60 transition-colors"
+          >
+            <Save size={12} />
+            {saving ? "Sauvegarde…" : "Sauvegarder"}
+          </button>
+          <button onClick={onClose} className="text-text-muted hover:text-text-primary transition-colors ml-1">
+            <X size={14} />
+          </button>
+        </div>
+      </div>
+
+      {/* Editor */}
+      <div className="flex-1 overflow-hidden p-4">
+        {loading ? (
+          <div className="h-full flex items-center justify-center">
+            <span className="font-mono text-xs text-text-muted">Chargement…</span>
+          </div>
+        ) : (
+          <textarea
+            value={content}
+            onChange={(e) => { setContent(e.target.value); setSaved(false); }}
+            spellCheck={false}
+            className="w-full h-full bg-bg-secondary border border-[rgba(240,246,252,0.08)] text-text-primary font-mono text-xs px-4 py-3 outline-none focus:border-accent-primary/40 transition-colors resize-none leading-relaxed"
+          />
+        )}
+        {error && <p className="font-mono text-xs text-accent-secondary mt-2">{error}</p>}
+      </div>
+    </motion.div>
+  );
+}
+
 // ── Main admin ─────────────────────────────────────────────────────────────────
 export default function AdminPage() {
   const [password, setPassword] = useState<string | null>(null);
   const [sections, setSections] = useState<Section[]>([]);
   const [loading, setLoading] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [saveError, setSaveError] = useState("");
   const [editingSection, setEditingSection] = useState<Section | null>(null);
+  const [editingCV, setEditingCV] = useState(false);
   const [totpSetup, setTotpSetup] = useState<{ secret: string; qrDataUrl: string } | null>(null);
   const [totpConfigured, setTotpConfigured] = useState(true);
 
@@ -373,12 +473,8 @@ export default function AdminPage() {
     if (res.ok) {
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
-    } else if (res.status === 401) {
-      setPassword(null);
     } else {
-      const body = await res.json().catch(() => ({})) as { error?: string };
-      setSaveError(body.error ?? "Erreur de sauvegarde");
-      setTimeout(() => setSaveError(""), 5000);
+      setPassword(null);
     }
   };
 
@@ -445,16 +541,6 @@ export default function AdminPage() {
                 className="font-mono text-xs text-accent-primary"
               >
                 ✓ Sauvegardé
-              </motion.span>
-            )}
-            {saveError && (
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="font-mono text-xs text-accent-secondary"
-              >
-                ✗ {saveError}
               </motion.span>
             )}
           </div>
@@ -530,6 +616,35 @@ export default function AdminPage() {
           </div>
         )}
 
+        {/* CV card */}
+        <div className="p-4 bg-bg-secondary border border-[rgba(240,246,252,0.08)] rounded-sm flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <FileText size={14} className="text-accent-primary shrink-0" />
+            <div>
+              <p className="font-body text-sm text-text-primary">CV</p>
+              <p className="font-mono text-[10px] text-text-muted">public/cv.html</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <a
+              href="/cv.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 font-mono text-[10px] text-text-muted hover:text-accent-primary transition-colors"
+            >
+              <ExternalLink size={10} />
+              Voir
+            </a>
+            <button
+              onClick={() => setEditingCV(true)}
+              className="flex items-center gap-2 font-mono text-xs tracking-widest uppercase px-3 py-2 border border-[rgba(240,246,252,0.08)] text-text-secondary hover:border-accent-primary hover:text-accent-primary transition-all"
+            >
+              <Edit2 size={11} />
+              Éditer
+            </button>
+          </div>
+        </div>
+
         <div className="flex items-center justify-between mb-2">
           <div>
             <h2 className="font-body font-semibold text-text-primary">Sections</h2>
@@ -592,6 +707,13 @@ export default function AdminPage() {
             onSave={handleEditSave}
             onCancel={() => setEditingSection(null)}
           />
+        )}
+      </AnimatePresence>
+
+      {/* CV HTML editor */}
+      <AnimatePresence>
+        {editingCV && password && (
+          <CVEditor password={password} onClose={() => setEditingCV(false)} />
         )}
       </AnimatePresence>
     </div>
