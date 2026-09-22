@@ -1,0 +1,72 @@
+{
+  "taglineFr": "Développeur de jeux vidéo — Disponible pour un stage dès février 2027",
+  "taglineEn": "Game Developer — Available for internship from February 2027",
+  "email": "enzo.varlet.pro@gmail.com",
+  "linkedin": "https://www.linkedin.com/in/enzo-varlet-612b86329/",
+  "github": "https://github.com/varlet-enzo",
+  "itch": "https://qwazertya.itch.io/",
+  "location": "Thorigny-sur-Marne",
+  "profilFr": "Étudiant en 3ème année de Bachelor Game Programming à l'IIM Digital School, passionné par le développement de gameplay et les systèmes procéduraux. À l'aise en solo comme en équipe, j'ai mené des projets allant du solo dev complet à des groupes de 8 personnes, sur Unity, Unreal Engine 5 et en C++ natif.",
+  "profilEn": "3rd-year Bachelor student in Game Programming at IIM Digital School, passionate about gameplay development and procedural systems. Comfortable working solo or in teams, I have shipped projects ranging from full solo dev to groups of 8, across Unity, Unreal Engine 5 and native C++.",
+  "formationTitleFr": "Bachelor Game Programming · Bac+3",
+  "formationTitleEn": "Bachelor in Game Programming · 3 years",
+  "formationDate": "2024 – 2027",
+  "formationSchool": "IIM Digital School, Paris",
+  "benevolaTitleFr": "Bénévole — Ludothèque",
+  "benevolaTitleEn": "Volunteer — Games Library",
+  "benevolaDateFr": "Été 2019",
+  "benevolaDateEn": "Summer 2019",
+  "benevolaLocation": "Thorigny-sur-Marne",
+  "benevolaDescFr": "Animation d'activités ludiques pour enfants et familles pendant les vacances scolaires.",
+  "benevolaDescEn": "Facilitated game activities for children and families during school holidays.",
+  "projects": [
+    {
+      "name": "High Traffic",
+      "yearFr": "2026",
+      "yearEn": "2026",
+      "role": "Core Gameplay Programmer · Sound Design",
+      "bulletsFr": [
+        "Implémentation du core gameplay : déplacements, physique des véhicules volants et sauts entre plateformes mobiles",
+        "Conception et intégration du système de collisions en chaîne (knockback, réaction des véhicules)",
+        "Sound design complet du jeu : ambiances, feedbacks sonores et mixage in-engine"
+      ],
+      "bulletsEn": [
+        "Implemented core gameplay: movement, flying vehicle physics and jumps between moving platforms",
+        "Designed and integrated chain-crash system (knockback, vehicle reactions)",
+        "Full sound design: ambiences, audio feedback and in-engine mixing"
+      ],
+      "tech": "Unreal Engine 5 · Blueprint",
+      "linkLabel": "itch.io ↗",
+      "linkUrl": "https://loic-averous.itch.io/high-traffic"
+    },
+    {
+      "name": "Umbral Aweken",
+      "yearFr": "2025 – en cours",
+      "yearEn": "2025 – ongoing",
+      "role": "Solo Dev → Lead Programmer",
+      "bulletsFr": [
+        "Architecture complète du projet en solo : systèmes d'entités, gestion des états et boucle de jeu",
+        "Développement d'un système de génération procédurale de niveaux (salles, couloirs, placement d'ennemis)",
+        "Transition vers lead programmer lors de l'intégration de game designers et artistes dans l'équipe"
+      ],
+      "bulletsEn": [
+        "Full solo project architecture: entity systems, state management and game loop",
+        "Built procedural level generation system (rooms, corridors, enemy placement)",
+        "Transitioned to lead programmer when game designers and artists joined the team"
+      ],
+      "tech": "Unity · C# · Procédural · 3D",
+      "linkLabel": "GitLab ↗",
+      "linkUrl": "https://gitlab.com/varlet-enzo/umbral-aweken"
+    }
+  ],
+  "portfolioUrl": "https://portfolio-five-theta-82.vercel.app/",
+  "skillsEnginesHtml": "<strong>Unity</strong> · Unreal Engine 5",
+  "skillsLanguagesHtml": "<strong>C#</strong> · C++ · Blueprint · Python",
+  "skillsToolsHtml": "Git · GitHub · GitLab · Game Design Doc · Jira · Notion",
+  "skillsSoftFr": "Travail en équipe · Écoute active · Gestion du temps · Communication",
+  "skillsSoftEn": "Teamwork · Active listening · Time management · Communication",
+  "interestJVHtml": "Saga <strong>Resident Evil</strong> · <strong>Monster Hunter</strong> · <strong>Minecraft</strong> — premier jeu via RE, attrait pour l'atmosphère et les systèmes de progression.",
+  "interestEscaladeHtml": "<strong>Bloc</strong> — débutant, 1–2×/sem depuis 2026.",
+  "interestAnimeHtml": "<strong>Tokyo Ghoul</strong> · <strong>Assassination Classroom</strong> · <strong>Miss Kobayashi</strong> · isekai.",
+  "interestSerieHtml": "<strong>Supernatural</strong> — suivi depuis plus de 10 ans, revu plusieurs fois."
+}
