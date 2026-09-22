@@ -17,8 +17,8 @@
     font-family: 'Inter', system-ui, sans-serif;
     background: var(--bg);
     color: var(--text);
-    font-size: 13px;
-    line-height: 1.6;
+    font-size: 12px;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -47,13 +47,13 @@
   .page {
     max-width: 780px;
     margin: 0 auto;
-    padding: 56px 48px 64px;
+    padding: 32px 44px 36px;
   }
 
   .cv-name {
     font-family: 'Syne', sans-serif;
     font-weight: 800;
-    font-size: 54px;
+    font-size: 46px;
     letter-spacing: -0.03em;
     line-height: 1;
     color: var(--text);
@@ -80,14 +80,14 @@
   .cv-contact a:hover { color: var(--accent); }
   .cv-contact .sep { margin: 0 8px; color: var(--rule); }
 
-  .divider { border: none; border-top: 1px solid var(--rule); margin: 32px 0; }
-  .divider.thin { margin: 20px 0; }
+  .divider { border: none; border-top: 1px solid var(--rule); margin: 14px 0; }
+  .divider.thin { margin: 8px 0; }
 
   .section {
     display: grid;
     grid-template-columns: 130px 1fr;
     gap: 0 32px;
-    margin-bottom: 28px;
+    margin-bottom: 12px;
   }
   .section:last-child { margin-bottom: 0; }
   .section-label {
@@ -101,9 +101,9 @@
     line-height: 1.6;
   }
 
-  .profil { font-size: 13px; font-weight: 400; color: var(--text); line-height: 1.75; }
+  .profil { font-size: 12px; font-weight: 400; color: var(--text); line-height: 1.6; }
 
-  .entry { margin-bottom: 10px; }
+  .entry { margin-bottom: 6px; }
   .entry:last-child { margin-bottom: 0; }
   .entry-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
   .entry-title { font-size: 13px; font-weight: 500; color: var(--text); }
@@ -111,7 +111,7 @@
   .entry-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
   .entry-desc { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.55; }
 
-  .project { margin-bottom: 18px; }
+  .project { margin-bottom: 10px; }
   .project:last-child { margin-bottom: 0; }
   .project-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
   .project-name { font-size: 13.5px; font-weight: 500; color: var(--text); }
@@ -120,14 +120,14 @@
   .project-bullets { margin: 5px 0 0 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
   .project-bullets li { font-size: 12px; color: var(--muted); line-height: 1.55; position: relative; padding-left: 10px; }
   .project-bullets li::before { content: '\2013'; position: absolute; left: 0; color: var(--accent); font-size: 11px; }
-  .project-portfolio-link { display: inline-block; margin-top: 18px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .project-portfolio-link { display: inline-block; margin-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
   .project-portfolio-link:hover { opacity: 0.7; }
   .project-footer { display: flex; align-items: center; gap: 12px; margin-top: 5px; }
   .project-tech { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--muted); letter-spacing: 0.04em; }
   .project-link { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--accent); text-decoration: none; letter-spacing: 0.03em; }
   .project-link:hover { text-decoration: underline; }
 
-  .skills-grid { display: flex; flex-direction: column; gap: 6px; }
+  .skills-grid { display: flex; flex-direction: column; gap: 4px; }
   .skill-row { display: grid; grid-template-columns: 72px 1fr; gap: 0 16px; align-items: baseline; }
   .skill-cat { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
   .skill-list { font-size: 12.5px; color: var(--text); }
@@ -137,17 +137,21 @@
   .lang-item { font-size: 13px; }
   .lang-level { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); margin-left: 6px; }
 
-  .interests-grid { display: flex; flex-direction: column; gap: 8px; }
+  .interests-grid { display: flex; flex-direction: column; gap: 4px; }
   .interest-row { display: grid; grid-template-columns: 72px 1fr; gap: 0 16px; align-items: baseline; }
   .interest-cat { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
   .interest-body { font-size: 12px; color: var(--muted); line-height: 1.55; }
   .interest-body strong { font-weight: 500; color: var(--text); }
 
   @media print {
+    @page { size: A4 portrait; margin: 0; }
     .controls { display: none; }
-    .page { padding: 36px 40px 48px; }
-    .cv-name { font-size: 44px; }
-    body { font-size: 12px; }
+    .page { padding: 22px 36px 24px; }
+    .cv-name { font-size: 40px; }
+    body { font-size: 11.5px; }
+    .divider { margin: 10px 0; }
+    .divider.thin { margin: 6px 0; }
+    .section { margin-bottom: 10px; }
     a { color: inherit !important; text-decoration: none; }
   }
 
@@ -311,19 +315,19 @@
     <div class="interests-grid">
       <div class="interest-row">
         <span class="interest-cat">JV</span>
-        <span class="interest-body">Saga <strong>Resident Evil</strong> &#183; <strong>Monster Hunter</strong> &#183; <strong>Minecraft</strong> &#8212; premier jeu &#224; 7 ans via RE, fascination durable pour l'atmosph&#232;re, les syst&#232;mes de progression et la rejouabilit&#233;.</span>
+        <span class="interest-body">Saga <strong>Resident Evil</strong> &#183; <strong>Monster Hunter</strong> &#183; <strong>Minecraft</strong> &#8212; premier jeu via RE, attrait pour l'atmosph&#232;re et les syst&#232;mes de progression.</span>
       </div>
       <div class="interest-row">
         <span class="interest-cat">Escalade</span>
-        <span class="interest-body"><strong>Bloc</strong> &#8212; d&#233;butant, 1&#8211;2&#215; par semaine depuis d&#233;but 2026. Discipline qui entra&#238;ne la lecture de probl&#232;me et la pers&#233;v&#233;rance.</span>
+        <span class="interest-body"><strong>Bloc</strong> &#8212; d&#233;butant, 1&#8211;2&#215;/sem depuis 2026.</span>
       </div>
       <div class="interest-row">
         <span class="interest-cat">Anime</span>
-        <span class="interest-body"><strong>Tokyo Ghoul</strong> &#183; <strong>Assassination Classroom</strong> &#183; <strong>Miss Kobayashi</strong> &#183; isekai &#8212; attrait pour les univers &#224; forte identit&#233; visuelle et les dynamiques de groupe.</span>
+        <span class="interest-body"><strong>Tokyo Ghoul</strong> &#183; <strong>Assassination Classroom</strong> &#183; <strong>Miss Kobayashi</strong> &#183; isekai.</span>
       </div>
       <div class="interest-row">
         <span class="interest-cat">S&#233;rie</span>
-        <span class="interest-body"><strong>Supernatural</strong> &#8212; suivi depuis plus de 10 ans, revu plusieurs fois. Attachement &#224; la narration longue et aux arcs de personnages sur la dur&#233;e.</span>
+        <span class="interest-body"><strong>Supernatural</strong> &#8212; suivi depuis plus de 10 ans, revu plusieurs fois.</span>
       </div>
     </div>
   </div>
