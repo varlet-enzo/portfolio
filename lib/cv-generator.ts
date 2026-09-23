@@ -105,6 +105,7 @@ body {
   background: var(--page-bg);
   margin: 0;
   -webkit-font-smoothing: antialiased;
+  overflow-x: auto;
 }
 
 /* ─── Controls ─── */
@@ -116,6 +117,7 @@ body {
   padding: 8px 16px;
   background: var(--white);
   border-bottom: 1px solid var(--rule);
+  min-width: 860px;
 }
 .ctrl-btn {
   font-family: 'Share Tech Mono', monospace;
@@ -134,7 +136,8 @@ body {
 /* ─── Page ─── */
 .cv {
   display: flex;
-  max-width: 860px;
+  width: 860px;
+  min-width: 860px;
   margin: 0 auto;
   min-height: calc(100vh - 38px);
   box-shadow: 0 4px 24px rgba(0,0,0,0.10);
