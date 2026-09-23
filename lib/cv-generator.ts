@@ -55,358 +55,500 @@ function attr(s: string): string {
 function projectHtml(p: CVProject): string {
   const bullets = p.bulletsFr.map((fr, i) => {
     const en = p.bulletsEn[i] ?? fr;
-    return `          <li data-fr="${attr(fr)}" data-en="${attr(en)}">${esc(fr)}</li>`;
+    return `            <li data-fr="${attr(fr)}" data-en="${attr(en)}">${esc(fr)}</li>`;
   }).join("\n");
 
   return `
-      <div class="project">
-        <div class="project-header">
-          <div class="project-name">${esc(p.name)}</div>
-          <div class="project-year" data-fr="${attr(p.yearFr)}" data-en="${attr(p.yearEn)}">${esc(p.yearFr)}</div>
-        </div>
-        <div class="project-role">${esc(p.role)}</div>
-        <ul class="project-bullets">
+          <div class="project">
+            <div class="project-header">
+              <span class="project-name">${esc(p.name)}</span>
+              <span class="project-year" data-fr="${attr(p.yearFr)}" data-en="${attr(p.yearEn)}">${esc(p.yearFr)}</span>
+            </div>
+            <span class="project-role">${esc(p.role)}</span>
+            <ul class="bullets">
 ${bullets}
-        </ul>
-        <div class="project-footer">
-          <span class="project-tech">${esc(p.tech)}</span>
-          <a class="project-link" href="${attr(p.linkUrl)}" target="_blank">${esc(p.linkLabel)}</a>
-        </div>
-      </div>`;
+            </ul>
+            <div class="project-footer">
+              <span class="tech">${esc(p.tech)}</span>
+              <a class="plink" href="${attr(p.linkUrl)}" target="_blank">${esc(p.linkLabel)}</a>
+            </div>
+          </div>`;
 }
 
 export function generateCVHtml(d: CVData): string {
   const projects = d.projects.map(projectHtml).join("\n");
 
-  return `<title>Enzo Varlet</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
-
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Enzo Varlet — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Share+Tech+Mono&display=swap">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --bg:      #FFFFFF;
-    --text:    #141414;
-    --muted:   #686868;
-    --accent:  #1C3E32;
-    --rule:    #D8D8D8;
-    --light:   #F7F7F7;
+:root {
+  --dark:    #0D1117;
+  --darker:  #080B10;
+  --yellow:  #E8FF47;
+  --white:   #FFFFFF;
+  --text-d:  #F0F6FC;
+  --muted-d: #8B949E;
+  --dim-d:   #30363D;
+  --text-l:  #141414;
+  --muted-l: #5A6070;
+  --rule-l:  #EAECF0;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--darker);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Controls ─── */
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--darker);
+  border-bottom: 1px solid rgba(232,255,71,0.1);
+}
+.ctrl-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border: 1px solid var(--dim-d);
+  background: none;
+  color: var(--muted-d);
+  cursor: pointer;
+  transition: color 0.12s, border-color 0.12s;
+}
+.ctrl-btn:hover, .ctrl-btn.active { color: var(--yellow); border-color: var(--yellow); }
+.ctrl-sep { width: 1px; height: 14px; background: var(--dim-d); margin: 0 2px; }
+
+/* ─── Page ─── */
+.cv {
+  display: flex;
+  max-width: 860px;
+  margin: 0 auto;
+  min-height: calc(100vh - 38px);
+}
+
+/* ─── Sidebar ─── */
+.sidebar {
+  width: 218px;
+  flex-shrink: 0;
+  background: var(--dark);
+  padding: 28px 20px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.sb-name {
+  font-family: 'Bebas Neue', sans-serif;
+  line-height: 0.88;
+  letter-spacing: 0.03em;
+}
+.sb-first { font-size: 46px; color: var(--text-d); display: block; }
+.sb-last  { font-size: 46px; color: var(--yellow); display: block; }
+
+.sb-tagline {
+  margin-top: 10px;
+  font-size: 9.5px;
+  font-weight: 300;
+  color: var(--muted-d);
+  line-height: 1.55;
+}
+
+.sb-rule { height: 1px; background: rgba(232,255,71,0.15); margin: 16px 0; }
+
+.sb-sec { margin-bottom: 16px; }
+.sb-sec:last-child { margin-bottom: 0; }
+
+.sb-head {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 8px;
+}
+
+/* Contact */
+.sb-links { display: flex; flex-direction: column; gap: 4px; }
+.sb-link-row { display: flex; align-items: flex-start; gap: 6px; }
+.sb-dot { color: var(--yellow); font-size: 5px; margin-top: 4px; flex-shrink: 0; line-height: 1; }
+.sb-link-row a { font-size: 10px; color: var(--muted-d); text-decoration: none; line-height: 1.45; word-break: break-all; }
+.sb-link-row a:hover { color: var(--yellow); }
+.sb-link-row span { font-size: 10px; color: var(--muted-d); line-height: 1.45; }
+
+/* Skills */
+.sb-skills { display: flex; flex-direction: column; gap: 6px; }
+.sb-skill-cat {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim-d);
+  display: block;
+  margin-bottom: 2px;
+  border-left: 2px solid rgba(232,255,71,0.35);
+  padding-left: 5px;
+}
+.sb-skill-val { font-size: 10px; color: var(--text-d); line-height: 1.5; }
+.sb-skill-val strong { color: var(--yellow); font-weight: 500; }
+.sb-skill-soft { padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 2px; }
+
+/* Languages */
+.sb-langs { display: flex; flex-direction: column; gap: 5px; }
+.sb-lang { display: flex; justify-content: space-between; align-items: baseline; }
+.sb-lang-name { font-size: 11px; color: var(--text-d); }
+.sb-lang-lvl { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--muted-d); }
+
+/* Interests */
+.sb-ints { display: flex; flex-direction: column; gap: 6px; }
+.sb-int { display: flex; gap: 7px; align-items: flex-start; }
+.sb-int-cat {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-d);
+  width: 42px;
+  flex-shrink: 0;
+  padding-top: 2px;
+  line-height: 1.4;
+}
+.sb-int-body { font-size: 10px; color: var(--muted-d); line-height: 1.5; }
+.sb-int-body strong { font-weight: 500; color: var(--text-d); }
+
+/* ─── Main content ─── */
+.content {
+  flex: 1;
+  background: var(--white);
+  padding: 28px 28px 36px 30px;
+  min-width: 0;
+}
+
+.sec { margin-bottom: 14px; }
+.sec:last-child { margin-bottom: 0; }
+
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.sec-bar {
+  width: 3px;
+  height: 16px;
+  background: var(--yellow);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.sec-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-l);
+}
+
+.profil { font-size: 11.5px; color: var(--muted-l); line-height: 1.7; }
+
+.rule { height: 1px; background: var(--rule-l); margin: 12px 0; }
+
+.entry-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.entry-title { font-size: 12.5px; font-weight: 500; color: var(--text-l); }
+.entry-date {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9.5px;
+  color: var(--muted-l);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.entry-sub { font-size: 11px; color: var(--muted-l); margin-top: 1px; }
+.entry-desc { font-size: 11px; color: var(--muted-l); margin-top: 3px; line-height: 1.6; font-style: italic; }
+
+/* Projects */
+.project { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--rule-l); }
+.project:last-child { margin-bottom: 6px; padding-bottom: 0; border-bottom: none; }
+
+.project-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.project-name { font-size: 13px; font-weight: 500; color: var(--text-l); }
+.project-year {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9.5px;
+  color: var(--muted-l);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.project-role {
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.04em;
+  color: var(--darker);
+  background: var(--yellow);
+  padding: 1px 6px 2px;
+  border-radius: 2px;
+  margin-top: 4px;
+}
+
+.bullets { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.bullets li {
+  font-size: 11px;
+  color: var(--muted-l);
+  line-height: 1.6;
+  padding-left: 12px;
+  position: relative;
+}
+.bullets li::before {
+  content: '\\25B8';
+  position: absolute;
+  left: 0;
+  color: var(--yellow);
+  font-size: 9px;
+  top: 2px;
+}
+
+.project-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 5px; }
+.tech { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--muted-l); letter-spacing: 0.05em; }
+.plink {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: var(--text-l);
+  text-decoration: none;
+  border-bottom: 1px solid var(--muted-l);
+  padding-bottom: 1px;
+  white-space: nowrap;
+}
+.plink:hover { border-color: var(--text-l); }
+
+.portfolio-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--darker);
+  text-decoration: none;
+  background: var(--yellow);
+  padding: 3px 9px 4px;
+  border-radius: 2px;
+  margin-top: 6px;
+  transition: opacity 0.12s;
+}
+.portfolio-link:hover { opacity: 0.85; }
+
+/* ─── Print ─── */
+@media print {
+  @page { size: A4 portrait; margin: 0; }
+  .controls { display: none !important; }
+  body { background: var(--dark); }
+  .cv { max-width: 100%; min-height: 297mm; }
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
+  a { text-decoration: none; }
+  .plink { border-bottom: none; }
+  .portfolio-link { background: var(--yellow) !important; color: var(--darker) !important; }
+}
 
-  body {
-    font-family: 'Inter', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 12px;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .controls {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 20px;
-    border-bottom: 1px solid var(--rule);
-  }
-  .ctrl-btn {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.06em;
-    padding: 3px 9px;
-    border: 1px solid var(--rule);
-    background: none;
-    color: var(--muted);
-    cursor: pointer;
-    transition: color 0.12s, border-color 0.12s;
-  }
-  .ctrl-btn.active, .ctrl-btn:hover { color: var(--accent); border-color: var(--accent); }
-  .ctrl-sep { width: 1px; height: 14px; background: var(--rule); margin: 0 2px; }
-
-  .page {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 32px 44px 36px;
-  }
-
-  .cv-name {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 46px;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    color: var(--text);
-    text-wrap: balance;
-  }
-  .cv-name em { font-style: normal; color: var(--accent); }
-  .cv-tagline {
-    margin-top: 10px;
-    font-size: 13px;
-    font-weight: 300;
-    color: var(--muted);
-    letter-spacing: 0.01em;
-  }
-  .cv-contact {
-    margin-top: 16px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 0;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10.5px;
-    color: var(--muted);
-  }
-  .cv-contact a { color: var(--muted); text-decoration: none; }
-  .cv-contact a:hover { color: var(--accent); }
-  .cv-contact .sep { margin: 0 8px; color: var(--rule); }
-
-  .divider { border: none; border-top: 1px solid var(--rule); margin: 14px 0; }
-  .divider.thin { margin: 8px 0; }
-
-  .section {
-    display: grid;
-    grid-template-columns: 130px 1fr;
-    gap: 0 32px;
-    margin-bottom: 12px;
-  }
-  .section:last-child { margin-bottom: 0; }
-  .section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    padding-top: 2px;
-    line-height: 1.6;
-  }
-
-  .profil { font-size: 12px; font-weight: 400; color: var(--text); line-height: 1.6; }
-
-  .entry { margin-bottom: 6px; }
-  .entry:last-child { margin-bottom: 0; }
-  .entry-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-  .entry-title { font-size: 13px; font-weight: 500; color: var(--text); }
-  .entry-date { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
-  .entry-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
-  .entry-desc { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.55; }
-
-  .project { margin-bottom: 10px; }
-  .project:last-child { margin-bottom: 0; }
-  .project-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-  .project-name { font-size: 13.5px; font-weight: 500; color: var(--text); }
-  .project-year { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
-  .project-role { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); margin-top: 2px; letter-spacing: 0.02em; }
-  .project-bullets { margin: 5px 0 0 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
-  .project-bullets li { font-size: 12px; color: var(--muted); line-height: 1.55; position: relative; padding-left: 10px; }
-  .project-bullets li::before { content: '\\2013'; position: absolute; left: 0; color: var(--accent); font-size: 11px; }
-  .project-portfolio-link { display: inline-block; margin-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.06em; color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
-  .project-portfolio-link:hover { opacity: 0.7; }
-  .project-footer { display: flex; align-items: center; gap: 12px; margin-top: 5px; }
-  .project-tech { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--muted); letter-spacing: 0.04em; }
-  .project-link { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--accent); text-decoration: none; letter-spacing: 0.03em; }
-  .project-link:hover { text-decoration: underline; }
-
-  .skills-grid { display: flex; flex-direction: column; gap: 4px; }
-  .skill-row { display: grid; grid-template-columns: 72px 1fr; gap: 0 16px; align-items: baseline; }
-  .skill-cat { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-  .skill-list { font-size: 12.5px; color: var(--text); }
-  .skill-list strong { font-weight: 500; }
-
-  .lang-row { display: flex; gap: 28px; }
-  .lang-item { font-size: 13px; }
-  .lang-level { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); margin-left: 6px; }
-
-  .interests-grid { display: flex; flex-direction: column; gap: 4px; }
-  .interest-row { display: grid; grid-template-columns: 72px 1fr; gap: 0 16px; align-items: baseline; }
-  .interest-cat { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
-  .interest-body { font-size: 12px; color: var(--muted); line-height: 1.55; }
-  .interest-body strong { font-weight: 500; color: var(--text); }
-
-  @media print {
-    @page { size: A4 portrait; margin: 0; }
-    .controls { display: none; }
-    .page { padding: 22px 36px 24px; }
-    .cv-name { font-size: 40px; }
-    body { font-size: 11.5px; }
-    .divider { margin: 10px 0; }
-    .divider.thin { margin: 6px 0; }
-    .section { margin-bottom: 10px; }
-    a { color: inherit !important; text-decoration: none; }
-  }
-
-  @media (max-width: 580px) {
-    .page { padding: 32px 20px 48px; }
-    .cv-name { font-size: 38px; }
-    .section { grid-template-columns: 1fr; gap: 6px 0; }
-    .section-label { padding-bottom: 4px; }
-  }
+@media (max-width: 600px) {
+  .cv { flex-direction: column; min-height: unset; }
+  .sidebar { width: 100%; }
+}
 </style>
+</head>
+<body>
 
 <div class="controls">
   <button class="ctrl-btn active" onclick="setLang('fr')" id="btn-fr">FR</button>
   <button class="ctrl-btn" onclick="setLang('en')" id="btn-en">EN</button>
   <div class="ctrl-sep"></div>
-  <button class="ctrl-btn" onclick="window.print()">&#8595; PDF</button>
+  <button class="ctrl-btn" onclick="window.print()">&#8595;&nbsp;PDF</button>
 </div>
 
-<div class="page">
+<div class="cv">
 
-  <header>
-    <div class="cv-name">Enzo <em>Varlet</em></div>
-    <div class="cv-tagline"
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+
+    <div class="sb-name">
+      <span class="sb-first">Enzo</span>
+      <span class="sb-last">Varlet</span>
+    </div>
+
+    <div class="sb-tagline"
          data-fr="${attr(d.taglineFr)}"
-         data-en="${attr(d.taglineEn)}">
-      ${esc(d.taglineFr)}
-    </div>
-    <div class="cv-contact">
-      <a href="mailto:${attr(d.email)}">${esc(d.email)}</a>
-      <span class="sep">&#183;</span>
-      <a href="${attr(d.linkedin)}" target="_blank">linkedin</a>
-      <span class="sep">&#183;</span>
-      <a href="${attr(d.github)}" target="_blank">github.com/varlet-enzo</a>
-      <span class="sep">&#183;</span>
-      <a href="${attr(d.itch)}" target="_blank">itch.io</a>
-      <span class="sep">&#183;</span>
-      <span>${esc(d.location)}</span>
-    </div>
-  </header>
+         data-en="${attr(d.taglineEn)}">${esc(d.taglineFr)}</div>
 
-  <hr class="divider">
+    <div class="sb-rule"></div>
 
-  <div class="section">
-    <div class="section-label" data-fr="Profil" data-en="Profile">Profil</div>
-    <p class="profil"
-       data-fr="${attr(d.profilFr)}"
-       data-en="${attr(d.profilEn)}">
-      ${esc(d.profilFr)}
-    </p>
-  </div>
-
-  <hr class="divider thin">
-
-  <div class="section">
-    <div class="section-label" data-fr="Formation" data-en="Education">Formation</div>
-    <div>
-      <div class="entry">
-        <div class="entry-header">
-          <div class="entry-title" data-fr="${attr(d.formationTitleFr)}" data-en="${attr(d.formationTitleEn)}">${esc(d.formationTitleFr)}</div>
-          <div class="entry-date">${esc(d.formationDate)}</div>
-        </div>
-        <div class="entry-sub">${esc(d.formationSchool)}</div>
+    <div class="sb-sec">
+      <div class="sb-head" data-fr="Contact" data-en="Contact">Contact</div>
+      <div class="sb-links">
+        <div class="sb-link-row"><span class="sb-dot">&#9632;</span><a href="mailto:${attr(d.email)}">${esc(d.email)}</a></div>
+        <div class="sb-link-row"><span class="sb-dot">&#9632;</span><a href="${attr(d.linkedin)}" target="_blank">linkedin</a></div>
+        <div class="sb-link-row"><span class="sb-dot">&#9632;</span><a href="${attr(d.github)}" target="_blank">github.com/varlet-enzo</a></div>
+        <div class="sb-link-row"><span class="sb-dot">&#9632;</span><a href="${attr(d.itch)}" target="_blank">qwazertya.itch.io</a></div>
+        <div class="sb-link-row"><span class="sb-dot">&#9632;</span><span>${esc(d.location)}</span></div>
       </div>
     </div>
-  </div>
 
-  <hr class="divider thin">
-
-  <div class="section">
-    <div class="section-label" data-fr="B&#233;n&#233;volat" data-en="Volunteer">B&#233;n&#233;volat</div>
-    <div>
-      <div class="entry">
-        <div class="entry-header">
-          <div class="entry-title" data-fr="${attr(d.benevolaTitleFr)}" data-en="${attr(d.benevolaTitleEn)}">${esc(d.benevolaTitleFr)}</div>
-          <div class="entry-date" data-fr="${attr(d.benevolaDateFr)}" data-en="${attr(d.benevolaDateEn)}">${esc(d.benevolaDateFr)}</div>
+    <div class="sb-sec">
+      <div class="sb-head" data-fr="Comp&#233;tences" data-en="Skills">Comp&#233;tences</div>
+      <div class="sb-skills">
+        <div>
+          <span class="sb-skill-cat" data-fr="Moteurs" data-en="Engines">Moteurs</span>
+          <span class="sb-skill-val">${d.skillsEnginesHtml}</span>
         </div>
-        <div class="entry-sub">${esc(d.benevolaLocation)}</div>
-        <div class="entry-desc"
-             data-fr="${attr(d.benevolaDescFr)}"
-             data-en="${attr(d.benevolaDescEn)}">
-          ${esc(d.benevolaDescFr)}
+        <div>
+          <span class="sb-skill-cat" data-fr="Langages" data-en="Languages">Langages</span>
+          <span class="sb-skill-val">${d.skillsLanguagesHtml}</span>
+        </div>
+        <div>
+          <span class="sb-skill-cat" data-fr="Outils" data-en="Tools">Outils</span>
+          <span class="sb-skill-val">${d.skillsToolsHtml}</span>
+        </div>
+        <div class="sb-skill-soft">
+          <span class="sb-skill-cat">Soft skills</span>
+          <span class="sb-skill-val"
+                data-fr="${attr(d.skillsSoftFr)}"
+                data-en="${attr(d.skillsSoftEn)}">${esc(d.skillsSoftFr)}</span>
         </div>
       </div>
     </div>
-  </div>
 
-  <hr class="divider thin">
+    <div class="sb-sec">
+      <div class="sb-head" data-fr="Langues" data-en="Languages">Langues</div>
+      <div class="sb-langs">
+        <div class="sb-lang">
+          <span class="sb-lang-name" data-fr="Fran&#231;ais" data-en="French">Fran&#231;ais</span>
+          <span class="sb-lang-lvl" data-fr="Natif" data-en="Native">Natif</span>
+        </div>
+        <div class="sb-lang">
+          <span class="sb-lang-name" data-fr="Anglais" data-en="English">Anglais</span>
+          <span class="sb-lang-lvl">B1</span>
+        </div>
+      </div>
+    </div>
 
-  <div class="section">
-    <div class="section-label" data-fr="Projets" data-en="Projects">Projets</div>
-    <div>
+    <div class="sb-sec">
+      <div class="sb-head" data-fr="Int&#233;r&#234;ts" data-en="Interests">Int&#233;r&#234;ts</div>
+      <div class="sb-ints">
+        <div class="sb-int">
+          <span class="sb-int-cat">JV</span>
+          <span class="sb-int-body">${d.interestJVHtml}</span>
+        </div>
+        <div class="sb-int">
+          <span class="sb-int-cat" data-fr="Escalade" data-en="Climbing">Escalade</span>
+          <span class="sb-int-body">${d.interestEscaladeHtml}</span>
+        </div>
+        <div class="sb-int">
+          <span class="sb-int-cat">Anime</span>
+          <span class="sb-int-body">${d.interestAnimeHtml}</span>
+        </div>
+        <div class="sb-int">
+          <span class="sb-int-cat" data-fr="S&#233;rie" data-en="Series">S&#233;rie</span>
+          <span class="sb-int-body">${d.interestSerieHtml}</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ── Content ── -->
+  <main class="content">
+
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-bar"></div>
+        <span class="sec-label" data-fr="Profil" data-en="Profile">Profil</span>
+      </div>
+      <p class="profil"
+         data-fr="${attr(d.profilFr)}"
+         data-en="${attr(d.profilEn)}">${esc(d.profilFr)}</p>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-bar"></div>
+        <span class="sec-label" data-fr="Formation" data-en="Education">Formation</span>
+      </div>
+      <div class="entry-head">
+        <span class="entry-title"
+              data-fr="${attr(d.formationTitleFr)}"
+              data-en="${attr(d.formationTitleEn)}">${esc(d.formationTitleFr)}</span>
+        <span class="entry-date">${esc(d.formationDate)}</span>
+      </div>
+      <div class="entry-sub">${esc(d.formationSchool)}</div>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-bar"></div>
+        <span class="sec-label" data-fr="B&#233;n&#233;volat" data-en="Volunteer">B&#233;n&#233;volat</span>
+      </div>
+      <div class="entry-head">
+        <span class="entry-title"
+              data-fr="${attr(d.benevolaTitleFr)}"
+              data-en="${attr(d.benevolaTitleEn)}">${esc(d.benevolaTitleFr)}</span>
+        <span class="entry-date"
+              data-fr="${attr(d.benevolaDateFr)}"
+              data-en="${attr(d.benevolaDateEn)}">${esc(d.benevolaDateFr)}</span>
+      </div>
+      <div class="entry-sub">${esc(d.benevolaLocation)}</div>
+      <div class="entry-desc"
+           data-fr="${attr(d.benevolaDescFr)}"
+           data-en="${attr(d.benevolaDescEn)}">${esc(d.benevolaDescFr)}</div>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="sec">
+      <div class="sec-head">
+        <div class="sec-bar"></div>
+        <span class="sec-label" data-fr="Projets" data-en="Projects">Projets</span>
+      </div>
+      <div>
 ${projects}
-
-      <a class="project-portfolio-link" href="${attr(d.portfolioUrl)}" target="_blank"
-         data-fr="Voir tous mes projets &#8594; portfolio" data-en="View all projects &#8594; portfolio">
-        Voir tous mes projets &#8594; portfolio
-      </a>
-    </div>
-  </div>
-
-  <hr class="divider thin">
-
-  <div class="section">
-    <div class="section-label" data-fr="Comp&#233;tences" data-en="Skills">Comp&#233;tences</div>
-    <div class="skills-grid">
-      <div class="skill-row">
-        <span class="skill-cat" data-fr="Moteurs" data-en="Engines">Moteurs</span>
-        <span class="skill-list">${d.skillsEnginesHtml}</span>
-      </div>
-      <div class="skill-row">
-        <span class="skill-cat" data-fr="Langages" data-en="Languages">Langages</span>
-        <span class="skill-list">${d.skillsLanguagesHtml}</span>
-      </div>
-      <div class="skill-row">
-        <span class="skill-cat" data-fr="Outils" data-en="Tools">Outils</span>
-        <span class="skill-list">${d.skillsToolsHtml}</span>
-      </div>
-      <div class="skill-row" style="margin-top:4px;padding-top:8px;border-top:1px solid var(--rule);">
-        <span class="skill-cat">Soft skills</span>
-        <span class="skill-list" data-fr="${attr(d.skillsSoftFr)}" data-en="${attr(d.skillsSoftEn)}">${esc(d.skillsSoftFr)}</span>
+        <a class="portfolio-link" href="${attr(d.portfolioUrl)}" target="_blank"
+           data-fr="Tous mes projets &#8594; portfolio" data-en="All projects &#8594; portfolio">
+          Tous mes projets &#8594; portfolio
+        </a>
       </div>
     </div>
-  </div>
 
-  <hr class="divider thin">
-
-  <div class="section">
-    <div class="section-label" data-fr="Int&#233;r&#234;ts" data-en="Interests">Int&#233;r&#234;ts</div>
-    <div class="interests-grid">
-      <div class="interest-row">
-        <span class="interest-cat">JV</span>
-        <span class="interest-body">${d.interestJVHtml}</span>
-      </div>
-      <div class="interest-row">
-        <span class="interest-cat">Escalade</span>
-        <span class="interest-body">${d.interestEscaladeHtml}</span>
-      </div>
-      <div class="interest-row">
-        <span class="interest-cat">Anime</span>
-        <span class="interest-body">${d.interestAnimeHtml}</span>
-      </div>
-      <div class="interest-row">
-        <span class="interest-cat">S&#233;rie</span>
-        <span class="interest-body">${d.interestSerieHtml}</span>
-      </div>
-    </div>
-  </div>
-
-  <hr class="divider thin">
-
-  <div class="section">
-    <div class="section-label" data-fr="Langues" data-en="Languages">Langues</div>
-    <div class="lang-row">
-      <div class="lang-item">
-        <span data-fr="Fran&#231;ais" data-en="French">Fran&#231;ais</span>
-        <span class="lang-level" data-fr="Langue maternelle" data-en="Native">Langue maternelle</span>
-      </div>
-      <div class="lang-item">
-        <span data-fr="Anglais" data-en="English">Anglais</span>
-        <span class="lang-level">B1</span>
-      </div>
-    </div>
-  </div>
-
+  </main>
 </div>
 
 <script>
   function setLang(lang) {
     document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    document.querySelectorAll('[data-fr]').forEach(el => {
-      const v = el.getAttribute('data-' + lang);
+    document.querySelectorAll('[data-fr]').forEach(function(el) {
+      var v = el.getAttribute('data-' + lang);
       if (v !== null) el.innerHTML = v;
     });
   }
 </script>
+</body>
+</html>
 `;
 }
