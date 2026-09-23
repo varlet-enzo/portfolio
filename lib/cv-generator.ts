@@ -90,21 +90,19 @@ export function generateCVHtml(d: CVData): string {
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --dark:    #0D1117;
-  --darker:  #080B10;
-  --yellow:  #E8FF47;
-  --white:   #FFFFFF;
-  --text-d:  #F0F6FC;
-  --muted-d: #8B949E;
-  --dim-d:   #30363D;
-  --text-l:  #141414;
-  --muted-l: #5A6070;
-  --rule-l:  #EAECF0;
+  --yellow:   #C8DC00;
+  --ink:      #111827;
+  --muted:    #4B5563;
+  --dim:      #9CA3AF;
+  --sidebar:  #F3F4F6;
+  --white:    #FFFFFF;
+  --rule:     #E5E7EB;
+  --page-bg:  #DFE1E6;
 }
 
 body {
   font-family: 'DM Sans', system-ui, sans-serif;
-  background: var(--darker);
+  background: var(--page-bg);
   margin: 0;
   -webkit-font-smoothing: antialiased;
 }
@@ -116,22 +114,22 @@ body {
   align-items: center;
   gap: 6px;
   padding: 8px 16px;
-  background: var(--darker);
-  border-bottom: 1px solid rgba(232,255,71,0.1);
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
 }
 .ctrl-btn {
   font-family: 'Share Tech Mono', monospace;
   font-size: 9.5px;
   letter-spacing: 0.1em;
   padding: 3px 10px;
-  border: 1px solid var(--dim-d);
+  border: 1px solid var(--rule);
   background: none;
-  color: var(--muted-d);
+  color: var(--dim);
   cursor: pointer;
   transition: color 0.12s, border-color 0.12s;
 }
-.ctrl-btn:hover, .ctrl-btn.active { color: var(--yellow); border-color: var(--yellow); }
-.ctrl-sep { width: 1px; height: 14px; background: var(--dim-d); margin: 0 2px; }
+.ctrl-btn:hover, .ctrl-btn.active { color: var(--ink); border-color: var(--ink); }
+.ctrl-sep { width: 1px; height: 14px; background: var(--rule); margin: 0 2px; }
 
 /* ─── Page ─── */
 .cv {
@@ -139,13 +137,15 @@ body {
   max-width: 860px;
   margin: 0 auto;
   min-height: calc(100vh - 38px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
 }
 
 /* ─── Sidebar ─── */
 .sidebar {
   width: 218px;
   flex-shrink: 0;
-  background: var(--dark);
+  background: var(--sidebar);
+  border-left: 4px solid var(--yellow);
   padding: 28px 20px 36px;
   display: flex;
   flex-direction: column;
@@ -157,18 +157,19 @@ body {
   line-height: 0.88;
   letter-spacing: 0.03em;
 }
-.sb-first { font-size: 46px; color: var(--text-d); display: block; }
-.sb-last  { font-size: 46px; color: var(--yellow); display: block; }
+.sb-first { font-size: 46px; color: var(--ink); display: block; }
+.sb-last  { font-size: 46px; color: var(--ink); display: block;
+  text-decoration: underline; text-decoration-color: var(--yellow); text-decoration-thickness: 3px; text-underline-offset: 4px; }
 
 .sb-tagline {
   margin-top: 10px;
   font-size: 9.5px;
   font-weight: 300;
-  color: var(--muted-d);
+  color: var(--muted);
   line-height: 1.55;
 }
 
-.sb-rule { height: 1px; background: rgba(232,255,71,0.15); margin: 16px 0; }
+.sb-rule { height: 1px; background: var(--rule); margin: 16px 0; }
 
 .sb-sec { margin-bottom: 16px; }
 .sb-sec:last-child { margin-bottom: 0; }
@@ -178,17 +179,21 @@ body {
   font-size: 8px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--yellow);
+  color: var(--ink);
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
+.sb-head::before { content: ''; display: block; width: 8px; height: 3px; background: var(--yellow); flex-shrink: 0; }
 
 /* Contact */
 .sb-links { display: flex; flex-direction: column; gap: 4px; }
 .sb-link-row { display: flex; align-items: flex-start; gap: 6px; }
-.sb-dot { color: var(--yellow); font-size: 5px; margin-top: 4px; flex-shrink: 0; line-height: 1; }
-.sb-link-row a { font-size: 10px; color: var(--muted-d); text-decoration: none; line-height: 1.45; word-break: break-all; }
-.sb-link-row a:hover { color: var(--yellow); }
-.sb-link-row span { font-size: 10px; color: var(--muted-d); line-height: 1.45; }
+.sb-dot { color: var(--yellow); font-size: 7px; margin-top: 3px; flex-shrink: 0; line-height: 1; }
+.sb-link-row a { font-size: 10px; color: var(--muted); text-decoration: none; line-height: 1.45; word-break: break-all; }
+.sb-link-row a:hover { color: var(--ink); }
+.sb-link-row span { font-size: 10px; color: var(--muted); line-height: 1.45; }
 
 /* Skills */
 .sb-skills { display: flex; flex-direction: column; gap: 6px; }
@@ -197,21 +202,21 @@ body {
   font-size: 7.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--dim-d);
+  color: var(--dim);
   display: block;
   margin-bottom: 2px;
-  border-left: 2px solid rgba(232,255,71,0.35);
   padding-left: 5px;
+  border-left: 2px solid var(--yellow);
 }
-.sb-skill-val { font-size: 10px; color: var(--text-d); line-height: 1.5; }
-.sb-skill-val strong { color: var(--yellow); font-weight: 500; }
-.sb-skill-soft { padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 2px; }
+.sb-skill-val { font-size: 10px; color: var(--ink); line-height: 1.5; }
+.sb-skill-val strong { color: var(--ink); font-weight: 600; }
+.sb-skill-soft { padding-top: 6px; border-top: 1px solid var(--rule); margin-top: 2px; }
 
 /* Languages */
 .sb-langs { display: flex; flex-direction: column; gap: 5px; }
 .sb-lang { display: flex; justify-content: space-between; align-items: baseline; }
-.sb-lang-name { font-size: 11px; color: var(--text-d); }
-.sb-lang-lvl { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--muted-d); }
+.sb-lang-name { font-size: 11px; color: var(--ink); }
+.sb-lang-lvl { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--muted); }
 
 /* Interests */
 .sb-ints { display: flex; flex-direction: column; gap: 6px; }
@@ -221,14 +226,14 @@ body {
   font-size: 7.5px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted-d);
+  color: var(--dim);
   width: 42px;
   flex-shrink: 0;
   padding-top: 2px;
   line-height: 1.4;
 }
-.sb-int-body { font-size: 10px; color: var(--muted-d); line-height: 1.5; }
-.sb-int-body strong { font-weight: 500; color: var(--text-d); }
+.sb-int-body { font-size: 10px; color: var(--muted); line-height: 1.5; }
+.sb-int-body strong { font-weight: 500; color: var(--ink); }
 
 /* ─── Main content ─── */
 .content {
@@ -259,35 +264,35 @@ body {
   font-size: 8.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--text-l);
+  color: var(--ink);
 }
 
-.profil { font-size: 11.5px; color: var(--muted-l); line-height: 1.7; }
+.profil { font-size: 11.5px; color: var(--muted); line-height: 1.7; }
 
-.rule { height: 1px; background: var(--rule-l); margin: 12px 0; }
+.rule { height: 1px; background: var(--rule); margin: 12px 0; }
 
 .entry-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.entry-title { font-size: 12.5px; font-weight: 500; color: var(--text-l); }
+.entry-title { font-size: 12.5px; font-weight: 500; color: var(--ink); }
 .entry-date {
   font-family: 'Share Tech Mono', monospace;
   font-size: 9.5px;
-  color: var(--muted-l);
+  color: var(--muted);
   white-space: nowrap;
   flex-shrink: 0;
 }
-.entry-sub { font-size: 11px; color: var(--muted-l); margin-top: 1px; }
-.entry-desc { font-size: 11px; color: var(--muted-l); margin-top: 3px; line-height: 1.6; font-style: italic; }
+.entry-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.entry-desc { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.6; font-style: italic; }
 
 /* Projects */
-.project { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--rule-l); }
+.project { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
 .project:last-child { margin-bottom: 6px; padding-bottom: 0; border-bottom: none; }
 
 .project-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.project-name { font-size: 13px; font-weight: 500; color: var(--text-l); }
+.project-name { font-size: 13px; font-weight: 500; color: var(--ink); }
 .project-year {
   font-family: 'Share Tech Mono', monospace;
   font-size: 9.5px;
-  color: var(--muted-l);
+  color: var(--muted);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -296,7 +301,7 @@ body {
   font-family: 'Share Tech Mono', monospace;
   font-size: 8.5px;
   letter-spacing: 0.04em;
-  color: var(--darker);
+  color: var(--ink);
   background: var(--yellow);
   padding: 1px 6px 2px;
   border-radius: 2px;
@@ -306,7 +311,7 @@ body {
 .bullets { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
 .bullets li {
   font-size: 11px;
-  color: var(--muted-l);
+  color: var(--muted);
   line-height: 1.6;
   padding-left: 12px;
   position: relative;
@@ -321,17 +326,17 @@ body {
 }
 
 .project-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 5px; }
-.tech { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--muted-l); letter-spacing: 0.05em; }
+.tech { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.05em; }
 .plink {
   font-family: 'Share Tech Mono', monospace;
   font-size: 9px;
-  color: var(--text-l);
+  color: var(--ink);
   text-decoration: none;
-  border-bottom: 1px solid var(--muted-l);
+  border-bottom: 1px solid var(--muted);
   padding-bottom: 1px;
   white-space: nowrap;
 }
-.plink:hover { border-color: var(--text-l); }
+.plink:hover { border-color: var(--ink); }
 
 .portfolio-link {
   display: inline-flex;
@@ -340,7 +345,7 @@ body {
   font-family: 'Share Tech Mono', monospace;
   font-size: 9px;
   letter-spacing: 0.06em;
-  color: var(--darker);
+  color: var(--ink);
   text-decoration: none;
   background: var(--yellow);
   padding: 3px 9px 4px;
@@ -354,15 +359,15 @@ body {
 @media print {
   @page { size: A4 portrait; margin: 0; }
   .controls { display: none !important; }
-  body { background: var(--dark); }
-  .cv { max-width: 100%; min-height: 297mm; }
+  body { background: var(--white); }
+  .cv { max-width: 100%; min-height: 297mm; box-shadow: none; }
   *, *::before, *::after {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
   a { text-decoration: none; }
   .plink { border-bottom: none; }
-  .portfolio-link { background: var(--yellow) !important; color: var(--darker) !important; }
+  .portfolio-link { background: var(--yellow) !important; color: var(--ink) !important; }
 }
 
 @media (max-width: 600px) {
