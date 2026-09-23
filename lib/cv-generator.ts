@@ -13,6 +13,7 @@ export interface CVProject {
 export interface CVData {
   taglineFr: string;
   taglineEn: string;
+  phone: string;
   email: string;
   linkedin: string;
   github: string;
@@ -105,6 +106,7 @@ body {
   background: var(--page-bg);
   margin: 0;
   -webkit-font-smoothing: antialiased;
+  overflow-x: auto;
 }
 
 /* ─── Controls ─── */
@@ -116,6 +118,7 @@ body {
   padding: 8px 16px;
   background: var(--white);
   border-bottom: 1px solid var(--rule);
+  min-width: 860px;
 }
 .ctrl-btn {
   font-family: 'Share Tech Mono', monospace;
@@ -134,7 +137,8 @@ body {
 /* ─── Page ─── */
 .cv {
   display: flex;
-  max-width: 860px;
+  width: 860px;
+  min-width: 860px;
   margin: 0 auto;
   min-height: calc(100vh - 38px);
   box-shadow: 0 4px 24px rgba(0,0,0,0.10);
@@ -404,6 +408,7 @@ body {
     <div class="sb-sec">
       <div class="sb-head" data-fr="Contact" data-en="Contact">Contact</div>
       <div class="sb-links">
+        <div class="sb-link-row"><span class="sb-dot">&#9632;</span><a href="tel:${attr(d.phone.replace(/ /g,''))}">${esc(d.phone)}</a></div>
         <div class="sb-link-row"><span class="sb-dot">&#9632;</span><a href="mailto:${attr(d.email)}">${esc(d.email)}</a></div>
         <div class="sb-link-row"><span class="sb-dot">&#9632;</span><a href="${attr(d.linkedin)}" target="_blank">linkedin</a></div>
         <div class="sb-link-row"><span class="sb-dot">&#9632;</span><a href="${attr(d.github)}" target="_blank">github.com/varlet-enzo</a></div>
