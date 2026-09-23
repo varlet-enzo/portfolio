@@ -27,6 +27,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ─── Controls ─── */
 .controls {
   display: flex;
   justify-content: flex-end;
@@ -50,6 +51,7 @@ body {
 .ctrl-btn:hover, .ctrl-btn.active { color: var(--ink); border-color: var(--ink); }
 .ctrl-sep { width: 1px; height: 14px; background: var(--rule); margin: 0 2px; }
 
+/* ─── Page ─── */
 .cv {
   display: flex;
   max-width: 860px;
@@ -58,6 +60,7 @@ body {
   box-shadow: 0 4px 24px rgba(0,0,0,0.10);
 }
 
+/* ─── Sidebar ─── */
 .sidebar {
   width: 218px;
   flex-shrink: 0;
@@ -104,6 +107,7 @@ body {
 }
 .sb-head::before { content: ''; display: block; width: 8px; height: 3px; background: var(--yellow); flex-shrink: 0; }
 
+/* Contact */
 .sb-links { display: flex; flex-direction: column; gap: 4px; }
 .sb-link-row { display: flex; align-items: flex-start; gap: 6px; }
 .sb-dot { color: var(--yellow); font-size: 7px; margin-top: 3px; flex-shrink: 0; line-height: 1; }
@@ -111,6 +115,7 @@ body {
 .sb-link-row a:hover { color: var(--ink); }
 .sb-link-row span { font-size: 10px; color: var(--muted); line-height: 1.45; }
 
+/* Skills */
 .sb-skills { display: flex; flex-direction: column; gap: 6px; }
 .sb-skill-cat {
   font-family: 'Share Tech Mono', monospace;
@@ -127,11 +132,13 @@ body {
 .sb-skill-val strong { color: var(--ink); font-weight: 600; }
 .sb-skill-soft { padding-top: 6px; border-top: 1px solid var(--rule); margin-top: 2px; }
 
+/* Languages */
 .sb-langs { display: flex; flex-direction: column; gap: 5px; }
 .sb-lang { display: flex; justify-content: space-between; align-items: baseline; }
 .sb-lang-name { font-size: 11px; color: var(--ink); }
 .sb-lang-lvl { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--muted); }
 
+/* Interests */
 .sb-ints { display: flex; flex-direction: column; gap: 6px; }
 .sb-int { display: flex; gap: 7px; align-items: flex-start; }
 .sb-int-cat {
@@ -148,6 +155,7 @@ body {
 .sb-int-body { font-size: 10px; color: var(--muted); line-height: 1.5; }
 .sb-int-body strong { font-weight: 500; color: var(--ink); }
 
+/* ─── Main content ─── */
 .content {
   flex: 1;
   background: var(--white);
@@ -195,6 +203,7 @@ body {
 .entry-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
 .entry-desc { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.6; font-style: italic; }
 
+/* Projects */
 .project { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
 .project:last-child { margin-bottom: 6px; padding-bottom: 0; border-bottom: none; }
 
@@ -266,6 +275,7 @@ body {
 }
 .portfolio-link:hover { opacity: 0.85; }
 
+/* ─── Print ─── */
 @media print {
   @page { size: A4 portrait; margin: 0; }
   .controls { display: none !important; }
@@ -297,6 +307,7 @@ body {
 
 <div class="cv">
 
+  <!-- ── Sidebar ── -->
   <aside class="sidebar">
 
     <div class="sb-name">
@@ -305,13 +316,13 @@ body {
     </div>
 
     <div class="sb-tagline"
-         data-fr="D&eacute;veloppeur de jeux vid&eacute;o &mdash; Disponible pour un stage d&egrave;s f&eacute;vrier 2027"
-         data-en="Game Developer &mdash; Available for internship from February 2027">D&eacute;veloppeur de jeux vid&eacute;o &mdash; Disponible pour un stage d&egrave;s f&eacute;vrier 2027</div>
+         data-fr="Développeur de jeux vidéo — Disponible pour un stage dès février 2027"
+         data-en="Game Developer — Available for internship from February 2027">Développeur de jeux vidéo — Disponible pour un stage dès février 2027</div>
 
     <div class="sb-rule"></div>
 
     <div class="sb-sec">
-      <div class="sb-head">Contact</div>
+      <div class="sb-head" data-fr="Contact" data-en="Contact">Contact</div>
       <div class="sb-links">
         <div class="sb-link-row"><span class="sb-dot">&#9632;</span><a href="mailto:enzo.varlet.pro@gmail.com">enzo.varlet.pro@gmail.com</a></div>
         <div class="sb-link-row"><span class="sb-dot">&#9632;</span><a href="https://www.linkedin.com/in/enzo-varlet-612b86329/" target="_blank">linkedin</a></div>
@@ -322,25 +333,25 @@ body {
     </div>
 
     <div class="sb-sec">
-      <div class="sb-head" data-fr="Comp&eacute;tences" data-en="Skills">Comp&eacute;tences</div>
+      <div class="sb-head" data-fr="Comp&#233;tences" data-en="Skills">Comp&#233;tences</div>
       <div class="sb-skills">
         <div>
           <span class="sb-skill-cat" data-fr="Moteurs" data-en="Engines">Moteurs</span>
-          <span class="sb-skill-val"><strong>Unity</strong> &middot; Unreal Engine 5</span>
+          <span class="sb-skill-val"><strong>Unity</strong> · Unreal Engine 5</span>
         </div>
         <div>
           <span class="sb-skill-cat" data-fr="Langages" data-en="Languages">Langages</span>
-          <span class="sb-skill-val"><strong>C#</strong> &middot; C++ &middot; Blueprint &middot; Python</span>
+          <span class="sb-skill-val"><strong>C#</strong> · C++ · Blueprint · Python</span>
         </div>
         <div>
           <span class="sb-skill-cat" data-fr="Outils" data-en="Tools">Outils</span>
-          <span class="sb-skill-val">Git &middot; GitHub &middot; GitLab &middot; Game Design Doc &middot; Jira &middot; Notion</span>
+          <span class="sb-skill-val">Git · GitHub · GitLab · Game Design Doc · Jira · Notion</span>
         </div>
         <div class="sb-skill-soft">
           <span class="sb-skill-cat">Soft skills</span>
           <span class="sb-skill-val"
-                data-fr="Travail en &eacute;quipe &middot; &Eacute;coute active &middot; Gestion du temps &middot; Communication"
-                data-en="Teamwork &middot; Active listening &middot; Time management &middot; Communication">Travail en &eacute;quipe &middot; &Eacute;coute active &middot; Gestion du temps &middot; Communication</span>
+                data-fr="Travail en équipe · Écoute active · Gestion du temps · Communication"
+                data-en="Teamwork · Active listening · Time management · Communication">Travail en équipe · Écoute active · Gestion du temps · Communication</span>
         </div>
       </div>
     </div>
@@ -349,7 +360,7 @@ body {
       <div class="sb-head" data-fr="Langues" data-en="Languages">Langues</div>
       <div class="sb-langs">
         <div class="sb-lang">
-          <span class="sb-lang-name" data-fr="Fran&ccedil;ais" data-en="French">Fran&ccedil;ais</span>
+          <span class="sb-lang-name" data-fr="Fran&#231;ais" data-en="French">Fran&#231;ais</span>
           <span class="sb-lang-lvl" data-fr="Natif" data-en="Native">Natif</span>
         </div>
         <div class="sb-lang">
@@ -360,33 +371,54 @@ body {
     </div>
 
     <div class="sb-sec">
-      <div class="sb-head" data-fr="Int&eacute;r&ecirc;ts" data-en="Interests">Int&eacute;r&ecirc;ts</div>
+      <div class="sb-head" data-fr="Int&#233;r&#234;ts" data-en="Interests">Int&#233;r&#234;ts</div>
       <div class="sb-ints">
-        <div class="sb-int"><span class="sb-int-cat">JV</span><span class="sb-int-body">Saga <strong>Resident Evil</strong> &middot; <strong>Monster Hunter</strong> &middot; <strong>Minecraft</strong> &mdash; premier jeu via RE, attrait pour l&rsquo;atmosph&egrave;re et les syst&egrave;mes de progression.</span></div>
-        <div class="sb-int"><span class="sb-int-cat" data-fr="Escalade" data-en="Climbing">Escalade</span><span class="sb-int-body"><strong>Bloc</strong> &mdash; d&eacute;butant, 1&ndash;2&times;/sem depuis 2026.</span></div>
-        <div class="sb-int"><span class="sb-int-cat">Anime</span><span class="sb-int-body"><strong>Tokyo Ghoul</strong> &middot; <strong>Assassination Classroom</strong> &middot; <strong>Miss Kobayashi</strong> &middot; isekai.</span></div>
-        <div class="sb-int"><span class="sb-int-cat" data-fr="S&eacute;rie" data-en="Series">S&eacute;rie</span><span class="sb-int-body"><strong>Supernatural</strong> &mdash; suivi depuis plus de 10 ans, revu plusieurs fois.</span></div>
+        <div class="sb-int">
+          <span class="sb-int-cat">JV</span>
+          <span class="sb-int-body">Saga <strong>Resident Evil</strong> · <strong>Monster Hunter</strong> · <strong>Minecraft</strong> — premier jeu via RE, attrait pour l'atmosphère et les systèmes de progression.</span>
+        </div>
+        <div class="sb-int">
+          <span class="sb-int-cat" data-fr="Escalade" data-en="Climbing">Escalade</span>
+          <span class="sb-int-body"><strong>Bloc</strong> — débutant, 1–2×/sem depuis 2026.</span>
+        </div>
+        <div class="sb-int">
+          <span class="sb-int-cat">Anime</span>
+          <span class="sb-int-body"><strong>Tokyo Ghoul</strong> · <strong>Assassination Classroom</strong> · <strong>Miss Kobayashi</strong> · isekai.</span>
+        </div>
+        <div class="sb-int">
+          <span class="sb-int-cat" data-fr="S&#233;rie" data-en="Series">S&#233;rie</span>
+          <span class="sb-int-body"><strong>Supernatural</strong> — suivi depuis plus de 10 ans, revu plusieurs fois.</span>
+        </div>
       </div>
     </div>
 
   </aside>
 
+  <!-- ── Content ── -->
   <main class="content">
 
     <div class="sec">
-      <div class="sec-head"><div class="sec-bar"></div><span class="sec-label" data-fr="Profil" data-en="Profile">Profil</span></div>
+      <div class="sec-head">
+        <div class="sec-bar"></div>
+        <span class="sec-label" data-fr="Profil" data-en="Profile">Profil</span>
+      </div>
       <p class="profil"
-         data-fr="&Eacute;tudiant en 3&egrave;me ann&eacute;e de Bachelor Game Programming &agrave; l&rsquo;IIM Digital School, passionn&eacute; par le d&eacute;veloppement de gameplay et les syst&egrave;mes proc&eacute;duraux. &Agrave; l&rsquo;aise en solo comme en &eacute;quipe, j&rsquo;ai men&eacute; des projets allant du solo dev complet &agrave; des groupes de 8 personnes, sur Unity, Unreal Engine 5 et en C++ natif."
-         data-en="3rd-year Bachelor student in Game Programming at IIM Digital School, passionate about gameplay development and procedural systems. Comfortable working solo or in teams, I have shipped projects ranging from full solo dev to groups of 8, across Unity, Unreal Engine 5 and native C++.">&Eacute;tudiant en 3&egrave;me ann&eacute;e de Bachelor Game Programming &agrave; l&rsquo;IIM Digital School, passionn&eacute; par le d&eacute;veloppement de gameplay et les syst&egrave;mes proc&eacute;duraux. &Agrave; l&rsquo;aise en solo comme en &eacute;quipe, j&rsquo;ai men&eacute; des projets allant du solo dev complet &agrave; des groupes de 8 personnes, sur Unity, Unreal Engine 5 et en C++ natif.</p>
+         data-fr="Étudiant en 3ème année de Bachelor Game Programming à l'IIM Digital School, passionné par le développement de gameplay et les systèmes procéduraux. À l'aise en solo comme en équipe, j'ai mené des projets allant du solo dev complet à des groupes de 8 personnes, sur Unity, Unreal Engine 5 et en C++ natif."
+         data-en="3rd-year Bachelor student in Game Programming at IIM Digital School, passionate about gameplay development and procedural systems. Comfortable working solo or in teams, I have shipped projects ranging from full solo dev to groups of 8, across Unity, Unreal Engine 5 and native C++.">Étudiant en 3ème année de Bachelor Game Programming à l'IIM Digital School, passionné par le développement de gameplay et les systèmes procéduraux. À l'aise en solo comme en équipe, j'ai mené des projets allant du solo dev complet à des groupes de 8 personnes, sur Unity, Unreal Engine 5 et en C++ natif.</p>
     </div>
 
     <div class="rule"></div>
 
     <div class="sec">
-      <div class="sec-head"><div class="sec-bar"></div><span class="sec-label" data-fr="Formation" data-en="Education">Formation</span></div>
+      <div class="sec-head">
+        <div class="sec-bar"></div>
+        <span class="sec-label" data-fr="Formation" data-en="Education">Formation</span>
+      </div>
       <div class="entry-head">
-        <span class="entry-title" data-fr="Bachelor Game Programming &middot; Bac+3" data-en="Bachelor in Game Programming &middot; 3 years">Bachelor Game Programming &middot; Bac+3</span>
-        <span class="entry-date">2024 &ndash; 2027</span>
+        <span class="entry-title"
+              data-fr="Bachelor Game Programming · Bac+3"
+              data-en="Bachelor in Game Programming · 3 years">Bachelor Game Programming · Bac+3</span>
+        <span class="entry-date">2024 – 2027</span>
       </div>
       <div class="entry-sub">IIM Digital School, Paris</div>
     </div>
@@ -394,42 +426,70 @@ body {
     <div class="rule"></div>
 
     <div class="sec">
-      <div class="sec-head"><div class="sec-bar"></div><span class="sec-label" data-fr="B&eacute;n&eacute;volat" data-en="Volunteer">B&eacute;n&eacute;volat</span></div>
-      <div class="entry-head">
-        <span class="entry-title" data-fr="B&eacute;n&eacute;vole &mdash; Ludoth&egrave;que" data-en="Volunteer &mdash; Games Library">B&eacute;n&eacute;vole &mdash; Ludoth&egrave;que</span>
-        <span class="entry-date" data-fr="&Eacute;t&eacute; 2019" data-en="Summer 2019">&Eacute;t&eacute; 2019</span>
+      <div class="sec-head">
+        <div class="sec-bar"></div>
+        <span class="sec-label" data-fr="B&#233;n&#233;volat" data-en="Volunteer">B&#233;n&#233;volat</span>
       </div>
-      <div class="entry-sub">Thorigny-sur-Marne</div>
-      <div class="entry-desc" data-fr="Animation d&rsquo;activit&eacute;s ludiques pour enfants et familles pendant les vacances scolaires." data-en="Facilitated game activities for children and families during school holidays.">Animation d&rsquo;activit&eacute;s ludiques pour enfants et familles pendant les vacances scolaires.</div>
+      <div class="entry-head">
+        <span class="entry-title"
+              data-fr="Bénévole — Ludothèque"
+              data-en="Volunteer — Games Library">Bénévole — Ludothèque</span>
+        <span class="entry-date"
+              data-fr="Été 2019"
+              data-en="Summer 2019">Été 2019</span>
+      </div>
+      <div class="entry-sub">Torcy</div>
+      <div class="entry-desc"
+           data-fr="Animation d'activités ludiques pour enfants et familles pendant les vacances scolaires."
+           data-en="Facilitated game activities for children and families during school holidays.">Animation d'activités ludiques pour enfants et familles pendant les vacances scolaires.</div>
     </div>
 
     <div class="rule"></div>
 
     <div class="sec">
-      <div class="sec-head"><div class="sec-bar"></div><span class="sec-label" data-fr="Projets" data-en="Projects">Projets</span></div>
+      <div class="sec-head">
+        <div class="sec-bar"></div>
+        <span class="sec-label" data-fr="Projets" data-en="Projects">Projets</span>
+      </div>
       <div>
-        <div class="project">
-          <div class="project-header"><span class="project-name">High Traffic</span><span class="project-year" data-fr="2026" data-en="2026">2026</span></div>
-          <span class="project-role">Core Gameplay Programmer &middot; Sound Design</span>
-          <ul class="bullets">
-            <li data-fr="Impl&eacute;mentation du core gameplay&nbsp;: d&eacute;placements, physique des v&eacute;hicules volants et sauts entre plateformes mobiles" data-en="Implemented core gameplay: movement, flying vehicle physics and jumps between moving platforms">Impl&eacute;mentation du core gameplay&nbsp;: d&eacute;placements, physique des v&eacute;hicules volants et sauts entre plateformes mobiles</li>
-            <li data-fr="Conception et int&eacute;gration du syst&egrave;me de collisions en cha&icirc;ne (knockback, r&eacute;action des v&eacute;hicules)" data-en="Designed and integrated chain-crash system (knockback, vehicle reactions)">Conception et int&eacute;gration du syst&egrave;me de collisions en cha&icirc;ne (knockback, r&eacute;action des v&eacute;hicules)</li>
-            <li data-fr="Sound design complet du jeu&nbsp;: ambiances, feedbacks sonores et mixage in-engine" data-en="Full sound design: ambiences, audio feedback and in-engine mixing">Sound design complet du jeu&nbsp;: ambiances, feedbacks sonores et mixage in-engine</li>
-          </ul>
-          <div class="project-footer"><span class="tech">Unreal Engine 5 &middot; Blueprint</span><a class="plink" href="https://loic-averous.itch.io/high-traffic" target="_blank">itch.io &#8599;</a></div>
-        </div>
-        <div class="project">
-          <div class="project-header"><span class="project-name">Umbral Aweken</span><span class="project-year" data-fr="2025 &ndash; en cours" data-en="2025 &ndash; ongoing">2025 &ndash; en cours</span></div>
-          <span class="project-role">Solo Dev &rarr; Lead Programmer</span>
-          <ul class="bullets">
-            <li data-fr="Architecture compl&egrave;te du projet en solo&nbsp;: syst&egrave;mes d&rsquo;entit&eacute;s, gestion des &eacute;tats et boucle de jeu" data-en="Full solo project architecture: entity systems, state management and game loop">Architecture compl&egrave;te du projet en solo&nbsp;: syst&egrave;mes d&rsquo;entit&eacute;s, gestion des &eacute;tats et boucle de jeu</li>
-            <li data-fr="D&eacute;veloppement d&rsquo;un syst&egrave;me de g&eacute;n&eacute;ration proc&eacute;durale de niveaux (salles, couloirs, placement d&rsquo;ennemis)" data-en="Built procedural level generation system (rooms, corridors, enemy placement)">D&eacute;veloppement d&rsquo;un syst&egrave;me de g&eacute;n&eacute;ration proc&eacute;durale de niveaux (salles, couloirs, placement d&rsquo;ennemis)</li>
-            <li data-fr="Transition vers lead programmer lors de l&rsquo;int&eacute;gration de game designers et artistes dans l&rsquo;&eacute;quipe" data-en="Transitioned to lead programmer when game designers and artists joined the team">Transition vers lead programmer lors de l&rsquo;int&eacute;gration de game designers et artistes dans l&rsquo;&eacute;quipe</li>
-          </ul>
-          <div class="project-footer"><span class="tech">Unity &middot; C# &middot; Proc&eacute;dural &middot; 3D</span><a class="plink" href="https://gitlab.com/varlet-enzo/umbral-aweken" target="_blank">GitLab &#8599;</a></div>
-        </div>
+
+          <div class="project">
+            <div class="project-header">
+              <span class="project-name">High Traffic</span>
+              <span class="project-year" data-fr="2026" data-en="2026">2026</span>
+            </div>
+            <span class="project-role">Core Gameplay Programmer · Sound Design</span>
+            <ul class="bullets">
+            <li data-fr="Implémentation du core gameplay : déplacements, physique des véhicules volants et sauts entre plateformes mobiles" data-en="Implemented core gameplay: movement, flying vehicle physics and jumps between moving platforms">Implémentation du core gameplay : déplacements, physique des véhicules volants et sauts entre plateformes mobiles</li>
+            <li data-fr="Conception et intégration du système de collisions en chaîne (knockback, réaction des véhicules)" data-en="Designed and integrated chain-crash system (knockback, vehicle reactions)">Conception et intégration du système de collisions en chaîne (knockback, réaction des véhicules)</li>
+            <li data-fr="Sound design complet du jeu : ambiances, feedbacks sonores et mixage in-engine" data-en="Full sound design: ambiences, audio feedback and in-engine mixing">Sound design complet du jeu : ambiances, feedbacks sonores et mixage in-engine</li>
+            </ul>
+            <div class="project-footer">
+              <span class="tech">Unreal Engine 5 · Blueprint</span>
+              <a class="plink" href="https://loic-averous.itch.io/high-traffic" target="_blank">itch.io ↗</a>
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="project-header">
+              <span class="project-name">Umbral Aweken</span>
+              <span class="project-year" data-fr="2025 – en cours" data-en="2025 – ongoing">2025 – en cours</span>
+            </div>
+            <span class="project-role">Solo Dev → Lead Programmer</span>
+            <ul class="bullets">
+            <li data-fr="Architecture complète du projet en solo : systèmes d'entités, gestion des états et boucle de jeu" data-en="Full solo project architecture: entity systems, state management and game loop">Architecture complète du projet en solo : systèmes d'entités, gestion des états et boucle de jeu</li>
+            <li data-fr="Développement d'un système de génération procédurale de niveaux (salles, couloirs, placement d'ennemis)" data-en="Built procedural level generation system (rooms, corridors, enemy placement)">Développement d'un système de génération procédurale de niveaux (salles, couloirs, placement d'ennemis)</li>
+            <li data-fr="Transition vers lead programmer lors de l'intégration de game designers et artistes dans l'équipe" data-en="Transitioned to lead programmer when game designers and artists joined the team">Transition vers lead programmer lors de l'intégration de game designers et artistes dans l'équipe</li>
+            </ul>
+            <div class="project-footer">
+              <span class="tech">Unity · C# · Procédural · 3D</span>
+              <a class="plink" href="https://gitlab.com/varlet-enzo/umbral-aweken" target="_blank">GitLab ↗</a>
+            </div>
+          </div>
         <a class="portfolio-link" href="https://portfolio-five-theta-82.vercel.app/" target="_blank"
-           data-fr="Tous mes projets &#8594; portfolio" data-en="All projects &#8594; portfolio">Tous mes projets &#8594; portfolio</a>
+           data-fr="Tous mes projets &#8594; portfolio" data-en="All projects &#8594; portfolio">
+          Tous mes projets &#8594; portfolio
+        </a>
       </div>
     </div>
 
