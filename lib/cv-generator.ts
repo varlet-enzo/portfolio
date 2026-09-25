@@ -167,7 +167,7 @@ body {
 
 .sb-tagline {
   margin-top: 10px;
-  font-size: 9.5px;
+  font-size: 11px;
   font-weight: 300;
   color: var(--muted);
   line-height: 1.55;
@@ -180,7 +180,7 @@ body {
 
 .sb-head {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 8px;
+  font-size: 9.5px;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--ink);
@@ -194,16 +194,16 @@ body {
 /* Contact */
 .sb-links { display: flex; flex-direction: column; gap: 4px; }
 .sb-link-row { display: flex; align-items: flex-start; gap: 6px; }
-.sb-dot { color: var(--yellow); font-size: 7px; margin-top: 3px; flex-shrink: 0; line-height: 1; }
-.sb-link-row a { font-size: 10px; color: var(--muted); text-decoration: none; line-height: 1.45; word-break: break-all; }
+.sb-dot { color: var(--yellow); font-size: 8px; margin-top: 3px; flex-shrink: 0; line-height: 1; }
+.sb-link-row a { font-size: 11.5px; color: var(--muted); text-decoration: none; line-height: 1.45; word-break: break-all; }
 .sb-link-row a:hover { color: var(--ink); }
-.sb-link-row span { font-size: 10px; color: var(--muted); line-height: 1.45; }
+.sb-link-row span { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
 
 /* Skills */
 .sb-skills { display: flex; flex-direction: column; gap: 6px; }
 .sb-skill-cat {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 7.5px;
+  font-size: 9px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--dim);
@@ -212,22 +212,22 @@ body {
   padding-left: 5px;
   border-left: 2px solid var(--yellow);
 }
-.sb-skill-val { font-size: 10px; color: var(--ink); line-height: 1.5; }
+.sb-skill-val { font-size: 12px; color: var(--ink); line-height: 1.5; }
 .sb-skill-val strong { color: var(--ink); font-weight: 600; }
 .sb-skill-soft { padding-top: 6px; border-top: 1px solid var(--rule); margin-top: 2px; }
 
 /* Languages */
 .sb-langs { display: flex; flex-direction: column; gap: 5px; }
 .sb-lang { display: flex; justify-content: space-between; align-items: baseline; }
-.sb-lang-name { font-size: 11px; color: var(--ink); }
-.sb-lang-lvl { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--muted); }
+.sb-lang-name { font-size: 13px; color: var(--ink); }
+.sb-lang-lvl { font-family: 'Share Tech Mono', monospace; font-size: 10.5px; color: var(--muted); }
 
 /* Interests */
 .sb-ints { display: flex; flex-direction: column; gap: 6px; }
 .sb-int { display: flex; gap: 7px; align-items: flex-start; }
 .sb-int-cat {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 7.5px;
+  font-size: 9px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--dim);
@@ -236,7 +236,7 @@ body {
   padding-top: 2px;
   line-height: 1.4;
 }
-.sb-int-body { font-size: 10px; color: var(--muted); line-height: 1.5; }
+.sb-int-body { font-size: 12px; color: var(--muted); line-height: 1.5; }
 .sb-int-body strong { font-weight: 500; color: var(--ink); }
 
 /* ─── Main content ─── */
@@ -265,37 +265,37 @@ body {
 }
 .sec-label {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 8.5px;
+  font-size: 10px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ink);
 }
 
-.profil { font-size: 11.5px; color: var(--muted); line-height: 1.7; }
+.profil { font-size: 13px; color: var(--muted); line-height: 1.7; }
 
 .rule { height: 1px; background: var(--rule); margin: 12px 0; }
 
 .entry-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.entry-title { font-size: 12.5px; font-weight: 500; color: var(--ink); }
+.entry-title { font-size: 14.5px; font-weight: 500; color: var(--ink); }
 .entry-date {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 9.5px;
+  font-size: 11px;
   color: var(--muted);
   white-space: nowrap;
   flex-shrink: 0;
 }
-.entry-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
-.entry-desc { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.6; font-style: italic; }
+.entry-sub { font-size: 13px; color: var(--muted); margin-top: 1px; }
+.entry-desc { font-size: 13px; color: var(--muted); margin-top: 3px; line-height: 1.6; font-style: italic; }
 
 /* Projects */
 .project { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
 .project:last-child { margin-bottom: 6px; padding-bottom: 0; border-bottom: none; }
 
 .project-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.project-name { font-size: 13px; font-weight: 500; color: var(--ink); }
+.project-name { font-size: 15px; font-weight: 500; color: var(--ink); }
 .project-year {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 9.5px;
+  font-size: 11px;
   color: var(--muted);
   white-space: nowrap;
   flex-shrink: 0;
@@ -303,7 +303,7 @@ body {
 .project-role {
   display: inline-block;
   font-family: 'Share Tech Mono', monospace;
-  font-size: 8.5px;
+  font-size: 10px;
   letter-spacing: 0.04em;
   color: var(--ink);
   background: var(--yellow);
@@ -314,7 +314,7 @@ body {
 
 .bullets { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
 .bullets li {
-  font-size: 11px;
+  font-size: 12.5px;
   color: var(--muted);
   line-height: 1.6;
   padding-left: 12px;
@@ -325,15 +325,15 @@ body {
   position: absolute;
   left: 0;
   color: var(--yellow);
-  font-size: 9px;
+  font-size: 10.5px;
   top: 2px;
 }
 
 .project-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 5px; }
-.tech { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: 0.05em; }
+.tech { font-family: 'Share Tech Mono', monospace; font-size: 10.5px; color: var(--muted); letter-spacing: 0.05em; }
 .plink {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 9px;
+  font-size: 10.5px;
   color: var(--ink);
   text-decoration: none;
   border-bottom: 1px solid var(--muted);
@@ -347,7 +347,7 @@ body {
   align-items: center;
   gap: 4px;
   font-family: 'Share Tech Mono', monospace;
-  font-size: 9px;
+  font-size: 10.5px;
   letter-spacing: 0.06em;
   color: var(--ink);
   text-decoration: none;
